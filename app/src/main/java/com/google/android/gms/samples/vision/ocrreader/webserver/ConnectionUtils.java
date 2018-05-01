@@ -1,6 +1,9 @@
 package com.google.android.gms.samples.vision.ocrreader.webserver;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -12,6 +15,7 @@ import static android.content.Context.WIFI_SERVICE;
 
 public class ConnectionUtils {
     private Context applicationContext;
+    private BroadcastReceiver broadcastReceiverNetworkState;
 
     public ConnectionUtils(final Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -49,4 +53,21 @@ public class ConnectionUtils {
     public String getHostAddress(NanoHTTPD server) {
         return String.format("http://%s:%s", server.getHostname(), server.getListeningPort());
     }
+
+    private void initBroadcastReceiverNetworkStateChanged(final Runnable stateChangeHandler) {
+        // source
+        // https://github.com/lopspower/AndroidWebServer/blob/master/app/src/main/java/com/mikhaellopez/androidwebserver/MainActivity.java#L76
+
+        final IntentFilter filters = new IntentFilter();
+        filters.addAction("android.net.wifi.WIFI_STATE_CHANGED");
+        filters.addAction("android.net.wifi.STATE_CHANGE");
+        broadcastReceiverNetworkState = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                stateChangeHandler.run();
+            }
+        };
+        applicationContext.registerReceiver(broadcastReceiverNetworkState, filters);
+    }
+
 }
