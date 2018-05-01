@@ -72,5 +72,12 @@ public class ServerActivity extends Activity {
 
     private void stopServer() {
         this.server.stop();
+        this.hostNameTxt.setText("Stopped");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.server.stop();
     }
 }
