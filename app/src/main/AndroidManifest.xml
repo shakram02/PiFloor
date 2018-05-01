@@ -5,7 +5,10 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,24 +16,27 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon"
         android:label="MultiTrackerApp"
-        android:supportsRtl = "true"
-        android:theme="@style/Theme.AppCompat" >
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat">
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".OcrCaptureActivity"
+        <activity
+            android:name=".OcrCaptureActivity"
             android:label="Read Text" />
+        <activity
+            android:name=".ServerActivity"
+            android:label="Server Activity" />
+
     </application>
 
 </manifest>
