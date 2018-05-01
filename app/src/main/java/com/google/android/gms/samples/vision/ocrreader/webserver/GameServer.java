@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import fi.iki.elonen.NanoHTTPD;
+import ocrreader.nanohttpd.protocols.http.IHTTPSession;
+import ocrreader.nanohttpd.protocols.http.NanoHTTPD;
+import ocrreader.nanohttpd.protocols.http.request.Method;
+import ocrreader.nanohttpd.protocols.http.response.Response;
+
 
 public class GameServer extends NanoHTTPD {
     private static final String DEBUG_TAG = "WebServer";
@@ -39,6 +43,6 @@ public class GameServer extends NanoHTTPD {
         } else {
             msg += "<p>Hello, " + parms.get("username") + "!</p>";
         }
-        return newFixedLengthResponse(msg + "</body></html>\n");
+        return Response.newFixedLengthResponse(msg + "</body></html>\n");
     }
 }

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
-import fi.iki.elonen.NanoHTTPD;
+import ocrreader.nanohttpd.protocols.http.NanoHTTPD;
 
 import static android.content.Context.WIFI_SERVICE;
 
