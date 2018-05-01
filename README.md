@@ -6,3 +6,4 @@ Virtual Game Grid
 - [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd)
 - AndroidWebServer by [Lopez Mikhael](https://github.com/lopspower/AndroidWebServer)
  for [Android WebServer](https://github.com/lopspower/AndroidWebServer).
+- [Google's Android Vision Samples](https://github.com/googlesamples/android-vision) OCR Reader
