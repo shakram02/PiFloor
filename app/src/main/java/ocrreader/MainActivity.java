@@ -47,13 +47,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        statusMessage = (TextView)findViewById(R.id.status_message);
-        textValue = (TextView)findViewById(R.id.text_value);
+        statusMessage = (TextView) findViewById(R.id.status_message);
+        textValue = (TextView) findViewById(R.id.text_value);
 
         autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
         useFlash = (CompoundButton) findViewById(R.id.use_flash);
 
         findViewById(R.id.read_text).setOnClickListener(this);
+        findViewById(R.id.server_view).setOnClickListener(this);
     }
 
     /**
@@ -70,6 +71,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked());
 
             startActivityForResult(intent, RC_OCR_CAPTURE);
+        } else if (v.getId() == R.id.server_view) {
+            Intent intent = new Intent(this, ServerActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -97,7 +101,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == RC_OCR_CAPTURE) {
+        if (requestCode == RC_OCR_CAPTURE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     String text = data.getStringExtra(OcrCaptureActivity.TextBlockObject);
@@ -112,8 +116,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 statusMessage.setText(String.format(getString(R.string.ocr_error),
                         CommonStatusCodes.getStatusCodeString(resultCode)));
             }
-        }
-        else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
