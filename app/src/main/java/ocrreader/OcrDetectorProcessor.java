@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.samples.vision.ocrreader;
+package ocrreader;
 
 import android.util.SparseArray;
 
-import com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay;
+import ocrreader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 

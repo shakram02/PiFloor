@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.samples.vision.ocrreader.ui.camera;
+package ocrreader.ui.camera;
 
 import android.content.Context;
 import android.graphics.Canvas;
