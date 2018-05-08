@@ -78,6 +78,8 @@ public class ServerActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.server.stop();
+        if (this.server != null) {
+            this.server.stop();
+        }
     }
 }

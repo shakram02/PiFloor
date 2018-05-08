@@ -24,8 +24,6 @@ public class GameServer extends NanoHTTPD {
         super(hostname, port);
         int websocketPort = port + 5;
         webSocket = new WebSocketServer(websocketPort, true);
-
-
     }
 
 
