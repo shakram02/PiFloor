@@ -1,16 +1,22 @@
 package ocrreader.processing;
 
+import android.os.Bundle;
 import android.util.Log;
-
-import com.google.android.gms.vision.text.TextBlock;
 
 import java.util.HashSet;
 
+import ocrreader.R;
 import ocrreader.graphcis.CalibratedOcrGraphic;
 import ocrreader.graphcis.OcrGraphic;
 
 public class GridCalibrationActivity extends OcrCaptureActivity {
     HashSet<String> calibratedGridText = new HashSet<>();
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        viewId = R.layout.grid_calibration;
+        super.onCreate(icicle);
+    }
 
     @Override
     boolean onTap(float rawX, float rawY) {

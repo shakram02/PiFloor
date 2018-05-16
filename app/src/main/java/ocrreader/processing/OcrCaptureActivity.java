@@ -77,6 +77,7 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
     // Helper objects for detecting taps and pinches.
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
+    protected int viewId = R.layout.ocr_capture;
 
     /**
      * Initializes the UI and creates the detector pipeline.
@@ -84,7 +85,9 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.ocr_capture);
+        // This is an extremely lousy hack so I'm able to use the view twice be inheriting this class
+        // and changing the viewId value to the desired layout. TODO resolve this cleanly!
+        setContentView(viewId);
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (OcrGraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
