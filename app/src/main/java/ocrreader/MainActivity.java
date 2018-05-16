@@ -26,6 +26,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 
+import ocrreader.processing.GridCalibrationActivity;
+import ocrreader.processing.OcrCaptureActivity;
+import ocrreader.processing.OcrProcessingActivity;
+
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
@@ -55,6 +59,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         findViewById(R.id.read_text).setOnClickListener(this);
         findViewById(R.id.server_view).setOnClickListener(this);
+        findViewById(R.id.calibration_view).setOnClickListener(this);
     }
 
     /**
@@ -66,13 +71,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.read_text) {
             // launch Ocr capture activity.
-            Intent intent = new Intent(this, OcrCaptureActivity.class);
+            Intent intent = new Intent(this, OcrProcessingActivity.class);
             intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus.isChecked());
             intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked());
 
             startActivityForResult(intent, RC_OCR_CAPTURE);
         } else if (v.getId() == R.id.server_view) {
             Intent intent = new Intent(this, ServerActivity.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.calibration_view) {
+            Intent intent = new Intent(this, GridCalibrationActivity.class);
             startActivity(intent);
         }
     }
