@@ -6,14 +6,14 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Map;
 
-import ocrreader.nanohttpd.protocols.http.IHTTPSession;
-import ocrreader.nanohttpd.protocols.http.NanoHTTPD;
-import ocrreader.nanohttpd.protocols.http.request.Method;
-import ocrreader.nanohttpd.protocols.http.response.Response;
-import ocrreader.nanohttpd.protocols.websockets.WebSocketServer;
-import ocrreader.nanohttpd.protocols.websockets.NanoWSD;
+import nanohttpd.protocols.http.IHTTPSession;
+import nanohttpd.protocols.http.NanoHTTPD;
+import nanohttpd.protocols.http.request.Method;
+import nanohttpd.protocols.http.response.Response;
+import nanohttpd.protocols.websockets.WebSocketServer;
+import nanohttpd.protocols.websockets.NanoWSD;
 
-import static ocrreader.nanohttpd.protocols.http.response.Response.newFixedLengthResponse;
+import static nanohttpd.protocols.http.response.Response.newFixedLengthResponse;
 
 
 public class GameServer extends NanoHTTPD {

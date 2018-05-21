@@ -10,7 +10,7 @@ import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
 
-import ocrreader.nanohttpd.protocols.http.NanoHTTPD;
+import nanohttpd.protocols.http.NanoHTTPD;
 
 import static android.content.Context.WIFI_SERVICE;
 
