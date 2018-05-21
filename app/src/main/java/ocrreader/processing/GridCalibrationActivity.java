@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+
 import java.util.HashSet;
 
 import ocrreader.R;
@@ -20,7 +22,7 @@ public class GridCalibrationActivity extends FragmentActivity implements OcrCapt
     protected static final String TAG = "CalibrationActivity";
     HashSet<String> calibratedGridText = new HashSet<>();
     public static final String GridElements = "GridElements";
-    private static final int GRID_SIZE = 9;
+    private static final int GRID_SIZE = 1;
 
 
     @Override
@@ -42,10 +44,11 @@ public class GridCalibrationActivity extends FragmentActivity implements OcrCapt
     }
 
     void onDone() {
-        // TODO launch an intent to go to game mode
-        Intent intent = new Intent(this, OcrProcessingActivity.class);
-        intent.putExtra(GridElements, calibratedGridText);
-        startActivity(intent);
+        Intent gridData = new Intent();
+        gridData.putExtra(GridElements, calibratedGridText);
+        setResult(CommonStatusCodes.SUCCESS, gridData);
+
+        finish();
     }
 
     void onRecalibrateRequest() {
@@ -64,7 +67,7 @@ public class GridCalibrationActivity extends FragmentActivity implements OcrCapt
 
 
         if (calibratedGridText.size() == GRID_SIZE) {
-            // TODO Enable game mode button
+            onDone();
         }
 
         return true;
