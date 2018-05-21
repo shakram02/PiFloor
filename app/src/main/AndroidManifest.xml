@@ -31,8 +31,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OcrCaptureActivity"
+            android:name=".processing.OcrProcessingActivity"
             android:label="Read Text" />
+        <activity
+            android:name=".processing.GridCalibrationActivity"
+            android:label="Calibrate Grid" />
         <activity
             android:name=".ServerActivity"
             android:label="Server Activity" />

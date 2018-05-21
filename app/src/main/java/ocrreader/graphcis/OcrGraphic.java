@@ -13,75 +13,58 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ocrreader;
+package ocrreader.graphcis;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
 import ocrreader.ui.camera.GraphicOverlay;
+
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic
  * overlay view.
  */
-public class OcrGraphic extends GraphicOverlay.Graphic {
+public abstract class OcrGraphic extends GraphicOverlay.Graphic {
 
-    private int mId;
-
-    private static final int TEXT_COLOR = Color.WHITE;
-
-    private static Paint sRectPaint;
-    private static Paint sTextPaint;
-    private final TextBlock mText;
+    private final TextBlock text;
+    private static final HashMap<String, Integer> stringHashes = new HashMap<>();
 
     OcrGraphic(GraphicOverlay overlay, TextBlock text) {
         super(overlay);
+        this.text = text;
 
-        mText = text;
-
-        if (sRectPaint == null) {
-            sRectPaint = new Paint();
-            sRectPaint.setColor(TEXT_COLOR);
-            sRectPaint.setStyle(Paint.Style.STROKE);
-            sRectPaint.setStrokeWidth(4.0f);
+        if (!stringHashes.containsKey(text.getValue())) {
+            stringHashes.put(text.getValue(), stringHashes.size());
         }
 
-        if (sTextPaint == null) {
-            sTextPaint = new Paint();
-            sTextPaint.setColor(TEXT_COLOR);
-            sTextPaint.setTextSize(54.0f);
-        }
         // Redraw the overlay, as this graphic has been added.
         postInvalidate();
     }
 
-    public int getId() {
-        return mId;
-    }
-
-    public void setId(int id) {
-        this.mId = id;
-    }
-
     public TextBlock getTextBlock() {
-        return mText;
+        return text;
     }
 
     /**
      * Checks whether a point is within the bounding box of this graphic.
      * The provided point should be relative to this graphic's containing overlay.
+     *
      * @param x An x parameter in the relative context of the canvas.
      * @param y A y parameter in the relative context of the canvas.
      * @return True if the provided point is contained within this graphic's bounding box.
      */
     public boolean contains(float x, float y) {
-        TextBlock text = mText;
+        TextBlock text = this.text;
         if (text == null) {
             return false;
         }
@@ -93,12 +76,20 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         return (rect.left < x && rect.right > x && rect.top < y && rect.bottom > y);
     }
 
+    protected abstract Paint getRectPaint();
+
+    protected abstract Paint getTextPaint();
+
+    public String getValue() {
+        return text.getValue();
+    }
+
     /**
      * Draws the text block annotations for position, size, and raw value on the supplied canvas.
      */
     @Override
     public void draw(Canvas canvas) {
-        TextBlock text = mText;
+        TextBlock text = this.text;
         if (text == null) {
             return;
         }
@@ -109,14 +100,14 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         rect.top = translateY(rect.top);
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
-        canvas.drawRect(rect, sRectPaint);
+        canvas.drawRect(rect, getRectPaint());
 
         // Break the text into multiple lines and draw each one according to its own bounding box.
         List<? extends Text> textComponents = text.getComponents();
-        for(Text currentText : textComponents) {
+        for (Text currentText : textComponents) {
             float left = translateX(currentText.getBoundingBox().left);
             float bottom = translateY(currentText.getBoundingBox().bottom);
-            canvas.drawText(currentText.getValue(), left, bottom, sTextPaint);
+            canvas.drawText(currentText.getValue(), left, bottom, getTextPaint());
         }
     }
 }

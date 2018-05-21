@@ -26,6 +26,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 
+import java.util.HashSet;
+
+import ocrreader.processing.GridCalibrationActivity;
+import ocrreader.processing.OcrCaptureActivity;
+import ocrreader.processing.OcrProcessingActivity;
+
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
@@ -39,7 +45,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView statusMessage;
     private TextView textValue;
 
-    private static final int RC_OCR_CAPTURE = 9003;
+    private static final int RC_OCR_CALIBRATE = 9003;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -55,6 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         findViewById(R.id.read_text).setOnClickListener(this);
         findViewById(R.id.server_view).setOnClickListener(this);
+        findViewById(R.id.calibration_view).setOnClickListener(this);
     }
 
     /**
@@ -66,14 +73,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.read_text) {
             // launch Ocr capture activity.
-            Intent intent = new Intent(this, OcrCaptureActivity.class);
+            Intent intent = new Intent(this, OcrProcessingActivity.class);
             intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus.isChecked());
             intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked());
 
-            startActivityForResult(intent, RC_OCR_CAPTURE);
+            startActivity(intent);
         } else if (v.getId() == R.id.server_view) {
             Intent intent = new Intent(this, ServerActivity.class);
             startActivity(intent);
+        } else if (v.getId() == R.id.calibration_view) {
+            Intent intent = new Intent(this, GridCalibrationActivity.class);
+            startActivityForResult(intent, RC_OCR_CALIBRATE);
         }
     }
 
@@ -101,12 +111,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_OCR_CAPTURE) {
+        if (requestCode == RC_OCR_CALIBRATE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
+
                 if (data != null) {
-                    String text = data.getStringExtra(OcrCaptureActivity.TextBlockObject);
+                    HashSet<String> text = (HashSet<String>) data.getSerializableExtra(GridCalibrationActivity.GridElements);
+
                     statusMessage.setText(R.string.ocr_success);
-                    textValue.setText(text);
+                    textValue.setText(text.size() + "");
                     Log.d(TAG, "Text read: " + text);
                 } else {
                     statusMessage.setText(R.string.ocr_failure);
