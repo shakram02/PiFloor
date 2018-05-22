@@ -20,17 +20,17 @@ class PreviewOcrGraphic(overlay: GraphicOverlay<*>, text: TextBlock) : OcrGraphi
 
         if (textPaint == null) {
             textPaint = Paint()
-            textPaint!!.color = Color.WHITE
+            textPaint!!.color = Color.BLACK
             textPaint!!.textSize = 54.0f
         }
     }
 
-    override fun getRectPaint(): Paint? {
-        return rectPaint
+    override fun getRectPaint(): Paint {
+        return rectPaint!!
     }
 
-    override fun getTextPaint(): Paint? {
-        return textPaint
+    override fun getTextPaint(): Paint {
+        return textPaint!!
     }
 
     companion object {

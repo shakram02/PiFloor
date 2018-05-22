@@ -114,18 +114,18 @@ class MainActivity : Activity(), View.OnClickListener {
             if (resultCode == CommonStatusCodes.SUCCESS) {
 
                 if (data != null) {
-                    val text = data.getSerializableExtra(GridCalibrationActivity.GridElements) as HashSet<String>
+                    val text = data.getSerializableExtra(GridCalibrationActivity.GridElements) as HashSet<*>
 
                     statusMessage!!.setText(R.string.ocr_success)
-                    textValue!!.text = text.size.toString() + ""
+                    textValue!!.text = "${text.size}"
                     Log.d(TAG, "Text read: $text")
                 } else {
                     statusMessage!!.setText(R.string.ocr_failure)
                     Log.d(TAG, "No Text captured, intent data is null")
                 }
             } else {
-                statusMessage!!.setText(String.format(getString(R.string.ocr_error),
-                        CommonStatusCodes.getStatusCodeString(resultCode)))
+                statusMessage!!.text = String.format(getString(R.string.ocr_error),
+                        CommonStatusCodes.getStatusCodeString(resultCode))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

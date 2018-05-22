@@ -47,7 +47,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     private var mCameraSource: CameraSource? = null
     private var mPreview: CameraSourcePreview? = null
-    protected var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>
+    private lateinit var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>
 
     // Helper objects for detecting taps and pinches.
     private var scaleGestureDetector: ScaleGestureDetector? = null
@@ -56,7 +56,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private var autoFocus: Boolean? = null
     private var useFlash: Boolean? = null
 
-    private var mListener: OcrSelectionListener? = null
+    private lateinit var mListener: OcrSelectionListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,7 +109,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     override fun onDetach() {
         super.onDetach()
-        mListener = null
+
         if (mPreview != null) {
             mPreview!!.release()
         }
@@ -243,7 +243,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private inner class CaptureGestureListener internal constructor(private val ocrSelectionListener: OcrSelectionListener) : GestureDetector.SimpleOnGestureListener() {
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val graphic = mGraphicOverlay.getGraphicAtLocation(e.rawX, e.rawY) as OcrGraphic
+            val graphic = mGraphicOverlay.getGraphicAtLocation(e.rawX, e.rawY) as OcrGraphic?
 
             if (graphic == null) {
                 Log.i(TAG, "No graphic detected")
@@ -336,17 +336,17 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     }
 
     companion object {
-        protected val TAG = "OcrCaptureActivity"
+        protected const val TAG = "OcrCaptureActivity"
 
         // Intent request code to handle updating play services if needed.
-        private val RC_HANDLE_GMS = 9001
+        private const val RC_HANDLE_GMS = 9001
 
         // Permission request codes need to be < 256
-        private val RC_HANDLE_CAMERA_PERM = 2
+        private const val RC_HANDLE_CAMERA_PERM = 2
 
         // Constants used to pass extra data in the intent
-        val AutoFocus = "AutoFocus"
-        val UseFlash = "UseFlash"
+        const val AutoFocus = "AutoFocus"
+        const val UseFlash = "UseFlash"
 
         /**
          * Ocr capture activity that has a surface view to capture text

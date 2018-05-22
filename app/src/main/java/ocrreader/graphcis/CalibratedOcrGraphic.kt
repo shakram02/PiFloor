@@ -42,16 +42,15 @@ class CalibratedOcrGraphic(overlay: GraphicOverlay<*>, text: TextBlock) : OcrGra
             textPaint!!.color = Color.GREEN
             textPaint!!.textSize = 54.0f
         }
-
-
     }
 
-    override fun getRectPaint(): Paint? {
-        return rectPaint
+
+    override fun getRectPaint(): Paint {
+        return rectPaint!!
     }
 
-    override fun getTextPaint(): Paint? {
-        return textPaint
+    override fun getTextPaint(): Paint {
+        return textPaint!!
     }
 
     companion object {

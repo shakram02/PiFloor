@@ -33,16 +33,14 @@ import java.util.HashMap
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic
  * overlay view.
  */
-abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val textBlock: TextBlock?) : GraphicOverlay.Graphic(overlay) {
-
-    protected abstract val rectPaint: Paint
-
-    protected abstract val textPaint: Paint
+abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val textBlock: TextBlock) : GraphicOverlay.Graphic(overlay) {
+    abstract fun getRectPaint(): Paint
+    abstract fun getTextPaint(): Paint
 
     init {
 
-        if (!stringHashes.containsKey(textBlock.getValue())) {
-            stringHashes[textBlock.getValue()] = stringHashes.size
+        if (!stringHashes.containsKey(textBlock.value)) {
+            stringHashes[textBlock.value] = stringHashes.size
         }
 
         // Redraw the overlay, as this graphic has been added.
@@ -68,7 +66,7 @@ abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val t
     }
 
     override fun getValue(): String {
-        return textBlock!!.value
+        return textBlock.value
     }
 
     /**
@@ -83,14 +81,14 @@ abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val t
         rect.top = translateY(rect.top)
         rect.right = translateX(rect.right)
         rect.bottom = translateY(rect.bottom)
-        canvas.drawRect(rect, rectPaint)
+        canvas.drawRect(rect, getRectPaint())
 
         // Break the text into multiple lines and draw each one according to its own bounding box.
         val textComponents = text.components
         for (currentText in textComponents) {
             val left = translateX(currentText.boundingBox.left.toFloat())
             val bottom = translateY(currentText.boundingBox.bottom.toFloat())
-            canvas.drawText(currentText.value, left, bottom, textPaint)
+            canvas.drawText(currentText.value, left, bottom, getTextPaint())
         }
     }
 

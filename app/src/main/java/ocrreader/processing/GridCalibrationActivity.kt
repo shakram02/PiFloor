@@ -19,7 +19,7 @@ import ocrreader.processing.OcrCaptureActivity.AutoFocus
 import ocrreader.processing.OcrCaptureActivity.UseFlash
 
 class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
-    internal var calibratedGridText = HashSet<String>()
+    private var calibratedGridText = HashSet<String>()
 
 
     public override fun onCreate(icicle: Bundle?) {
@@ -51,13 +51,13 @@ class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         calibratedGridText.clear()
     }
 
-    override fun onOcrGraphicTap(graphic: OcrGraphic, graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
-        graphicOverlay.remove(graphic)
-        val text = graphic.value.toLowerCase()
+    override fun onOcrGraphicTap(ocrGraphic: OcrGraphic, graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
+        graphicOverlay.remove(ocrGraphic)
+        val text = ocrGraphic.value.toLowerCase()
 
 
         Log.d(TAG, "Calibrating:$text")
-        graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, graphic.textBlock))
+        graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock!!))
         calibratedGridText.add(text)
 
 
