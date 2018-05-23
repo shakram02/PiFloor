@@ -71,7 +71,7 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
     public static final String TextBlockObject = "String";
 
     private CameraSource mCameraSource;
-    private CameraSourcePreview mPreview;
+    private CameraSourcePreview preview;
     protected OcrGraphicOverlay<OcrGraphic> mGraphicOverlay;
 
     // Helper objects for detecting taps and pinches.
@@ -89,8 +89,6 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
         // and changing the viewId value to the desired layout. TODO resolve this cleanly!
         setContentView(viewId);
 
-        mPreview = (CameraSourcePreview) findViewById(R.id.preview);
-        mGraphicOverlay = (OcrGraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
 
         // read parameters from the intent used to launch the activity.
         boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, false);
@@ -222,8 +220,8 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mPreview != null) {
-            mPreview.stop();
+        if (preview != null) {
+            preview.stop();
         }
     }
 
@@ -234,8 +232,8 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPreview != null) {
-            mPreview.release();
+        if (preview != null) {
+            preview.release();
         }
     }
 
@@ -307,7 +305,7 @@ public abstract class OcrCaptureActivity extends AppCompatActivity {
 
         if (mCameraSource != null) {
             try {
-                mPreview.start(mCameraSource, mGraphicOverlay);
+                preview.start(mCameraSource, mGraphicOverlay);
             } catch (IOException e) {
                 Log.e(TAG, "Unable to start camera source.", e);
                 mCameraSource.release();

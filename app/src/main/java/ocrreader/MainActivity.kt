@@ -16,70 +16,64 @@
 
 package ocrreader
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.app.Activity
 import android.util.Log
-import android.view.View
 import android.widget.CompoundButton
 import android.widget.TextView
-
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.google.android.gms.common.api.CommonStatusCodes
-
-import java.util.HashSet
-
 import ocrreader.processing.GridCalibrationActivity
 import ocrreader.processing.OcrCaptureActivity
 import ocrreader.processing.OcrProcessingActivity
+import java.util.*
 
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
  * recognizes text.
  */
-class MainActivity : Activity(), View.OnClickListener {
+class MainActivity : Activity() {
 
     // Use a compound button so either checkbox or switch widgets work.
-    private var autoFocus: CompoundButton? = null
-    private var useFlash: CompoundButton? = null
-    private var statusMessage: TextView? = null
-    private var textValue: TextView? = null
+    @BindView(R.id.autoFocus)
+    lateinit var autoFocus: CompoundButton
+    @BindView(R.id.useFlash)
+    lateinit var useFlash: CompoundButton
+    @BindView(R.id.status_message)
+    lateinit var statusMessage: TextView
+    @BindView(R.id.text_value)
+    lateinit var textValue: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        statusMessage = findViewById(R.id.status_message) as TextView
-        textValue = findViewById(R.id.text_value) as TextView
-
-        autoFocus = findViewById(R.id.auto_focus) as CompoundButton
-        useFlash = findViewById(R.id.use_flash) as CompoundButton
-
-        findViewById(R.id.read_text).setOnClickListener(this)
-        findViewById(R.id.server_view).setOnClickListener(this)
-        findViewById(R.id.calibration_view).setOnClickListener(this)
+        ButterKnife.bind(this)
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
-    override fun onClick(v: View) {
-        if (v.id == R.id.read_text) {
-            // launch Ocr capture activity.
-            val intent = Intent(this, OcrProcessingActivity::class.java)
-            intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus!!.isChecked)
-            intent.putExtra(OcrCaptureActivity.UseFlash, useFlash!!.isChecked)
+    @OnClick(R.id.btn_main_calibrationmode)
+    fun startCalibrationActivity() {
+        val intent = Intent(this, GridCalibrationActivity::class.java)
+        startActivityForResult(intent, RC_OCR_CALIBRATE)
+    }
 
-            startActivity(intent)
-        } else if (v.id == R.id.server_view) {
-            val intent = Intent(this, ServerActivity::class.java)
-            startActivity(intent)
-        } else if (v.id == R.id.calibration_view) {
-            val intent = Intent(this, GridCalibrationActivity::class.java)
-            startActivityForResult(intent, RC_OCR_CALIBRATE)
-        }
+    @OnClick(R.id.btn_main_serverconfig)
+    fun startServerActivity() {
+        val intent = Intent(this, ServerActivity::class.java)
+        startActivity(intent)
+    }
+
+    @OnClick(R.id.btn_main_gamemode)
+    fun startGameActivity() {
+        // launch Ocr capture activity.
+        val intent = Intent(this, OcrProcessingActivity::class.java)
+        intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus.isChecked)
+        intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked)
+
+        startActivity(intent)
     }
 
     /**
@@ -110,31 +104,30 @@ class MainActivity : Activity(), View.OnClickListener {
      * @see .setResult
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RC_OCR_CALIBRATE) {
-            if (resultCode == CommonStatusCodes.SUCCESS) {
+        if (requestCode != RC_OCR_CALIBRATE) {
+            statusMessage.text = String.format(getString(R.string.ocr_error),
+                    CommonStatusCodes.getStatusCodeString(resultCode))
+            return
+        }
 
-                if (data != null) {
-                    val text = data.getSerializableExtra(GridCalibrationActivity.GridElements) as HashSet<*>
+        if (resultCode != CommonStatusCodes.SUCCESS) {
+            return super.onActivityResult(requestCode, resultCode, data)
+        }
 
-                    statusMessage!!.setText(R.string.ocr_success)
-                    textValue!!.text = "${text.size}"
-                    Log.d(TAG, "Text read: $text")
-                } else {
-                    statusMessage!!.setText(R.string.ocr_failure)
-                    Log.d(TAG, "No Text captured, intent data is null")
-                }
-            } else {
-                statusMessage!!.text = String.format(getString(R.string.ocr_error),
-                        CommonStatusCodes.getStatusCodeString(resultCode))
-            }
+        if (data != null) {
+            val text = data.getSerializableExtra(GridCalibrationActivity.GridElements) as HashSet<*>
+
+            statusMessage.setText(R.string.ocr_success)
+            textValue.text = "${text.size}"
+            Log.d(TAG, "Text read: $text")
         } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            statusMessage!!.setText(R.string.ocr_failure)
+            Log.d(TAG, "No Text captured, intent data is null")
         }
     }
 
     companion object {
-
-        private val RC_OCR_CALIBRATE = 9003
-        private val TAG = "MainActivity"
+        private const val RC_OCR_CALIBRATE = 9003
+        private const val TAG = "MainActivity"
     }
 }

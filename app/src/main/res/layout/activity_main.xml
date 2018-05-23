@@ -41,7 +41,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/read_text"
+            android:id="@+id/btn_main_gamemode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/read_text" />
@@ -51,7 +51,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/calibration_view"
+            android:id="@+id/btn_main_calibrationmode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calibration_view" />
@@ -61,14 +61,14 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/server_view"
+            android:id="@+id/btn_main_serverconfig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/server_view" />
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/auto_focus"
+        android:id="@+id/autoFocus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -79,12 +79,12 @@
         android:text="@string/auto_focus" />
 
     <CheckBox
-        android:id="@+id/use_flash"
+        android:id="@+id/useFlash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/auto_focus"
+        android:layout_alignTop="@+id/autoFocus"
         android:checked="false"
         android:text="@string/use_flash" />
 
