@@ -15,8 +15,6 @@ import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.ui.camera.OcrGraphicOverlay
 
-import ocrreader.processing.OcrCaptureActivity.AutoFocus
-import ocrreader.processing.OcrCaptureActivity.UseFlash
 
 class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
     private var calibratedGridText = HashSet<String>()
@@ -24,7 +22,7 @@ class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
-        setContentView(R.layout.calibrate_acitivity)
+        setContentView(R.layout.activity_calibrate_mode)
 
         loadFragment()
     }
@@ -69,8 +67,11 @@ class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
     }
 
     companion object {
-        protected val TAG = "CalibrationActivity"
-        val GridElements = "GridElements"
-        private val GRID_SIZE = 1
+        private const val TAG = "CalibrationActivity"
+        private const val GridElements = "GridElements"
+        private const val GRID_SIZE = 1
+        // Constants used to pass extra data in the intent
+        private const val AutoFocus = "AutoFocus"
+        private const val UseFlash = "UseFlash"
     }
 }
