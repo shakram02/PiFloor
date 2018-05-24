@@ -44,7 +44,6 @@ abstract class OcrCaptureActivity : FragmentActivity(), OcrCaptureFragment.OcrSe
         Snackbar.make(mGraphicOverlay!!, "Tap to capture. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
                 .show()
-
         // TODO get notifications for currently detected text
     }
 
@@ -67,7 +66,6 @@ abstract class OcrCaptureActivity : FragmentActivity(), OcrCaptureFragment.OcrSe
 
     companion object {
         private const val TAG = "OcrCaptureActivity"
-
         // Constants used to pass extra data in the intent
         private const val AutoFocus = "AutoFocus"
         private const val UseFlash = "UseFlash"

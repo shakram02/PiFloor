@@ -28,7 +28,6 @@ import butterknife.OnClick
 import com.google.android.gms.common.api.CommonStatusCodes
 import ocrreader.processing.GridCalibrationActivity
 import ocrreader.processing.OcrCaptureActivity
-import ocrreader.processing.OcrProcessingActivity
 import java.util.*
 
 
@@ -37,7 +36,6 @@ import java.util.*
  * recognizes text.
  */
 class MainActivity : Activity() {
-
     // Use a compound button so either checkbox or switch widgets work.
     @BindView(R.id.autoFocus)
     lateinit var autoFocus: CompoundButton

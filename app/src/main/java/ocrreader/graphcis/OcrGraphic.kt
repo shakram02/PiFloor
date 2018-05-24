@@ -18,16 +18,9 @@ package ocrreader.graphcis
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
-
-import ocrreader.ui.camera.GraphicOverlay
-
-import com.google.android.gms.vision.text.Text
 import com.google.android.gms.vision.text.TextBlock
-
-import java.math.BigInteger
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.util.HashMap
+import ocrreader.ui.camera.GraphicOverlay
+import java.util.*
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic
@@ -38,11 +31,9 @@ abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val t
     abstract fun getTextPaint(): Paint
 
     init {
-
         if (!stringHashes.containsKey(textBlock.value)) {
             stringHashes[textBlock.value] = stringHashes.size
         }
-
         // Redraw the overlay, as this graphic has been added.
         postInvalidate()
     }
@@ -74,7 +65,6 @@ abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val t
      */
     override fun draw(canvas: Canvas) {
         val text = this.textBlock ?: return
-
         // Draws the bounding box around the TextBlock.
         val rect = RectF(text.boundingBox)
         rect.left = translateX(rect.left)
@@ -82,7 +72,6 @@ abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val t
         rect.right = translateX(rect.right)
         rect.bottom = translateY(rect.bottom)
         canvas.drawRect(rect, getRectPaint())
-
         // Break the text into multiple lines and draw each one according to its own bounding box.
         val textComponents = text.components
         for (currentText in textComponents) {

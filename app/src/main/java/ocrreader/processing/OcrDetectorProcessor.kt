@@ -15,19 +15,13 @@
  */
 package ocrreader.processing
 
-import android.util.SparseArray
-
-import ocrreader.graphcis.CalibratedOcrGraphic
-import ocrreader.graphcis.OcrGraphic
-import ocrreader.ui.camera.OcrGraphicOverlay
-import ocrreader.graphcis.PreviewOcrGraphic
-
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
-import com.google.common.base.Optional
-
-import java.util.ArrayList
-import java.util.HashSet
+import ocrreader.graphcis.CalibratedOcrGraphic
+import ocrreader.graphcis.OcrGraphic
+import ocrreader.graphcis.PreviewOcrGraphic
+import ocrreader.ui.camera.OcrGraphicOverlay
+import java.util.*
 
 /**
  * A very simple Processor which receives detected TextBlocks and adds them to the overlay
@@ -51,7 +45,6 @@ internal class OcrDetectorProcessor(private val mGraphicOverlay: OcrGraphicOverl
             val item = items.valueAt(i)
             val maybeGraphic = mGraphicOverlay.getByContent(item.value)
             val text = item.value.toLowerCase()
-
             // Check if the text was detected before.
             // If it was detected: update location
             // If it was calibrated then went out of view: Add calibrated

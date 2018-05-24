@@ -5,15 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
-
 import com.google.android.gms.common.api.CommonStatusCodes
-
-import java.util.HashSet
-
 import ocrreader.R
 import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.ui.camera.OcrGraphicOverlay
+import java.util.*
 
 
 class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
