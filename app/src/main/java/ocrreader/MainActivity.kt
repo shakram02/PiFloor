@@ -26,8 +26,8 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.gms.common.api.CommonStatusCodes
-import ocrreader.processing.GridCalibrationActivity
-import ocrreader.processing.OcrCaptureActivity
+import ocrreader.processing.CalibrationModeActivity
+import ocrreader.processing.GameModeActivity
 import java.util.*
 
 
@@ -54,7 +54,7 @@ class MainActivity : Activity() {
 
     @OnClick(R.id.btn_main_calibrationmode)
     fun startCalibrationActivity() {
-        val intent = Intent(this, GridCalibrationActivity::class.java)
+        val intent = Intent(this, CalibrationModeActivity::class.java)
         startActivityForResult(intent, RC_OCR_CALIBRATE)
     }
 
@@ -67,9 +67,9 @@ class MainActivity : Activity() {
     @OnClick(R.id.btn_main_gamemode)
     fun startGameActivity() {
         // launch Ocr capture activity.
-        val intent = Intent(this, OcrProcessingActivity::class.java)
-        intent.putExtra(OcrCaptureActivity.AutoFocus, autoFocus.isChecked)
-        intent.putExtra(OcrCaptureActivity.UseFlash, useFlash.isChecked)
+        val intent = Intent(this, GameModeActivity::class.java)
+        intent.putExtra(AutoFocus, autoFocus.isChecked)
+        intent.putExtra(UseFlash, useFlash.isChecked)
 
         startActivity(intent)
     }
@@ -113,7 +113,7 @@ class MainActivity : Activity() {
         }
 
         if (data != null) {
-            val text = data.getSerializableExtra(GridCalibrationActivity.GridElements) as HashSet<*>
+            val text = data.getSerializableExtra(CalibrationModeActivity.GridElements) as HashSet<*>
 
             statusMessage.setText(R.string.ocr_success)
             textValue.text = "${text.size}"
@@ -127,5 +127,8 @@ class MainActivity : Activity() {
     companion object {
         private const val RC_OCR_CALIBRATE = 9003
         private const val TAG = "MainActivity"
+        // TODO use a const provider when using dagger
+        const val AutoFocus = "AutoFocus"
+        const val UseFlash = "UseFlash"
     }
 }
