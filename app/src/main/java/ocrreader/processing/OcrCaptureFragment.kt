@@ -2,8 +2,6 @@ package ocrreader.processing
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -21,6 +19,9 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.Unbinder
 
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -46,8 +47,12 @@ import ocrreader.ui.camera.OcrGraphicOverlay
 class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     private var mCameraSource: CameraSource? = null
-    private var mPreview: CameraSourcePreview? = null
-    private lateinit var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>
+
+
+    var mPreview: CameraSourcePreview? = null
+    @BindView(R.id.overlay_ocr_fragment_graphics)
+    lateinit var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>
+    private lateinit var unbinder: Unbinder
 
     // Helper objects for detecting taps and pinches.
     private var scaleGestureDetector: ScaleGestureDetector? = null
@@ -66,15 +71,16 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         }
     }
 
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
         val fragmentView = inflater!!.inflate(R.layout.fragment_ocr_capture, container, false)
+        unbinder = ButterKnife.bind(this, fragmentView)
 
-        mPreview = fragmentView.findViewById(R.id.preview) as CameraSourcePreview
-        mGraphicOverlay = fragmentView.findViewById(R.id.graphicOverlay) as OcrGraphicOverlay<OcrGraphic>
-
+        mPreview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
+        
         val applicationContext = this.activity.applicationContext
 
         // Check for the camera permission before accessing the camera.  If the
@@ -109,22 +115,23 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     override fun onDetach() {
         super.onDetach()
-
-        if (mPreview != null) {
-            mPreview!!.release()
-        }
+        mPreview?.release()
     }
 
     override fun onPause() {
         super.onPause()
-        if (mPreview != null) {
-            mPreview!!.stop()
-        }
+        mPreview?.stop()
     }
 
     override fun onResume() {
         super.onResume()
         startCameraSource()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mPreview?.stop()
+        unbinder.unbind()
     }
 
     /**
@@ -143,7 +150,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             ActivityCompat.requestPermissions(thisActivity, permissions, RC_HANDLE_CAMERA_PERM)
             return
         }
-
 
         val listener = View.OnClickListener {
             ActivityCompat.requestPermissions(thisActivity, permissions,
