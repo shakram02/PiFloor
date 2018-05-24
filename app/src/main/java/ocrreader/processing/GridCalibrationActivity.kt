@@ -15,8 +15,6 @@ import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.ui.camera.OcrGraphicOverlay
 
-import ocrreader.processing.OcrCaptureActivity.AutoFocus
-import ocrreader.processing.OcrCaptureActivity.UseFlash
 
 class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
     private var calibratedGridText = HashSet<String>()
