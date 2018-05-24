@@ -3,6 +3,7 @@ package ocrreader
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -13,10 +14,14 @@ import ocrreader.webserver.GameServer
 import java.io.IOException
 
 class ServerActivity : Activity() {
-    internal lateinit var server: GameServer
+    internal var server: GameServer? = null
     private lateinit var connectionUtils: ConnectionUtils
     @BindView(R.id.txt_server_hostname)
     lateinit var hostNameTxt: TextView
+    @BindView(R.id.btn_server_startserver)
+    lateinit var startServerBtn: Button
+    @BindView(R.id.btn_server_stopserver)
+    lateinit var stopServerBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +29,11 @@ class ServerActivity : Activity() {
         ButterKnife.bind(this)
 
         connectionUtils = ConnectionUtils(applicationContext)
-        // TODO clean this up later
+        // TODO clean this up later, maybe run the server locally if no wifi
         if (!connectionUtils.isConnectedInWifi) {
-            Toast.makeText(this, "Not connected to WIFI, App won't work", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Not connected to WIFI, Server won't work", Toast.LENGTH_LONG).show()
+            startServerBtn.isEnabled = false
+            stopServerBtn.isEnabled = false
             return
         }
 
@@ -38,20 +45,20 @@ class ServerActivity : Activity() {
     @OnClick(R.id.btn_server_startserver)
     fun startServer() {
         try {
-            val hostName = server.getHostname()
+            val hostName = server?.getHostname()
             this.hostNameTxt.text = hostName
-            this.server.start()
+            this.server?.start()
         } catch (e: IOException) {
             Log.e(TAG, "Failed to start server", e)
             throw RuntimeException(e)
         }
-        Log.i(TAG, "Address: " + connectionUtils.getHostAddress(server))
+        Log.i(TAG, "Address: " + connectionUtils.getHostAddress(server!!))
     }
 
     @OnClick(R.id.btn_server_stopserver)
     fun stopServer() {
         try {
-            this.server.stop()
+            this.server?.stop()
             this.hostNameTxt.text = "Stopped"
         } catch (e: IOException) {
             // TODO: display a useful message
@@ -61,7 +68,7 @@ class ServerActivity : Activity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        this.server.stop()
+        this.server?.stop()
     }
 
     companion object {
