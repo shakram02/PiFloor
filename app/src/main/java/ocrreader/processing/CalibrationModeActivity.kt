@@ -5,18 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
-
 import com.google.android.gms.common.api.CommonStatusCodes
-
-import java.util.HashSet
-
+import ocrreader.MainActivity.Companion.AutoFocus
+import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.ui.camera.OcrGraphicOverlay
+import java.util.*
 
 
-class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
+class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
     private var calibratedGridText = HashSet<String>()
 
 
@@ -34,10 +33,10 @@ class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         val captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.calibrate_ocr_capture, captureFragment).commit()
+                .add(R.id.container_calibrate_fragment_holder, captureFragment).commit()
     }
 
-    internal fun onDone() {
+    private fun onDone() {
         val gridData = Intent()
         gridData.putExtra(GridElements, calibratedGridText)
         setResult(CommonStatusCodes.SUCCESS, gridData)
@@ -68,10 +67,7 @@ class GridCalibrationActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     companion object {
         private const val TAG = "CalibrationActivity"
-        private const val GridElements = "GridElements"
+        const val GridElements = "GridElements"
         private const val GRID_SIZE = 1
-        // Constants used to pass extra data in the intent
-        private const val AutoFocus = "AutoFocus"
-        private const val UseFlash = "UseFlash"
     }
 }

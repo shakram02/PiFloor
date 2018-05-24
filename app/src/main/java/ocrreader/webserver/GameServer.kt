@@ -1,18 +1,13 @@
 package ocrreader.webserver
 
 import android.util.Log
-
-
-import java.io.IOException
-
 import nanohttpd.protocols.http.IHTTPSession
 import nanohttpd.protocols.http.NanoHTTPD
-import nanohttpd.protocols.http.request.Method
 import nanohttpd.protocols.http.response.Response
-import nanohttpd.protocols.websockets.WebSocketServer
-import nanohttpd.protocols.websockets.NanoWSD
-
 import nanohttpd.protocols.http.response.Response.newFixedLengthResponse
+import nanohttpd.protocols.websockets.NanoWSD
+import nanohttpd.protocols.websockets.WebSocketServer
+import java.io.IOException
 
 
 class GameServer(hostname: String, port: Int) : NanoHTTPD(hostname, port) {
@@ -32,11 +27,9 @@ class GameServer(hostname: String, port: Int) : NanoHTTPD(hostname, port) {
     }
 
     public override fun serve(session: IHTTPSession): Response {
-
         val method = session.method
         val uri = session.uri
         Log.i(DEBUG_TAG, String.format("Method:%s Uri:%s", method, uri))
-
         var msg = "<html>"
 
         msg += "<body><h1>Hello server</h1>\n"

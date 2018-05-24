@@ -31,10 +31,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".processing.OcrProcessingActivity"
+            android:name=".processing.GameModeActivity"
             android:label="Read Text" />
         <activity
-            android:name=".processing.GridCalibrationActivity"
+            android:name=".processing.CalibrationModeActivity"
             android:label="Calibrate Grid" />
         <activity
             android:name=".ServerActivity"

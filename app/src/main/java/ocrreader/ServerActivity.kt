@@ -3,7 +3,6 @@ package ocrreader
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -16,7 +15,6 @@ import java.io.IOException
 class ServerActivity : Activity() {
     internal lateinit var server: GameServer
     private lateinit var connectionUtils: ConnectionUtils
-
     @BindView(R.id.txt_server_hostname)
     lateinit var hostNameTxt: TextView
 
@@ -26,7 +24,6 @@ class ServerActivity : Activity() {
         ButterKnife.bind(this)
 
         connectionUtils = ConnectionUtils(applicationContext)
-
         // TODO clean this up later
         if (!connectionUtils.isConnectedInWifi) {
             Toast.makeText(this, "Not connected to WIFI, App won't work", Toast.LENGTH_LONG).show()

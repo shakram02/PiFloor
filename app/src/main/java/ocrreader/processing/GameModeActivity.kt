@@ -16,8 +16,9 @@
 package ocrreader.processing
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentActivity
+import ocrreader.MainActivity.Companion.AutoFocus
+import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.ui.camera.OcrGraphicOverlay
@@ -27,9 +28,7 @@ import ocrreader.ui.camera.OcrGraphicOverlay
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and contents of each TextBlock.
  */
-abstract class OcrCaptureActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
-    private var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>? = null
-
+class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
     /**
      * Initializes the UI and creates the detector pipeline.
      */
@@ -38,14 +37,7 @@ abstract class OcrCaptureActivity : FragmentActivity(), OcrCaptureFragment.OcrSe
         // This is an extremely lousy hack so I'm able to use the view twice be inheriting this class
         // and changing the viewId value to the desired layout. TODO resolve this cleanly!
         setContentView(R.layout.activity_game_mode)
-
         loadFragment()
-
-        Snackbar.make(mGraphicOverlay!!, "Tap to capture. Pinch/Stretch to zoom",
-                Snackbar.LENGTH_LONG)
-                .show()
-
-        // TODO get notifications for currently detected text
     }
 
     private fun loadFragment() {
@@ -55,7 +47,7 @@ abstract class OcrCaptureActivity : FragmentActivity(), OcrCaptureFragment.OcrSe
         val captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.calibrate_ocr_capture, captureFragment).commit()
+                .add(R.id.container_game_fragment_holder, captureFragment).commit()
     }
 
     override fun onOcrGraphicTap(ocrGraphic: OcrGraphic,
@@ -66,10 +58,6 @@ abstract class OcrCaptureActivity : FragmentActivity(), OcrCaptureFragment.OcrSe
 
 
     companion object {
-        private const val TAG = "OcrCaptureActivity"
-
-        // Constants used to pass extra data in the intent
-        private const val AutoFocus = "AutoFocus"
-        private const val UseFlash = "UseFlash"
+        private const val TAG = "GameModeActivity"
     }
 }

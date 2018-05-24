@@ -12,28 +12,23 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.util.Log
-import android.view.GestureDetector
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
-
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextRecognizer
-
-import java.io.IOException
-
+import ocrreader.MainActivity.Companion.AutoFocus
+import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
+import ocrreader.processing.OcrCaptureFragment.OcrSelectionListener
 import ocrreader.ui.camera.CameraSource
 import ocrreader.ui.camera.CameraSourcePreview
 import ocrreader.ui.camera.OcrGraphicOverlay
+import java.io.IOException
 
 
 /**
@@ -45,22 +40,16 @@ import ocrreader.ui.camera.OcrGraphicOverlay
  * create an instance of this fragment.
  */
 class OcrCaptureFragment : Fragment(), View.OnTouchListener {
-
     private var mCameraSource: CameraSource? = null
-
-
     var mPreview: CameraSourcePreview? = null
     @BindView(R.id.overlay_ocr_fragment_graphics)
     lateinit var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>
     private lateinit var unbinder: Unbinder
-
     // Helper objects for detecting taps and pinches.
     private var scaleGestureDetector: ScaleGestureDetector? = null
     private var gestureDetector: GestureDetector? = null
-
     private var autoFocus: Boolean? = null
     private var useFlash: Boolean? = null
-
     private lateinit var mListener: OcrSelectionListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,15 +63,12 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
         // Inflate the layout for this fragment
         val fragmentView = inflater!!.inflate(R.layout.fragment_ocr_capture, container, false)
         unbinder = ButterKnife.bind(this, fragmentView)
 
         mPreview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
-        
         val applicationContext = this.activity.applicationContext
-
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         val rc = ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
@@ -141,7 +127,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
      */
     private fun requestCameraPermission() {
         Log.w(TAG, "Camera permission is not granted. Requesting permission")
-
         val permissions = arrayOf(Manifest.permission.CAMERA)
         val thisActivity = this.activity
 
@@ -150,7 +135,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             ActivityCompat.requestPermissions(thisActivity, permissions, RC_HANDLE_CAMERA_PERM)
             return
         }
-
         val listener = View.OnClickListener {
             ActivityCompat.requestPermissions(thisActivity, permissions,
                     RC_HANDLE_CAMERA_PERM)
@@ -174,7 +158,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     @SuppressLint("InlinedApi")
     private fun createCameraSource(autoFocus: Boolean, useFlash: Boolean) {
         val context = this.activity.applicationContext
-
         // A text recognizer is created to find text.  An associated processor instance
         // is set to receive the text recognition results and display graphics for each text block
         // on screen.
@@ -192,7 +175,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             // available.  The detectors will automatically become operational once the library
             // downloads complete on device.
             Log.w(TAG, "Detector dependencies are not yet available.")
-
             // Check for low storage.  If there is low storage, the native library will not be
             // downloaded, so detection will not become operational.
             val lowstorageFilter = IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW)
@@ -203,7 +185,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
                 Log.w(TAG, getString(R.string.low_storage_error))
             }
         }
-
         // Creates and starts the camera.  Note that this uses a higher resolution in comparison
         // to other detection examples to enable the text recognizer to detect small pieces of text.
         mCameraSource = CameraSource.Builder(context, textRecognizer)
@@ -216,9 +197,8 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-
+        view!!.performClick()
         val b = scaleGestureDetector!!.onTouchEvent(event)
-
         val c = gestureDetector!!.onTouchEvent(event)
 
         return b || c || this.activity.onTouchEvent(event)
@@ -247,7 +227,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
 
     private inner class CaptureGestureListener internal constructor(private val ocrSelectionListener: OcrSelectionListener) : GestureDetector.SimpleOnGestureListener() {
-
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             val graphic = mGraphicOverlay.getGraphicAtLocation(e.rawX, e.rawY) as OcrGraphic?
 
@@ -261,7 +240,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     }
 
     private inner class ScaleListener : ScaleGestureDetector.OnScaleGestureListener {
-
         /**
          * Responds to scaling events for a gesture in progress.
          * Reported by pointer motion.
@@ -321,7 +299,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private fun startCameraSource() {
         // Check that the device has play services available.
         val activity = this.activity
-
         val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
                 activity.applicationContext)
         if (code != ConnectionResult.SUCCESS) {
@@ -342,17 +319,11 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     }
 
     companion object {
-        protected const val TAG = "OcrCaptureActivity"
-
+        private const val TAG = "GameModeActivity"
         // Intent request code to handle updating play services if needed.
         private const val RC_HANDLE_GMS = 9001
-
         // Permission request codes need to be < 256
         private const val RC_HANDLE_CAMERA_PERM = 2
-
-        // Constants used to pass extra data in the intent
-        const val AutoFocus = "AutoFocus"
-        const val UseFlash = "UseFlash"
 
         /**
          * Ocr capture activity that has a surface view to capture text
@@ -361,7 +332,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
          * @param useFlash  Toggles flash.
          * @return A new instance of fragment OcrCaptureFragment.
          */
-        // TODO: Rename and change types and number of parameters
         fun newInstance(autoFocus: Boolean, useFlash: Boolean): OcrCaptureFragment {
             val fragment = OcrCaptureFragment()
             val args = Bundle()
@@ -371,4 +341,4 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             return fragment
         }
     }
-}// Required empty public constructor
+}
