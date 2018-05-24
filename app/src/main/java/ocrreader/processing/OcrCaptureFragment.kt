@@ -20,6 +20,8 @@ import butterknife.Unbinder
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextRecognizer
+import ocrreader.MainActivity.Companion.AutoFocus
+import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.processing.OcrCaptureFragment.OcrSelectionListener
@@ -317,14 +319,11 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     }
 
     companion object {
-        private const val TAG = "OcrCaptureActivity"
+        private const val TAG = "GameModeActivity"
         // Intent request code to handle updating play services if needed.
         private const val RC_HANDLE_GMS = 9001
         // Permission request codes need to be < 256
         private const val RC_HANDLE_CAMERA_PERM = 2
-        // Constants used to pass extra data in the intent
-        const val AutoFocus = "AutoFocus"
-        const val UseFlash = "UseFlash"
 
         /**
          * Ocr capture activity that has a surface view to capture text
@@ -333,7 +332,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
          * @param useFlash  Toggles flash.
          * @return A new instance of fragment OcrCaptureFragment.
          */
-        // TODO: Rename and change types and number of parameters
         fun newInstance(autoFocus: Boolean, useFlash: Boolean): OcrCaptureFragment {
             val fragment = OcrCaptureFragment()
             val args = Bundle()
