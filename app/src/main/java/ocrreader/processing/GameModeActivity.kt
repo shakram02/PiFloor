@@ -34,8 +34,6 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
      */
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
-        // This is an extremely lousy hack so I'm able to use the view twice be inheriting this class
-        // and changing the viewId value to the desired layout. TODO resolve this cleanly!
         setContentView(R.layout.activity_game_mode)
         loadFragment()
     }
