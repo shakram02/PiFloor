@@ -1,0 +1,21 @@
+body {
+	background: #ffe6ff
+}
+
+#app {
+}
+
+#game-header span {
+	display: inline-block;
+	width: 30%;
+}
+
+#game-stats {
+	display: block;
+}
+
+#grid-table {
+  border: 2px solid #42b983;
+  border-radius: 3px;
+  background-color: #fff;
+}

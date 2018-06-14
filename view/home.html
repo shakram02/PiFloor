@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
+	<!-- <style type="text/css" href="styles.css"></style> -->
+</head>
+<body>
+	<div id="app">
+
+	<div id="game-header">
+		<span id="name">{{playerName}}</span>
+		<span id="EdGrid">EdGrid</span>
+		<span id="game-stats">
+			<span>{{level}}</span>
+			<span>{{score}}</span>
+		</span>
+	</div>
+
+	<div id="question-place">
+		<h3>Answer this:</h3>
+		<p id="game-question">{{curQuestion}}</p>
+	</div>
+	
+	<div id="game-grid">
+		<h3>Grid status</h3>
+		<table id="grid-table">
+			<tr v-for="row in gridData">
+				<td v-for="val in row">
+					{{val}}
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="answer-form">
+		<p>Please select your answer:</p>
+		<form v-on:submit.prevent="checkAns" >
+			<select name="playerAns" v-model="userAns">
+				<option v-for="choice in choices" v-bind:value="choice">{{choice}}</option>
+			</select>
+			<input type="submit">
+		</form>
+	</div>
+	<p id="selected"></p>
+
+	<div id="question-form">
+		<h3>New Game</h3>
+		<p>Upload the questions file and press Start:</p>
+		<form v-on:submit.prevent="startGame">
+			rows:
+			<select name="rowSize" v-model="rows">
+				<option value=2>2</option>
+				<option value=3>3</option>
+				<option value=4>4</option>
+			</select>
+			cols:
+			<select name="colSize" v-model="cols">
+				<option value=2>2</option>
+				<option value=3>3</option>
+				<option value=4>4</option>
+			</select>
+			input file:
+			<input type="file" name="qfile" @change="loadFile($event)"> 
+			<input type="submit" value="Start">
+		</form>
+	</div>
+	
+	</div>
+
+<script type="text/javascript">
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			// Header 
+			playerName: 'Player1',
+			level: 1,
+			score: 0,
+			// Question details
+			curQuestion: '',
+			correctAns: 1,
+			choices: [1,2,3,4,5,6,7,8,9],
+			// Player's answer
+			userAns: 1,
+			// Game status
+			rows: 3,
+			cols: 3,
+			gridData: [[1,2,3],[4,5,6],[7,8,9]],
+			gameFile: null,
+		},
+		methods: {
+			checkAns: function(event) {
+				// document.getElementById("selected").innerHTML = "selected: " + this.userAns;
+				console.log("Selected: " + this.userAns);
+			},
+			loadFile: function(event) {
+				this.gameFile = event.target.files[0];
+			},
+			startGame: function(event) {
+				if(this.gameFile != null) {
+					console.log("rows: " + this.rows + ", cols: " + this.cols);
+					console.log("uploaded file: ", this.gameFile);
+
+					// var reader = new FileReader();
+					// var vm = this;
+					// var txt;
+					// reader.onload = function(e){
+					// 	vm.$emit('file-created', reader.result);
+					// 	txt = reader.result;
+					// };
+					// reader.readAsText(this.gameFile);
+					// console.log(reader.result);
+				} else {
+
+				}
+			}
+		},
+	});
+</script>
+
+</body>
+
+</html>
