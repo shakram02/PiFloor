@@ -13,13 +13,13 @@
 		<span id="name">{{playerName}}</span>
 		<span id="EdGrid">EdGrid</span>
 		<span id="game-stats">
-			<span>{{level}}</span>
-			<span>{{score}}</span>
+			<span>Level: {{level}}</span>
+			<span>Score: {{score}}</span>
 		</span>
 	</div>
 
 	<div id="question-place">
-		<h3>Answer this:</h3>
+		<h3>Answer this</h3>
 		<p id="game-question">{{curQuestion}}</p>
 	</div>
 	
@@ -87,34 +87,55 @@
 			rows: 3,
 			cols: 3,
 			gridData: [[1,2,3],[4,5,6],[7,8,9]],
-			gameFile: null,
+			questions: [],
 		},
 		methods: {
 			checkAns: function(event) {
-				// document.getElementById("selected").innerHTML = "selected: " + this.userAns;
-				console.log("Selected: " + this.userAns);
+				console.log("Selected answer: " + this.userAns);
 			},
 			loadFile: function(event) {
-				this.gameFile = event.target.files[0];
+				var files = event.target.files || event.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.loadText(files[0]);
+			},
+			loadText: function(file) {
+				var reader = new FileReader();
+				var vm = this;
+				reader.onload = (e) => {
+					this.questions = e.target.result;
+				};
+				reader.readAsText(file);
 			},
 			startGame: function(event) {
-				if(this.gameFile != null) {
-					console.log("rows: " + this.rows + ", cols: " + this.cols);
-					console.log("uploaded file: ", this.gameFile);
+				console.log("rows: " + this.rows + ", cols: " + this.cols);
+				this.questions = this.questions.split('\n');
+				console.log(this.questions);
+				this.nextQuestion(0);
+			},
 
-					// var reader = new FileReader();
-					// var vm = this;
-					// var txt;
-					// reader.onload = function(e){
-					// 	vm.$emit('file-created', reader.result);
-					// 	txt = reader.result;
-					// };
-					// reader.readAsText(this.gameFile);
-					// console.log(reader.result);
-				} else {
-
+			// TODO: validate format
+			// So far assuming correct file format
+			nextQuestion: function(ind) {
+				if(this.questions[ind].trim()==='end'){
+					// End game
+					return;
 				}
-			}
+				var parts = this.questions[ind].split(',');
+				this.curQuestion = parts[0];
+				this.correctAns = parts[1];
+				
+				// load choices into the grid
+				var k = 2;
+				this.gridData = [];
+				for(var i = 0; i < this.rows; i++) {
+					var newRow = [];
+					for(var j = 0; j < this.cols; j++) {
+						newRow.push(parts[k++]);
+					}
+					this.gridData.push(newRow);
+				}
+			},
 		},
 	});
 </script>
@@ -122,3 +143,4 @@
 </body>
 
 </html>
+
