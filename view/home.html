@@ -4,7 +4,6 @@
 <head>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
-	<!-- <style type="text/css" href="styles.css"></style> -->
 </head>
 <body>
 	<div id="app">
@@ -12,10 +11,7 @@
 	<div id="game-header">
 		<span id="name">{{playerName}}</span>
 		<span id="EdGrid">EdGrid</span>
-		<span id="game-stats">
-			<span>Level: {{level}}</span>
-			<span>Score: {{score}}</span>
-		</span>
+		<span id="score">Score: {{score}}</span>
 	</div>
 
 	<div id="question-place">
@@ -36,7 +32,8 @@
 
 	<div id="answer-form">
 		<p>Please select your answer:</p>
-		<form v-on:submit.prevent="checkAns" >
+		<button v-if="trials>=2 || success" v-on:click="nextQuestion">Next</button>
+		<form v-else v-on:submit.prevent="checkAns" >
 			<select name="playerAns" v-model="userAns">
 				<option v-for="choice in choices" v-bind:value="choice">{{choice}}</option>
 			</select>
@@ -75,23 +72,35 @@
 		data: {
 			// Header 
 			playerName: 'Player1',
-			level: 1,
 			score: 0,
 			// Question details
 			curQuestion: '',
-			correctAns: 1,
-			choices: [1,2,3,4,5,6,7,8,9],
+			qInd: 0,
+			correctAns: 0,
+			choices: [],
+			trials: 0,
+			success: false,
 			// Player's answer
 			userAns: 1,
 			// Game status
 			rows: 3,
 			cols: 3,
-			gridData: [[1,2,3],[4,5,6],[7,8,9]],
+			gridData: [],
 			questions: [],
 		},
 		methods: {
 			checkAns: function(event) {
 				console.log("Selected answer: " + this.userAns);
+				this.trials++;
+				if(this.userAns === this.correctAns) {
+					this.success = true;
+					console.log("correct ans");
+					if(this.trials > 1)
+						this.score += 5;
+					else this.score += 10;
+				} else {
+					console.log("wrong ans - expected " + this.correctAns + " found " + this.userAns);
+				}
 			},
 			loadFile: function(event) {
 				var files = event.target.files || event.dataTransfer.files;
@@ -110,31 +119,38 @@
 			startGame: function(event) {
 				console.log("rows: " + this.rows + ", cols: " + this.cols);
 				this.questions = this.questions.split('\n');
-				console.log(this.questions);
-				this.nextQuestion(0);
+				// console.log(this.questions);
+				this.score = 0;
+				this.qInd = 0;
+				this.nextQuestion();
 			},
 
 			// TODO: validate format
 			// So far assuming correct file format
-			nextQuestion: function(ind) {
-				if(this.questions[ind].trim()==='end'){
+			nextQuestion: function() {
+				if(this.questions[this.qInd].trim()==='end'){
 					// End game
 					return;
 				}
-				var parts = this.questions[ind].split(',');
+				var parts = this.questions[this.qInd].split(',');
 				this.curQuestion = parts[0];
 				this.correctAns = parts[1];
+				this.trials = 0;
+				this.success = false;
 				
 				// load choices into the grid
 				var k = 2;
 				this.gridData = [];
+				this.choices = [];
 				for(var i = 0; i < this.rows; i++) {
 					var newRow = [];
 					for(var j = 0; j < this.cols; j++) {
-						newRow.push(parts[k++]);
+						newRow.push(parts[k]);
+						this.choices.push(parts[k++]);
 					}
 					this.gridData.push(newRow);
 				}
+				this.qInd++;
 			},
 		},
 	});

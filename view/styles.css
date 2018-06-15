@@ -10,12 +10,8 @@ body {
 	width: 30%;
 }
 
-#game-stats {
-	display: block;
-}
-
-#grid-table {
+/*#grid-table {
   border: 2px solid #42b983;
   border-radius: 3px;
   background-color: #fff;
-}
+}*/
