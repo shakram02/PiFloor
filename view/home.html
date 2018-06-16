@@ -7,27 +7,25 @@
 </head>
 <body>
 	<div id="app">
+	<div v-if="inGame">
 
 	<div id="game-header">
 		<span id="name">{{playerName}}</span>
-		<span id="EdGrid">EdGrid</span>
 		<span id="score">Score: {{score}}</span>
 	</div>
+	<div class="title">EdGrid</div>
 
 	<div id="question-place">
-		<h3>Answer this</h3>
-		<p id="game-question">{{curQuestion}}</p>
+		<p id="game-question"><b>Q{{qInd}}: </b>{{curQuestion}}</p>
 	</div>
 	
 	<div id="game-grid">
-		<h3>Grid status</h3>
-		<table id="grid-table">
-			<tr v-for="row in gridData">
-				<td v-for="val in row">
-					{{val}}
-				</td>
-			</tr>
-		</table>
+		<!-- <h3>Grid status</h3> -->
+		<div class="grid-row" v-for="row in gridData">
+			<div class="grid-cell" v-for="val in row">
+				<p>{{val}}</p>
+			</div>
+		</div>
 	</div>
 
 	<div id="answer-form">
@@ -40,26 +38,27 @@
 			<input type="submit">
 		</form>
 	</div>
-	<p id="selected"></p>
+	</div>
 
-	<div id="question-form">
+	<div v-else id="question-form">
+		<div class="title">EdGrid</div>
+		Welcome, <input type="text" name="name" v-model="playerName">
 		<h3>New Game</h3>
-		<p>Upload the questions file and press Start:</p>
 		<form v-on:submit.prevent="startGame">
 			rows:
 			<select name="rowSize" v-model="rows">
 				<option value=2>2</option>
 				<option value=3>3</option>
 				<option value=4>4</option>
-			</select>
+			</select><br>
 			cols:
 			<select name="colSize" v-model="cols">
 				<option value=2>2</option>
 				<option value=3>3</option>
 				<option value=4>4</option>
-			</select>
+			</select><br>
 			input file:
-			<input type="file" name="qfile" @change="loadFile($event)"> 
+			<input type="file" name="qfile" @change="loadFile($event)"> <br>
 			<input type="submit" value="Start">
 		</form>
 	</div>

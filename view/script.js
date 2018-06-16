@@ -18,6 +18,7 @@ var vm = new Vue({
 		cols: 3,
 		gridData: [],
 		questions: [],
+		inGame: false,
 	},
 	methods: {
 		checkAns: function(event) {
@@ -48,11 +49,12 @@ var vm = new Vue({
 			reader.readAsText(file);
 		},
 		startGame: function(event) {
-			console.log("rows: " + this.rows + ", cols: " + this.cols);
+			this.inGame = true;
 			this.questions = this.questions.split('\n');
-			// console.log(this.questions);
-			this.score = 0;
 			this.qInd = 0;
+			this.score = 0;
+			console.log("rows: " + this.rows + ", cols: " + this.cols);
+			console.log(this.questions);
 			this.nextQuestion();
 		},
 
@@ -63,6 +65,8 @@ var vm = new Vue({
 				// End game
 				return;
 			}
+			// var width = document.getElementById("game-grid").offsetWidth;
+			// document.getElementById("question-place").setAttribute("style","width:"+width+"px");
 			var parts = this.questions[this.qInd].split(',');
 			this.curQuestion = parts[0];
 			this.correctAns = parts[1];
