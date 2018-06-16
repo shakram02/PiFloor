@@ -55,7 +55,8 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            autoFocus = arguments.getBoolean(AutoFocus, false)
+            // TODO: this probably isn't working well, check that the arguments are loaded
+            autoFocus = arguments.getBoolean(AutoFocus, true)
             useFlash = arguments.getBoolean(UseFlash, false)
         }
     }
