@@ -19,7 +19,6 @@ package ocrreader
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.CompoundButton
 import android.widget.TextView
 import butterknife.BindView
@@ -42,8 +41,6 @@ class MainActivity : Activity() {
     lateinit var useFlash: CompoundButton
     @BindView(R.id.status_message)
     lateinit var statusMessage: TextView
-    @BindView(R.id.text_value)
-    lateinit var textValue: TextView
     @Inject
     lateinit var gridItemHolder: GridItemHolder
 
@@ -113,23 +110,10 @@ class MainActivity : Activity() {
             statusMessage.text = gridItemHolder.items
             return super.onActivityResult(requestCode, resultCode, data)
         }
-
-        if (data != null) {
-            val text = data.getSerializableExtra(CalibrationModeActivity.GridElements) as HashSet<*>
-
-            statusMessage.setText(R.string.ocr_success)
-            textValue.text = "${text.size}"
-            Log.d(TAG, "Text read: $text")
-        } else {
-            statusMessage.setText(R.string.ocr_failure)
-            Log.d(TAG, "No Text captured, intent data is null")
-        }
     }
 
     companion object {
         private const val RC_OCR_CALIBRATE = 9003
-        private const val TAG = "MainActivity"
-        private const val SUCCESS = 0
         // TODO use a const provider when using dagger
         const val AutoFocus = "AutoFocus"
         const val UseFlash = "UseFlash"
