@@ -1,28 +1,28 @@
 package ocrreader.processing
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
-import com.google.android.gms.common.api.CommonStatusCodes
+import ocrreader.EdGridApplication
+import ocrreader.GridItemHolder
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.ui.camera.OcrGraphicOverlay
-import java.util.*
+import javax.inject.Inject
 
 
 class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener {
-    private var calibratedGridText = HashSet<String>()
-
+    @Inject
+    lateinit var gridItemHolder: GridItemHolder
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
-
+        (application as EdGridApplication).component.inject(this)
         loadFragment()
     }
 
@@ -36,16 +36,8 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
                 .add(R.id.container_calibrate_fragment_holder, captureFragment).commit()
     }
 
-    private fun onDone() {
-        val gridData = Intent()
-        gridData.putExtra(GridElements, calibratedGridText)
-        setResult(CommonStatusCodes.SUCCESS, gridData)
-
-        finish()
-    }
-
     internal fun onRecalibrateRequest() {
-        calibratedGridText.clear()
+        TODO()
     }
 
     override fun onOcrGraphicTap(ocrGraphic: OcrGraphic, graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
@@ -55,11 +47,11 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
         Log.d(TAG, "Calibrating:$text")
         graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock!!))
-        calibratedGridText.add(text)
+        gridItemHolder.addGridItem(ocrGraphic.value)
 
 
-        if (calibratedGridText.size == GRID_SIZE) {
-            onDone()
+        if (gridItemHolder.size == GRID_SIZE) {
+            finish()
         }
 
         return true
@@ -67,7 +59,6 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     companion object {
         private const val TAG = "CalibrationActivity"
-        const val GridElements = "GridElements"
-        private const val GRID_SIZE = 1
+        private const val GRID_SIZE = 1 // TODO: fix this later
     }
 }

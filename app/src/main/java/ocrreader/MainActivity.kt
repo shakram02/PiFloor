@@ -27,7 +27,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
-import java.util.*
 import javax.inject.Inject
 
 
@@ -110,7 +109,8 @@ class MainActivity : Activity() {
             return
         }
 
-        if (resultCode != SUCCESS) {
+        if (resultCode != Activity.RESULT_OK) {
+            statusMessage.text = gridItemHolder.items
             return super.onActivityResult(requestCode, resultCode, data)
         }
 
@@ -121,7 +121,7 @@ class MainActivity : Activity() {
             textValue.text = "${text.size}"
             Log.d(TAG, "Text read: $text")
         } else {
-            statusMessage!!.setText(R.string.ocr_failure)
+            statusMessage.setText(R.string.ocr_failure)
             Log.d(TAG, "No Text captured, intent data is null")
         }
     }
