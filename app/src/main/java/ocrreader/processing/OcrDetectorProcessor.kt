@@ -17,18 +17,17 @@ package ocrreader.processing
 
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.graphcis.CalibratedOcrGraphic
-import ocrreader.graphcis.OcrGraphic
-import ocrreader.graphcis.PreviewOcrGraphic
-import ocrreader.ui.camera.OcrGraphicOverlay
+import org.reactivestreams.Publisher
+import org.reactivestreams.Subscriber
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A very simple Processor which receives detected TextBlocks and adds them to the overlay
  * as OcrGraphics.
  */
-internal class OcrDetectorProcessor(private val mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>) : Detector.Processor<TextBlock> {
-    private val gridText = HashSet<String>()
+internal class OcrDetectorProcessor : Detector.Processor<TextBlock>, Publisher<ArrayList<TextBlock>> {
+    private val subscribers = HashSet<Subscriber<in ArrayList<TextBlock>>>()
 
     /**
      * Called by the detector to deliver detection results.
@@ -39,37 +38,15 @@ internal class OcrDetectorProcessor(private val mGraphicOverlay: OcrGraphicOverl
      */
     override fun receiveDetections(detections: Detector.Detections<TextBlock>) {
         val items = detections.detectedItems
-        val newFrameGraphics = ArrayList<OcrGraphic>()
+        val frameTextBlocks = ArrayList<TextBlock>()
 
         for (i in 0 until items.size()) {
-            val item = items.valueAt(i)
-            val maybeGraphic = mGraphicOverlay.getByContent(item.value)
-            val text = item.value.toLowerCase()
-            // Check if the text was detected before.
-            // If it was detected: update location
-            // If it was calibrated then went out of view: Add calibrated
-            if (maybeGraphic.isPresent) {
-                // Update location and after
-                // checking the graphic's type Preview/Calibrated
-                val graphic = maybeGraphic.get()
-
-                if (graphic is PreviewOcrGraphic) {
-                    newFrameGraphics.add(PreviewOcrGraphic(mGraphicOverlay, item))
-                } else {
-                    newFrameGraphics.add(CalibratedOcrGraphic(mGraphicOverlay, item))
-                    gridText.add(text)
-                }
-
-            } else if (gridText.contains(text)) {
-                newFrameGraphics.add(CalibratedOcrGraphic(mGraphicOverlay, item))
-            } else {
-                newFrameGraphics.add(PreviewOcrGraphic(mGraphicOverlay, item))
-            }
+            if (items.valueAt(i).value == null) continue
+            frameTextBlocks.add(items.valueAt(i))
         }
 
-        mGraphicOverlay.clear()
-        for (g in newFrameGraphics) {
-            mGraphicOverlay.add(g)
+        for (subscriber in subscribers) {
+            subscriber.onNext(frameTextBlocks)
         }
     }
 
@@ -77,6 +54,10 @@ internal class OcrDetectorProcessor(private val mGraphicOverlay: OcrGraphicOverl
      * Frees the resources associated with this detection processor.
      */
     override fun release() {
-        mGraphicOverlay.clear()
+        subscribers.map { s -> s.onComplete() }
+    }
+
+    override fun subscribe(s: Subscriber<in ArrayList<TextBlock>>?) {
+        subscribers.add(s!!)
     }
 }
