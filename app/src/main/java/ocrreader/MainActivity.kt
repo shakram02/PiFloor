@@ -107,7 +107,7 @@ class MainActivity : Activity() {
         }
 
         if (resultCode != Activity.RESULT_OK) {
-            statusMessage.text = gridItemHolder.items
+            statusMessage.text = gridItemHolder.itemsAsString.joinToString()
             return super.onActivityResult(requestCode, resultCode, data)
         }
     }

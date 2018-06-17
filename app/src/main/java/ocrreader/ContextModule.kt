@@ -9,5 +9,5 @@ import javax.inject.Singleton
 class ContextModule(private val app: Application) {
     @Provides
     @Singleton
-    fun provideHolder(): GridItemHolder = GridItemHolder(app)
+    fun provideHolder(): GridItemHolder = GridItemHolder()
 }
