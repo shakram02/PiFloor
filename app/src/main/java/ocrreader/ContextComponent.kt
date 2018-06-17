@@ -2,6 +2,7 @@ package ocrreader
 
 import dagger.Component
 import ocrreader.processing.CalibrationModeActivity
+import ocrreader.processing.GameModeActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -9,4 +10,5 @@ import javax.inject.Singleton
 interface ContextComponent {
     fun inject(target: MainActivity)
     fun inject(target: CalibrationModeActivity)
+    fun inject(target: GameModeActivity)
 }
