@@ -12,26 +12,33 @@ var vm = new Vue({
 		trials: 0,
 		success: false,
 		// Player's answer
-		userAns: 1,
+		userAns: 'Answer',
 		// Game status
-		rows: 3,
-		cols: 3,
+		rows: 'Rows',
+		cols: 'Columns',
 		gridData: [],
-		questions: [],
+		questions: null,
 		inGame: false,
 	},
 	methods: {
 		checkAns: function(event) {
 			console.log("Selected answer: " + this.userAns);
 			this.trials++;
-			if(this.userAns === this.correctAns) {
+			var selection = parseInt(this.userAns)-1;
+			var selectedRow = Math.floor(selection/this.cols);
+			var selectedCol = selection%this.cols;
+			var selectedVal = this.gridData[selectedRow][selectedCol]['val'];
+			if(selectedVal === this.correctAns) {
 				this.success = true;
 				console.log("correct ans");
+				(this.gridData)[selectedRow][selectedCol]['color'] = '#00FF00';
 				if(this.trials > 1)
 					this.score += 5;
 				else this.score += 10;
 			} else {
-				console.log("wrong ans - expected " + this.correctAns + " found " + this.userAns);
+				(this.gridData)[selectedRow][selectedCol]['color'] = 'red';
+				(this.gridData)[selectedRow][selectedCol]['decor'] = 'line-through';
+				console.log("wrong ans - expected " + this.correctAns + " found " + selectedVal);
 			}
 		},
 		loadFile: function(event) {
@@ -48,13 +55,21 @@ var vm = new Vue({
 			};
 			reader.readAsText(file);
 		},
+		validateInput: function() {
+			if(this.rows==='Rows' || this.cols==='Columns' || this.questions==null) {
+				return false;
+			}
+			return true;
+		},
 		startGame: function(event) {
+			if(!this.validateInput())
+				return;
 			this.inGame = true;
 			this.questions = this.questions.split('\n');
 			this.qInd = 0;
 			this.score = 0;
-			console.log("rows: " + this.rows + ", cols: " + this.cols);
-			console.log(this.questions);
+			// console.log("rows: " + this.rows + ", cols: " + this.cols);
+			// console.log(this.questions);
 			this.nextQuestion();
 		},
 
@@ -65,8 +80,6 @@ var vm = new Vue({
 				// End game
 				return;
 			}
-			// var width = document.getElementById("game-grid").offsetWidth;
-			// document.getElementById("question-place").setAttribute("style","width:"+width+"px");
 			var parts = this.questions[this.qInd].split(',');
 			this.curQuestion = parts[0];
 			this.correctAns = parts[1];
@@ -80,8 +93,11 @@ var vm = new Vue({
 			for(var i = 0; i < this.rows; i++) {
 				var newRow = [];
 				for(var j = 0; j < this.cols; j++) {
-					newRow.push(parts[k]);
-					this.choices.push(parts[k++]);
+					this.choices.push(k-1);
+					newRow.push({ val: parts[k++],
+						color: '#30505C',
+						decor: 'none',
+					});
 				}
 				this.gridData.push(newRow);
 			}
