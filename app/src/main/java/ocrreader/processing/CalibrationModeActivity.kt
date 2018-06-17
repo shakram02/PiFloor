@@ -28,7 +28,8 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     private fun loadFragment() {
         // read parameters from the intent used to launch the activity.
-        val autoFocus = intent.getBooleanExtra(AutoFocus, false)
+        // TODO: fix parameter resolution (it's not working)
+        val autoFocus = intent.getBooleanExtra(AutoFocus, true)
         val useFlash = intent.getBooleanExtra(UseFlash, false)
         val captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
 
