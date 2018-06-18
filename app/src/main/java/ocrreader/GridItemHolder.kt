@@ -10,11 +10,11 @@ class GridItemHolder {
         get() = entries.asIterable()
 
     fun addGridItem(item: String): Boolean {
-        return entries.add(item.toLowerCase().replace(" ", ""))
+        return entries.add(item.preProcess())
     }
 
     fun contains(item: String): Boolean {
-        return entries.contains(item)
+        return entries.contains(item.preProcess())
     }
 
     fun clear() {
@@ -24,7 +24,11 @@ class GridItemHolder {
     fun diff(items: ArrayList<TextBlock>): Set<String> {
         return entries.subtract(items
                 .filter { item -> item.value != null }
-                .map { item -> item.value.toLowerCase() }
+                .map { item -> item.value.preProcess() }
                 .toHashSet())
+    }
+
+    private fun String.preProcess(): String {
+        return this.toLowerCase().replace(" ", "")
     }
 }

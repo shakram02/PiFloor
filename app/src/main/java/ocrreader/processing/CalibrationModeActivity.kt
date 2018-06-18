@@ -4,6 +4,8 @@ package ocrreader.processing
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.ViewGroup.LayoutParams;
 import com.google.android.gms.vision.text.TextBlock
 import ocrreader.EdGridApplication
 import ocrreader.GridItemHolder
@@ -29,6 +31,7 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         setContentView(R.layout.activity_calibrate_mode)
         (application as EdGridApplication).component.inject(this)
         loadFragment()
+        loadOverlay()
     }
 
     private fun loadFragment() {
@@ -46,8 +49,13 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     }
 
-    internal fun onRecalibrateRequest() {
-        TODO()
+    private fun loadOverlay() {
+        val controlInflater = LayoutInflater.from(baseContext)
+        val viewControl = controlInflater.inflate(R.layout.fragment_calibration_overlay, null)
+        val clearButton = viewControl.findViewById(R.id.btn_clear_calibration_fragment)
+        clearButton.setOnClickListener { gridItemHolder.clear() }
+        val layoutParamsControl = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        this.addContentView(viewControl, layoutParamsControl)
     }
 
     override fun onOcrGraphicTap(ocrGraphic: OcrGraphic, graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
@@ -97,25 +105,14 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         for (i in 0 until items.size) {
             val item = items[i]
             val maybeGraphic = graphicOverlay.getByContent(item.value)
-            val text = item.value.toLowerCase()
+            val text = item.value.toLowerCase().replace(" ", "")
             // Check if the text was detected before.
             // If it was detected: update location
             // If it was calibrated then went out of view: Add calibrated
-            if (maybeGraphic.isPresent) {
-                // Update location and after
-                // checking the graphic's type Preview/Calibrated
-                val graphic = maybeGraphic.get()
-
-                if (graphic is PreviewOcrGraphic) {
-                    newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
-                } else {
-                    newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
-                }
-
-            } else if (gridItemHolder.contains(text)) {
-                newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
-            } else {
-                newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
+            when {
+                gridItemHolder.contains(text) -> newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
+                maybeGraphic.isPresent -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
+                else -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
             }
         }
 
