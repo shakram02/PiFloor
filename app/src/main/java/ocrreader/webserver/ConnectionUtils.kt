@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.text.format.Formatter
-import nanohttpd.protocols.http.NanoHTTPD
 
 class ConnectionUtils(private val applicationContext: Context) {
     private var broadcastReceiverNetworkState: BroadcastReceiver? = null
@@ -34,8 +33,8 @@ class ConnectionUtils(private val applicationContext: Context) {
             return Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
         }
 
-    fun getHostAddress(server: NanoHTTPD): String {
-        return String.format("http://%s:%s", server.getHostname(), server.listeningPort)
+    fun getHostAddress(hostName: String, port: Int): String {
+        return String.format("http://%s:%s", hostName, port)
     }
 
     private fun initBroadcastReceiverNetworkStateChanged(stateChangeHandler: Runnable) {

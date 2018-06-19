@@ -14,7 +14,7 @@ import ocrreader.webserver.GameServer
 import java.io.IOException
 
 class ServerActivity : Activity() {
-    internal var server: GameServer? = null
+    lateinit var server: GameServer
     private lateinit var connectionUtils: ConnectionUtils
     @BindView(R.id.txt_server_hostname)
     lateinit var hostNameTxt: TextView
@@ -37,7 +37,7 @@ class ServerActivity : Activity() {
             return
         }
 
-        server = GameServer(connectionUtils.ipAddress, PORT_NUMBER)
+        server = GameServer(connectionUtils.ipAddress, PORT_NUMBER, TOPIC_NAME)
 
     }
 
@@ -45,20 +45,20 @@ class ServerActivity : Activity() {
     @OnClick(R.id.btn_server_startserver)
     fun startServer() {
         try {
-            val hostName = server?.getHostname()
+            val hostName = server.serverAddress
             this.hostNameTxt.text = hostName
-            this.server?.start()
+            this.server.start()
+            Log.i(TAG, "Address: " + connectionUtils.getHostAddress(hostName, server.port))
         } catch (e: IOException) {
             Log.e(TAG, "Failed to start server", e)
             throw RuntimeException(e)
         }
-        Log.i(TAG, "Address: " + connectionUtils.getHostAddress(server!!))
     }
 
     @OnClick(R.id.btn_server_stopserver)
     fun stopServer() {
         try {
-            this.server?.stop()
+            this.server.stop()
             this.hostNameTxt.text = "Stopped"
         } catch (e: IOException) {
             // TODO: display a useful message
@@ -68,11 +68,16 @@ class ServerActivity : Activity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        this.server?.stop()
+        try {
+            this.server.stop()
+        } catch (e: UninitializedPropertyAccessException) {
+            Log.e(TAG, e::class.java.canonicalName, e)
+        }
     }
 
     companion object {
         private const val PORT_NUMBER = 5444   // TODO make this configurable
+        private const val TOPIC_NAME = "game"   // TODO make this configurable
         private val TAG = this::class.java.canonicalName.toString()
     }
 }
