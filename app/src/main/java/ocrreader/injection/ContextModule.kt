@@ -4,6 +4,7 @@ import android.app.Application
 import dagger.Module
 import dagger.Provides
 import ocrreader.utils.GridItemHolder
+import ocrreader.webserver.ConnectionUtils
 import ocrreader.webserver.GameServer
 import ocrreader.webserver.HttpGameServer
 import javax.inject.Singleton
@@ -24,4 +25,8 @@ class ContextModule(private val app: Application) {
     @Provides
     @Singleton
     fun provideGameServer(): GameServer = GameServer(provideHttpGameServer())
+
+    @Provides
+    @Singleton
+    fun provideConnectionUtils(): ConnectionUtils = ConnectionUtils(provideApplication())
 }

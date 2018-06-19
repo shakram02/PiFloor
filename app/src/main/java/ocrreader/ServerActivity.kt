@@ -19,15 +19,15 @@ class ServerActivity : Activity() {
 
     @Inject
     lateinit var server: GameServer
-    private lateinit var connectionUtils: ConnectionUtils
+
+    @Inject
+    lateinit var connectionUtils: ConnectionUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_server)
         (application as EdGridApplication).component.inject(this)
         ButterKnife.bind(this)
-
-        connectionUtils = ConnectionUtils(applicationContext)
     }
 
     @OnClick(R.id.btn_server_startserver)
