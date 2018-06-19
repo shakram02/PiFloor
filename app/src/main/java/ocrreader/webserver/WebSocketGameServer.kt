@@ -26,6 +26,12 @@ class WebSocketGameServer : AsyncHttpServer.WebSocketRequestCallback {
         }
     }
 
+    fun broadcast(message: String) {
+        for (socket in sockets) {
+            socket.send(message)
+        }
+    }
+
     companion object {
         private const val TAG = "WebSocketGameServer"
     }
