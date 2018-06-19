@@ -3,9 +3,7 @@ package ocrreader
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -18,10 +16,6 @@ class ServerActivity : Activity() {
     private lateinit var connectionUtils: ConnectionUtils
     @BindView(R.id.txt_server_hostname)
     lateinit var hostNameTxt: TextView
-    @BindView(R.id.btn_server_startserver)
-    lateinit var startServerBtn: Button
-    @BindView(R.id.btn_server_stopserver)
-    lateinit var stopServerBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,26 +23,19 @@ class ServerActivity : Activity() {
         ButterKnife.bind(this)
 
         connectionUtils = ConnectionUtils(applicationContext)
-        // TODO clean this up later, maybe run the server locally if no wifi
-        if (!connectionUtils.isConnectedInWifi) {
-            Toast.makeText(this, "Not connected to WIFI, Server won't work", Toast.LENGTH_LONG).show()
-            startServerBtn.isEnabled = false
-            stopServerBtn.isEnabled = false
-            return
+        // Run on localhost if no WiFi is present
+        server = if (!connectionUtils.isConnectedToWifi()) {
+            GameServer(LOCAL_HOST, PORT_NUMBER, TOPIC_NAME)
+        } else {
+            GameServer(connectionUtils.getIpAddress(), PORT_NUMBER, TOPIC_NAME)
         }
-
-        server = GameServer(connectionUtils.ipAddress, PORT_NUMBER, TOPIC_NAME)
-
     }
-
 
     @OnClick(R.id.btn_server_startserver)
     fun startServer() {
         try {
-            val hostName = server.serverAddress
-            this.hostNameTxt.text = hostName
+            this.hostNameTxt.text = server.address
             this.server.start()
-            Log.i(TAG, "Address: " + connectionUtils.getHostAddress(hostName, server.port))
         } catch (e: IOException) {
             Log.e(TAG, "Failed to start server", e)
             throw RuntimeException(e)
@@ -78,6 +65,7 @@ class ServerActivity : Activity() {
     companion object {
         private const val PORT_NUMBER = 5444   // TODO make this configurable
         private const val TOPIC_NAME = "game"   // TODO make this configurable
+        private const val LOCAL_HOST = "127.0.0.1"
         private val TAG = this::class.java.canonicalName.toString()
     }
 }
