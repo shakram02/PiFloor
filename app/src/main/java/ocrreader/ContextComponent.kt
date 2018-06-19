@@ -11,4 +11,5 @@ interface ContextComponent {
     fun inject(target: MainActivity)
     fun inject(target: CalibrationModeActivity)
     fun inject(target: GameModeActivity)
+    fun inject(target: ServerActivity)
 }

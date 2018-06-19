@@ -5,7 +5,7 @@ import com.koushikdutta.async.http.server.AsyncHttpServer
 import java.io.IOException
 
 
-class GameServer(private val hostName: String, private val listenPort: Int, private val topicName: String) {
+class GameServer(private val hostName: String, private val listenPort: Int, private val topicName: String, private val gameServer: HttpGameServer) {
     var server = AsyncHttpServer()
     val webAddress: String
         get() = computeWebAddress()
@@ -15,7 +15,7 @@ class GameServer(private val hostName: String, private val listenPort: Int, priv
     @Throws(IOException::class)
     fun start() {
         server.websocket("/$topicName", WebSocketGameServer())
-        server.get("/.*", HttpGameServer()) // Match all routes
+        server.get("/.*", gameServer) // Match all routes
         server.listen(listenPort)
 
         Log.i(TAG, "HTTP: $webAddress")
