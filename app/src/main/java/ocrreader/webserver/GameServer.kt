@@ -1,35 +1,36 @@
 package ocrreader.webserver
 
 import android.util.Log
+import com.koushikdutta.async.http.server.AsyncHttpServer
 import nanohttpd.protocols.http.IHTTPSession
-import nanohttpd.protocols.http.NanoHTTPD
 import nanohttpd.protocols.http.response.Response
 import nanohttpd.protocols.http.response.Response.newFixedLengthResponse
-import nanohttpd.protocols.websockets.NanoWSD
-import nanohttpd.protocols.websockets.WebSocketServer
 import java.io.IOException
 
 
-class GameServer(hostname: String, port: Int) : NanoHTTPD(hostname, port) {
-    private val webSocket: NanoWSD
-
-    init {
-        val websocketPort = port + 5
-        webSocket = WebSocketServer(websocketPort, true)
-    }
-
+class GameServer(private val hostName: String, private val listenPort: Int, private val topicName: String) {
+    var server = AsyncHttpServer()
+    val serverAddress: String
+        get() = hostName
+    val port: Int
+        get() = listenPort
 
     @Throws(IOException::class)
-    override fun start() {
-        super.start()
-        webSocket.start()
-        Log.i(DEBUG_TAG, "WebSocket: " + String.format("ws://%s:%s", hostname, webSocket.myPort))
+    fun start() {
+        server.websocket("/$topicName", GameRequestCallback())
+
+        server.listen(listenPort)
+        Log.i(TAG, "WebSocket: ws://$hostName:$listenPort/$topicName")
     }
 
-    public override fun serve(session: IHTTPSession): Response {
+    fun stop() {
+        server.stop()
+    }
+
+    private fun serve(session: IHTTPSession): Response {
         val method = session.method
         val uri = session.uri
-        Log.i(DEBUG_TAG, String.format("Method:%s Uri:%s", method, uri))
+        Log.i(TAG, String.format("Method:%s Uri:%s", method, uri))
         var msg = "<html>"
 
         msg += "<body><h1>Hello server</h1>\n"
@@ -45,12 +46,7 @@ class GameServer(hostname: String, port: Int) : NanoHTTPD(hostname, port) {
         return newFixedLengthResponse("$msg</body></html>\n")
     }
 
-    override fun stop() {
-        webSocket.stop()
-        super.stop()
-    }
-
     companion object {
-        private val DEBUG_TAG = "WebServer"
+        private val TAG = "WebServer"
     }
 }

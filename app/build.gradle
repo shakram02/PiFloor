@@ -44,6 +44,8 @@ dependencies {
 
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
+    implementation 'com.koushikdutta.async:androidasync:2.2.1'
+
     implementation "com.jakewharton:butterknife:$butterknife_version"
     kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
 }
