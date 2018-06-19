@@ -5,17 +5,17 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup.LayoutParams
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.injection.EdGridApplication
-import ocrreader.utils.GridItemHolder
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.graphcis.PreviewOcrGraphic
+import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
+import ocrreader.utils.GridItemHolder
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject
@@ -50,23 +50,20 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
     }
 
     private fun loadOverlay() {
-        val controlInflater = LayoutInflater.from(baseContext)
-        val viewControl = controlInflater.inflate(R.layout.fragment_calibration_overlay, null)
-        val clearButton = viewControl.findViewById(R.id.btn_clear_calibration_fragment)
-        clearButton.setOnClickListener { gridItemHolder.clear() }
-        val layoutParamsControl = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        this.addContentView(viewControl, layoutParamsControl)
+        val calibrationOverlayFragment = CalibrationOverlayFragment()
+        supportFragmentManager.beginTransaction()
+                .add(R.id.container_calibrate_fragment_holder, calibrationOverlayFragment)
+                .commit()
+
     }
 
     override fun onOcrGraphicTap(ocrGraphic: OcrGraphic, graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
         graphicOverlay.remove(ocrGraphic)
         val text = ocrGraphic.value.toLowerCase()
 
-
         Log.d(TAG, "Calibrating:$text")
-        graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock!!))
+        graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
         gridItemHolder.addGridItem(ocrGraphic.value)
-
 
         if (gridItemHolder.size == GRID_SIZE) {
             finish()
