@@ -11,8 +11,6 @@ class WebSocketGameRequestCallback : AsyncHttpServer.WebSocketRequestCallback {
 
     override fun onConnected(webSocket: WebSocket, request: AsyncHttpServerRequest?) {
         sockets.add(webSocket)
-        Log.i(TAG, "A client connected ${request!!.method}")
-
         //Use this to clean up any references to your webSocket
         webSocket.closedCallback = CompletedCallback { ex ->
             try {
@@ -22,7 +20,8 @@ class WebSocketGameRequestCallback : AsyncHttpServer.WebSocketRequestCallback {
                 sockets.remove(webSocket)
             }
         }
-        webSocket.stringCallback = WebSocket.StringCallback { s ->
+        webSocket.stringCallback = WebSocket.StringCallback { string ->
+            Log.i(TAG, "Client sent:$string")
             webSocket.send("Welcome Client!")
         }
     }

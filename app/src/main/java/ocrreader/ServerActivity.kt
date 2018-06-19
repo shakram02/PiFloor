@@ -37,7 +37,7 @@ class ServerActivity : Activity() {
             return
         }
 
-        server = GameServer(connectionUtils.ipAddress, PORT_NUMBER)
+        server = GameServer(connectionUtils.ipAddress, PORT_NUMBER, TOPIC_NAME)
 
     }
 
