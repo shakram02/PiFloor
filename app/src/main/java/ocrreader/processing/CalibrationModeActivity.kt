@@ -7,8 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams;
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.EdGridApplication
-import ocrreader.GridItemHolder
+import ocrreader.injection.EdGridApplication
+import ocrreader.utils.GridItemHolder
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R

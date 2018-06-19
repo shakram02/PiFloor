@@ -15,6 +15,7 @@ class HttpGameServer(private val context: Application) : HttpServerRequestCallba
             try {
                 val assetManager = context.assets
 
+                // TODO move file operation to background thread
                 val reader = InputStreamReader(assetManager.open("index.html"))
                 val page = reader.readText()
                 Log.i(TAG, "Page Result:$page")

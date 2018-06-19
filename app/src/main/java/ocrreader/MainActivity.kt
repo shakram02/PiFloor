@@ -24,8 +24,10 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import ocrreader.injection.EdGridApplication
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
+import ocrreader.utils.GridItemHolder
 import javax.inject.Inject
 
 

@@ -19,8 +19,8 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.EdGridApplication
-import ocrreader.GridItemHolder
+import ocrreader.injection.EdGridApplication
+import ocrreader.utils.GridItemHolder
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R

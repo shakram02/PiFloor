@@ -1,6 +1,8 @@
-package ocrreader
+package ocrreader.injection
 
 import dagger.Component
+import ocrreader.MainActivity
+import ocrreader.ServerActivity
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
 import javax.inject.Singleton

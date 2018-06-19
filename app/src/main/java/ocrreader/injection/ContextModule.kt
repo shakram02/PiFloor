@@ -1,8 +1,9 @@
-package ocrreader
+package ocrreader.injection
 
 import android.app.Application
 import dagger.Module
 import dagger.Provides
+import ocrreader.utils.GridItemHolder
 import ocrreader.webserver.GameServer
 import ocrreader.webserver.HttpGameServer
 import javax.inject.Singleton

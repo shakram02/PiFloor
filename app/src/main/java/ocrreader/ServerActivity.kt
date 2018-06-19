@@ -7,6 +7,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import ocrreader.injection.EdGridApplication
 import ocrreader.webserver.ConnectionUtils
 import ocrreader.webserver.GameServer
 import java.io.IOException
