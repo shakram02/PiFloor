@@ -11,34 +11,35 @@ import android.text.format.Formatter
 
 class ConnectionUtils(private val applicationContext: Context) {
     private var broadcastReceiverNetworkState: BroadcastReceiver? = null
-    val isConnectedInWifi: Boolean
-        get() {
-            val wifiManager = applicationContext
-                    .applicationContext
-                    .getSystemService(WIFI_SERVICE) as WifiManager
-                    ?: throw RuntimeException("Wifi Manager is null")
-            val networkInfo = (applicationContext
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
 
-            return (networkInfo != null && networkInfo.isAvailable && networkInfo.isConnected
-                    && wifiManager.isWifiEnabled && networkInfo.typeName == "WIFI")
-        }
-    // TODO handle IPv6
-    val ipAddress: String
-        get() {
-            val wifiManager = applicationContext
-                    .applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-                    ?: throw RuntimeException("Invalid connection")
+    fun isConnectedToWifi(): Boolean {
+        val wifiManager = applicationContext
+                .applicationContext
+                .getSystemService(WIFI_SERVICE) as WifiManager?
+                ?: throw RuntimeException("Wifi Manager is null")
+        val networkInfo = (applicationContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
 
-            return Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
-        }
+        return (networkInfo != null && networkInfo.isAvailable && networkInfo.isConnected
+                && wifiManager.isWifiEnabled && networkInfo.typeName == "WIFI")
+    }
+
+    fun getIpAddress(): String {
+        // TODO handle IPv6
+        val wifiManager = applicationContext
+                .applicationContext.getSystemService(WIFI_SERVICE) as WifiManager?
+                ?: throw RuntimeException("Invalid connection")
+
+        return Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
+    }
+
 
     fun getHostAddress(hostName: String, port: Int): String {
         return String.format("http://%s:%s", hostName, port)
     }
 
     private fun initBroadcastReceiverNetworkStateChanged(stateChangeHandler: Runnable) {
-        // source
+        // source [Monitor wifi state]
         // https://github.com/lopspower/AndroidWebServer/blob/master/app/src/main/java/com/mikhaellopez/androidwebserver/MainActivity.java#L76
         val filters = IntentFilter()
         filters.addAction("android.net.wifi.WIFI_STATE_CHANGED")
