@@ -5,14 +5,20 @@ import com.koushikdutta.async.http.server.AsyncHttpServerRequest
 import com.koushikdutta.async.http.server.AsyncHttpServerResponse
 import com.koushikdutta.async.http.server.HttpServerRequestCallback
 
-class HttpGameServerCallback : HttpServerRequestCallback {
+class HttpGameServer : HttpServerRequestCallback {
     override fun onRequest(request: AsyncHttpServerRequest, response: AsyncHttpServerResponse) {
         Log.i(TAG, "HTTP:${request.method}, ${request.path}")
-        response.send("Hello!!!")
+
+        var msg = "<html>"
+        msg += "<body><h1>Hello server</h1>\n"
+        msg += "<script src=\"myscripts.js\"></script>"
+        msg += "<p>Hello, " + "!</p></body></html>"
+
+        response.send(msg)
         val d = 43
     }
 
     companion object {
-        private val TAG = this::class.java.canonicalName
+        private const val TAG = "HttpGameServer"
     }
 }

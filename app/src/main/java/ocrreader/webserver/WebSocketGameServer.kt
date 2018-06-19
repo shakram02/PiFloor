@@ -6,7 +6,7 @@ import com.koushikdutta.async.http.WebSocket
 import com.koushikdutta.async.http.server.AsyncHttpServer
 import com.koushikdutta.async.http.server.AsyncHttpServerRequest
 
-class WebSocketGameRequestCallback : AsyncHttpServer.WebSocketRequestCallback {
+class WebSocketGameServer : AsyncHttpServer.WebSocketRequestCallback {
     private val sockets = ArrayList<WebSocket>()
 
     override fun onConnected(webSocket: WebSocket, request: AsyncHttpServerRequest?) {
@@ -27,6 +27,6 @@ class WebSocketGameRequestCallback : AsyncHttpServer.WebSocketRequestCallback {
     }
 
     companion object {
-        private val TAG = this::class.java.canonicalName
+        private const val TAG = "WebSocketGameServer"
     }
 }

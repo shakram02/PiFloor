@@ -17,8 +17,8 @@ class GameServer(private val hostName: String, private val listenPort: Int, priv
 
     @Throws(IOException::class)
     fun start() {
-        server.websocket("/$topicName", WebSocketGameRequestCallback())
-        server.get("/", HttpGameServerCallback())
+        server.websocket("/$topicName", WebSocketGameServer())
+        server.get("/.*", HttpGameServer())
 
         server.listen(listenPort)
         Log.i(TAG, "WebSocket: ws://$hostName:$listenPort/$topicName")
