@@ -8,7 +8,7 @@ import nanohttpd.protocols.http.response.Response.newFixedLengthResponse
 import java.io.IOException
 
 
-class GameServer(private val hostName: String, private val listenPort: Int, private val topicName: String) {
+class GameServer(private val hostName: String, private val listenPort: Int) {
     var server = AsyncHttpServer()
     val serverAddress: String
         get() = hostName
@@ -17,10 +17,11 @@ class GameServer(private val hostName: String, private val listenPort: Int, priv
 
     @Throws(IOException::class)
     fun start() {
-        server.websocket("/$topicName", GameRequestCallback())
+        server.websocket("/", WebSocketGameRequestCallback())
+        server.get("/", HttpGameServerCallback())
 
         server.listen(listenPort)
-        Log.i(TAG, "WebSocket: ws://$hostName:$listenPort/$topicName")
+        Log.i(TAG, "WebSocket: ws://$hostName:$listenPort/")
     }
 
     fun stop() {
