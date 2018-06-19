@@ -9,17 +9,16 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import ocrreader.webserver.ConnectionUtils
 import ocrreader.webserver.GameServer
-import ocrreader.webserver.HttpGameServer
 import java.io.IOException
 import javax.inject.Inject
 
 class ServerActivity : Activity() {
-    lateinit var server: GameServer
-    private lateinit var connectionUtils: ConnectionUtils
     @BindView(R.id.txt_server_hostname)
     lateinit var hostNameTxt: TextView
+
     @Inject
-    lateinit var httpServer: HttpGameServer
+    lateinit var server: GameServer
+    private lateinit var connectionUtils: ConnectionUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,25 +27,19 @@ class ServerActivity : Activity() {
         ButterKnife.bind(this)
 
         connectionUtils = ConnectionUtils(applicationContext)
-        // Run on localhost if no WiFi is present
-        server = if (!connectionUtils.isConnectedToWifi()) {
-            GameServer(LOCAL_HOST, PORT_NUMBER, TOPIC_NAME, httpServer)
-        } else {
-            GameServer(connectionUtils.getIpAddress(), PORT_NUMBER, TOPIC_NAME, httpServer)
-        }
     }
 
     @OnClick(R.id.btn_server_startserver)
     fun startServer() {
-        try {
-            val addresses = "${server.webAddress}\n${server.webSocketAddress}"
-            this.hostNameTxt.text = addresses
-
-            this.server.start()
-        } catch (e: IOException) {
-            Log.e(TAG, "Failed to start server", e)
-            throw RuntimeException(e)
+        // Run on localhost if no WiFi is present
+        if (!connectionUtils.isConnectedToWifi()) {
+            server.start(LOCAL_HOST, PORT_NUMBER, TOPIC_NAME)
+        } else {
+            server.start(connectionUtils.getIpAddress(), PORT_NUMBER, TOPIC_NAME)
         }
+
+        val addresses = "${server.webAddress}\n${server.webSocketAddress}"
+        this.hostNameTxt.text = addresses
     }
 
     @OnClick(R.id.btn_server_stopserver)
