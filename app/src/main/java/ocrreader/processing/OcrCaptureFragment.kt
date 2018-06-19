@@ -19,6 +19,7 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
@@ -28,6 +29,7 @@ import ocrreader.processing.OcrCaptureFragment.OcrSelectionListener
 import ocrreader.ui.camera.CameraSource
 import ocrreader.ui.camera.CameraSourcePreview
 import ocrreader.ui.camera.OcrGraphicOverlay
+import org.reactivestreams.Subscriber
 import java.io.IOException
 
 
@@ -41,9 +43,9 @@ import java.io.IOException
  */
 class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private var mCameraSource: CameraSource? = null
-    var mPreview: CameraSourcePreview? = null
+    private var preview: CameraSourcePreview? = null
     @BindView(R.id.overlay_ocr_fragment_graphics)
-    lateinit var mGraphicOverlay: OcrGraphicOverlay<OcrGraphic>
+    lateinit var graphicOverlay: OcrGraphicOverlay<OcrGraphic>
     private lateinit var unbinder: Unbinder
     // Helper objects for detecting taps and pinches.
     private var scaleGestureDetector: ScaleGestureDetector? = null
@@ -51,11 +53,13 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private var autoFocus: Boolean? = null
     private var useFlash: Boolean? = null
     private lateinit var mListener: OcrSelectionListener
+    private val processor = OcrDetectorProcessor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            autoFocus = arguments.getBoolean(AutoFocus, false)
+            // TODO: this probably isn't working well, check that the arguments are loaded
+            autoFocus = arguments.getBoolean(AutoFocus, true)
             useFlash = arguments.getBoolean(UseFlash, false)
         }
     }
@@ -67,7 +71,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         val fragmentView = inflater!!.inflate(R.layout.fragment_ocr_capture, container, false)
         unbinder = ButterKnife.bind(this, fragmentView)
 
-        mPreview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
+        preview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
         val applicationContext = this.activity.applicationContext
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
@@ -82,7 +86,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         gestureDetector = GestureDetector(this.context, CaptureGestureListener(mListener))
         scaleGestureDetector = ScaleGestureDetector(this.context, ScaleListener())
 
-        Snackbar.make(mGraphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
+        Snackbar.make(graphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
                 .show()
 
@@ -101,12 +105,12 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     override fun onDetach() {
         super.onDetach()
-        mPreview?.release()
+        preview?.release()
     }
 
     override fun onPause() {
         super.onPause()
-        mPreview?.stop()
+        preview?.stop()
     }
 
     override fun onResume() {
@@ -116,7 +120,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mPreview?.stop()
+        preview?.stop()
         unbinder.unbind()
     }
 
@@ -140,7 +144,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
                     RC_HANDLE_CAMERA_PERM)
         }
 
-        Snackbar.make(mGraphicOverlay, R.string.permission_camera_rationale,
+        Snackbar.make(graphicOverlay, R.string.permission_camera_rationale,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.ok, listener)
                 .show()
@@ -162,7 +166,9 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         // is set to receive the text recognition results and display graphics for each text block
         // on screen.
         val textRecognizer = TextRecognizer.Builder(context).build()
-        textRecognizer.setProcessor(OcrDetectorProcessor(mGraphicOverlay))
+
+
+        textRecognizer.setProcessor(processor)
 
         if (!textRecognizer.isOperational) {
             // Note: The first time that an app using a Vision API is installed on a
@@ -228,14 +234,14 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
     private inner class CaptureGestureListener internal constructor(private val ocrSelectionListener: OcrSelectionListener) : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val graphic = mGraphicOverlay.getGraphicAtLocation(e.rawX, e.rawY) as OcrGraphic?
+            val graphic = graphicOverlay.getGraphicAtLocation(e.rawX, e.rawY) as OcrGraphic?
 
             if (graphic == null) {
                 Log.i(TAG, "No graphic detected")
                 return super.onSingleTapConfirmed(e)
             }
 
-            return ocrSelectionListener.onOcrGraphicTap(graphic, mGraphicOverlay)
+            return ocrSelectionListener.onOcrGraphicTap(graphic, graphicOverlay)
         }
     }
 
@@ -308,7 +314,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
         if (mCameraSource != null) {
             try {
-                mPreview!!.start(mCameraSource, mGraphicOverlay)
+                preview!!.start(mCameraSource, graphicOverlay)
             } catch (e: IOException) {
                 Log.e(TAG, "Unable to start camera source.", e)
                 mCameraSource!!.release()
@@ -340,5 +346,9 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    fun subscribe(subscriber: Subscriber<ArrayList<TextBlock>>) {
+        processor.subscribe(subscriber)
     }
 }

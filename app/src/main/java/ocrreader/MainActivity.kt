@@ -19,16 +19,14 @@ package ocrreader
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.CompoundButton
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.google.android.gms.common.api.CommonStatusCodes
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
-import java.util.*
+import javax.inject.Inject
 
 
 /**
@@ -43,12 +41,13 @@ class MainActivity : Activity() {
     lateinit var useFlash: CompoundButton
     @BindView(R.id.status_message)
     lateinit var statusMessage: TextView
-    @BindView(R.id.text_value)
-    lateinit var textValue: TextView
+    @Inject
+    lateinit var gridItemHolder: GridItemHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        (application as EdGridApplication).component.inject(this)
         ButterKnife.bind(this)
     }
 
@@ -103,30 +102,18 @@ class MainActivity : Activity() {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode != RC_OCR_CALIBRATE) {
-            statusMessage.text = String.format(getString(R.string.ocr_error),
-                    CommonStatusCodes.getStatusCodeString(resultCode))
+            statusMessage.text = String.format(getString(R.string.ocr_error), resultCode)
             return
         }
 
-        if (resultCode != CommonStatusCodes.SUCCESS) {
+        if (resultCode != Activity.RESULT_OK) {
+            statusMessage.text = gridItemHolder.itemsAsString.joinToString()
             return super.onActivityResult(requestCode, resultCode, data)
-        }
-
-        if (data != null) {
-            val text = data.getSerializableExtra(CalibrationModeActivity.GridElements) as HashSet<*>
-
-            statusMessage.setText(R.string.ocr_success)
-            textValue.text = "${text.size}"
-            Log.d(TAG, "Text read: $text")
-        } else {
-            statusMessage!!.setText(R.string.ocr_failure)
-            Log.d(TAG, "No Text captured, intent data is null")
         }
     }
 
     companion object {
         private const val RC_OCR_CALIBRATE = 9003
-        private const val TAG = "MainActivity"
         // TODO use a const provider when using dagger
         const val AutoFocus = "AutoFocus"
         const val UseFlash = "UseFlash"
