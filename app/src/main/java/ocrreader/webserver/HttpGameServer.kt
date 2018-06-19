@@ -8,14 +8,13 @@ import com.koushikdutta.async.http.server.HttpServerRequestCallback
 class HttpGameServer : HttpServerRequestCallback {
     override fun onRequest(request: AsyncHttpServerRequest, response: AsyncHttpServerResponse) {
         Log.i(TAG, "HTTP:${request.method}, ${request.path}")
-
+        // TODO: parse the path and load the requested resource
         var msg = "<html>"
         msg += "<body><h1>Hello server</h1>\n"
         msg += "<script src=\"myscripts.js\"></script>"
         msg += "<p>Hello, " + "!</p></body></html>"
 
         response.send(msg)
-        val d = 43
     }
 
     companion object {
