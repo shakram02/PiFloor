@@ -16,7 +16,8 @@
 package ocrreader.processing
 
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
 import ocrreader.MainActivity.Companion.AutoFocus
@@ -36,7 +37,7 @@ import javax.inject.Inject
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and contents of each TextBlock.
  */
-class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
+class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
     @Inject
     lateinit var gridItemHolder: GridItemHolder
     private lateinit var captureFragment: OcrCaptureFragment
@@ -47,6 +48,8 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_game_mode)
+        setSupportActionBar(findViewById(R.id.toolbar_game_activity) as Toolbar)
+
         (application as EdGridApplication).component.inject(this)
         loadFragment()
     }
