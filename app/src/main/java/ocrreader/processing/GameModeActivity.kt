@@ -19,13 +19,14 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.injection.EdGridApplication
-import ocrreader.utils.GridItemHolder
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
+import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
+import ocrreader.utils.GridItemHolder
+import ocrreader.webserver.ServerFragment
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject
@@ -61,12 +62,12 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
                 .add(R.id.container_game_fragment_holder, captureFragment).runOnCommit {
                     captureFragment.subscribe(this)
                 }.commit()
-    }
 
-    override fun onOcrGraphicTap(ocrGraphic: OcrGraphic,
-                                 graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
-        // Nothing to be done
-        return true
+        val serverFragment = ServerFragment()
+
+        supportFragmentManager.beginTransaction()
+                .add(R.id.container_game_fragment_holder, serverFragment)
+                .commit()
     }
 
     /**
@@ -117,7 +118,18 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
         Log.d(TAG, "Data stream ended")
     }
 
+    override fun onOcrGraphicTap(ocrGraphic: OcrGraphic,
+                                 graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
+        // Nothing to be done
+        return true
+    }
+
     companion object {
         private const val TAG = "GameModeActivity"
+
+        private const val PORT_NUMBER = 5444   // TODO make this configurable
+        private const val TOPIC_NAME = "game"   // TODO make this configurable
+        private const val LOCAL_HOST = "127.0.0.1"
+
     }
 }

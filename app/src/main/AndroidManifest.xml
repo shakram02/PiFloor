@@ -37,10 +37,6 @@
         <activity
             android:name=".processing.CalibrationModeActivity"
             android:label="Calibrate Grid" />
-        <activity
-            android:name=".ServerActivity"
-            android:label="Server Activity" />
-
     </application>
 
 </manifest>

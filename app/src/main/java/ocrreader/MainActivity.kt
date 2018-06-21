@@ -59,12 +59,6 @@ class MainActivity : Activity() {
         startActivityForResult(intent, RC_OCR_CALIBRATE)
     }
 
-    @OnClick(R.id.btn_main_serverconfig)
-    fun startServerActivity() {
-        val intent = Intent(this, ServerActivity::class.java)
-        startActivity(intent)
-    }
-
     @OnClick(R.id.btn_main_gamemode)
     fun startGameActivity() {
         // launch Ocr capture activity.

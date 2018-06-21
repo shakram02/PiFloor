@@ -2,7 +2,7 @@ package ocrreader.injection
 
 import dagger.Component
 import ocrreader.MainActivity
-import ocrreader.ServerActivity
+import ocrreader.webserver.ServerFragment
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.CalibrationOverlayFragment
 import ocrreader.processing.GameModeActivity
@@ -15,5 +15,5 @@ interface ContextComponent {
     fun inject(target: CalibrationModeActivity)
     fun inject(target: GameModeActivity)
     fun inject(target: CalibrationOverlayFragment)
-    fun inject(target: ServerActivity)
+    fun inject(target: ServerFragment)
 }

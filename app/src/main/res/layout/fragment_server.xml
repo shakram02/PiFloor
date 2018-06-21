@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ServerActivity">
+    tools:context=".webserver.ServerFragment">
 
     <TextView
         android:id="@+id/txt_server_hostname"

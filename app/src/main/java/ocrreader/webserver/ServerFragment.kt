@@ -1,19 +1,25 @@
-package ocrreader
+package ocrreader.webserver
 
-import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.Unbinder
+import ocrreader.R
 import ocrreader.injection.EdGridApplication
-import ocrreader.webserver.ConnectionUtils
-import ocrreader.webserver.GameServer
 import java.io.IOException
 import javax.inject.Inject
 
-class ServerActivity : Activity() {
+class ServerFragment : Fragment() {
+    private lateinit var unbinder: Unbinder
+
     @BindView(R.id.txt_server_hostname)
     lateinit var hostNameTxt: TextView
 
@@ -23,11 +29,16 @@ class ServerActivity : Activity() {
     @Inject
     lateinit var connectionUtils: ConnectionUtils
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_server)
-        (application as EdGridApplication).component.inject(this)
-        ButterKnife.bind(this)
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val fragmentView = inflater!!.inflate(R.layout.fragment_server, container, false)
+        unbinder = ButterKnife.bind(this, fragmentView)
+
+        return fragmentView
+    }
+
+    override fun onAttach(context: Context?) {
+        (this.activity.application as EdGridApplication).component.inject(this)
+        super.onAttach(context)
     }
 
     @OnClick(R.id.btn_server_startserver)
@@ -61,6 +72,11 @@ class ServerActivity : Activity() {
         } catch (e: UninitializedPropertyAccessException) {
             Log.e(TAG, e::class.java.canonicalName, e)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        unbinder.unbind()
     }
 
     companion object {
