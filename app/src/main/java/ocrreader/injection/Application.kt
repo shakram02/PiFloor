@@ -1,4 +1,4 @@
-package ocrreader
+package ocrreader.injection
 
 import android.app.Application
 

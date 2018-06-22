@@ -16,16 +16,19 @@
 package ocrreader.processing
 
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.EdGridApplication
-import ocrreader.GridItemHolder
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
+import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
+import ocrreader.utils.GridItemHolder
+import ocrreader.webserver.ServerFragment
+import ocrreader.webserver.WebSocketHandler
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject
@@ -35,10 +38,14 @@ import javax.inject.Inject
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and contents of each TextBlock.
  */
-class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
+class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
+    private lateinit var captureFragment: OcrCaptureFragment
+
     @Inject
     lateinit var gridItemHolder: GridItemHolder
-    private lateinit var captureFragment: OcrCaptureFragment
+
+    @Inject
+    lateinit var websocketHandler: WebSocketHandler
 
     /**
      * Initializes the UI and creates the detector pipeline.
@@ -46,6 +53,8 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_game_mode)
+        setSupportActionBar(findViewById(R.id.toolbar_game_activity) as Toolbar)
+
         (application as EdGridApplication).component.inject(this)
         loadFragment()
     }
@@ -61,12 +70,12 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
                 .add(R.id.container_game_fragment_holder, captureFragment).runOnCommit {
                     captureFragment.subscribe(this)
                 }.commit()
-    }
 
-    override fun onOcrGraphicTap(ocrGraphic: OcrGraphic,
-                                 graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
-        // Nothing to be done
-        return true
+        val serverFragment = ServerFragment()
+
+        supportFragmentManager.beginTransaction()
+                .add(R.id.container_game_fragment_holder, serverFragment)
+                .commit()
     }
 
     /**
@@ -97,7 +106,8 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
         val diff = gridItemHolder.diff(items)
 
         if (diff.isNotEmpty()) {
-            Log.i(TAG, "Missing: ${diff.joinToString()}")
+            val missingItems = diff.joinToString()
+            Log.i(TAG, "Missing: $missingItems")
         }
     }
 
@@ -117,7 +127,18 @@ class GameModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionList
         Log.d(TAG, "Data stream ended")
     }
 
+    override fun onOcrGraphicTap(ocrGraphic: OcrGraphic,
+                                 graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
+        // Nothing to be done
+        return true
+    }
+
     companion object {
         private const val TAG = "GameModeActivity"
+
+        private const val PORT_NUMBER = 5444   // TODO make this configurable
+        private const val TOPIC_NAME = "game"   // TODO make this configurable
+        private const val LOCAL_HOST = "127.0.0.1"
+
     }
 }

@@ -11,14 +11,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".EdGridApplication"
+        android:name=".injection.EdGridApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon"
         android:label="MultiTrackerApp"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
@@ -37,10 +37,6 @@
         <activity
             android:name=".processing.CalibrationModeActivity"
             android:label="Calibrate Grid" />
-        <activity
-            android:name=".ServerActivity"
-            android:label="Server Activity" />
-
     </application>
 
 </manifest>

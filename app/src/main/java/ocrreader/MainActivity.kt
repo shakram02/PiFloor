@@ -24,8 +24,10 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import ocrreader.injection.EdGridApplication
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
+import ocrreader.utils.GridItemHolder
 import javax.inject.Inject
 
 
@@ -55,12 +57,6 @@ class MainActivity : Activity() {
     fun startCalibrationActivity() {
         val intent = Intent(this, CalibrationModeActivity::class.java)
         startActivityForResult(intent, RC_OCR_CALIBRATE)
-    }
-
-    @OnClick(R.id.btn_main_serverconfig)
-    fun startServerActivity() {
-        val intent = Intent(this, ServerActivity::class.java)
-        startActivity(intent)
     }
 
     @OnClick(R.id.btn_main_gamemode)

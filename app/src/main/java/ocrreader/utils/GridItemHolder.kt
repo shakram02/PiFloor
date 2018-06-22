@@ -1,4 +1,4 @@
-package ocrreader
+package ocrreader.utils
 
 import com.google.android.gms.vision.text.TextBlock
 
