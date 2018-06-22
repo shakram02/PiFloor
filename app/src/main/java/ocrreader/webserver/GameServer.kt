@@ -5,10 +5,9 @@ import com.koushikdutta.async.http.server.AsyncHttpServer
 import java.io.IOException
 
 
-class GameServer(private val gameServer: HttpGameServer) {
+class GameServer(private val gameServer: HttpGameServer, private val webSocketHandler: WebSocketHandler) {
     private lateinit var hostName: String
     private lateinit var topicName: String
-    private lateinit var webSocketServer: WebSocketGameServer
     private var listenPort: Int = 0
 
     var server = AsyncHttpServer()
@@ -23,9 +22,7 @@ class GameServer(private val gameServer: HttpGameServer) {
         this.listenPort = listenPort
         this.topicName = topicName
 
-        // TODO: use dagger and provide interfaces instead of concrete implementation
-        webSocketServer = WebSocketGameServer()
-        server.websocket("/$topicName", webSocketServer)
+        server.websocket("/$topicName", webSocketHandler)
         server.get("/.*", gameServer) // Match all routes
         server.listen(listenPort)
 
@@ -38,10 +35,6 @@ class GameServer(private val gameServer: HttpGameServer) {
             DEFAULT_HTTP_PORT -> "http://$hostName"
             else -> "http://$hostName:$listenPort"
         }
-    }
-
-    fun broadcast(message: String) {
-        webSocketServer.broadcast(message)
     }
 
     fun stop() {

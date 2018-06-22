@@ -28,6 +28,7 @@ import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
 import ocrreader.utils.GridItemHolder
 import ocrreader.webserver.ServerFragment
+import ocrreader.webserver.WebSocketHandler
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject
@@ -38,9 +39,13 @@ import javax.inject.Inject
  * size, and contents of each TextBlock.
  */
 class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
+    private lateinit var captureFragment: OcrCaptureFragment
+
     @Inject
     lateinit var gridItemHolder: GridItemHolder
-    private lateinit var captureFragment: OcrCaptureFragment
+
+    @Inject
+    lateinit var websocketHandler: WebSocketHandler
 
     /**
      * Initializes the UI and creates the detector pipeline.
@@ -101,7 +106,8 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         val diff = gridItemHolder.diff(items)
 
         if (diff.isNotEmpty()) {
-            Log.i(TAG, "Missing: ${diff.joinToString()}")
+            val missingItems = diff.joinToString()
+            Log.i(TAG, "Missing: $missingItems")
         }
     }
 

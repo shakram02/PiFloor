@@ -7,6 +7,7 @@ import ocrreader.utils.GridItemHolder
 import ocrreader.webserver.ConnectionUtils
 import ocrreader.webserver.GameServer
 import ocrreader.webserver.HttpGameServer
+import ocrreader.webserver.WebSocketHandler
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +25,11 @@ class ContextModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideGameServer(): GameServer = GameServer(provideHttpGameServer())
+    fun provideWebSocketServer(): WebSocketHandler = WebSocketHandler()
+
+    @Provides
+    @Singleton
+    fun provideGameServer(): GameServer = GameServer(provideHttpGameServer(), provideWebSocketServer())
 
     @Provides
     @Singleton
