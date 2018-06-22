@@ -2,7 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="@string/server_state"
-        android:id="@+id/menu_item_server_switch"
-        app:showAsAction="never"/>
+        android:id="@+id/menu_item_server_start"
+        android:title="@string/start"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_item_server_stop"
+        android:title="@string/stop"
+        app:showAsAction="never" />
 </menu>

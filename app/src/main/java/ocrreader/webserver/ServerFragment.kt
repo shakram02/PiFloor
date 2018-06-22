@@ -39,8 +39,7 @@ class ServerFragment : Fragment() {
         super.onAttach(context)
     }
 
-    @OnClick(R.id.btn_server_startserver)
-    fun startServer() {
+    private fun startServer() {
         // Run on localhost if no WiFi is present
         if (!connectionUtils.isConnectedToWifi()) {
             server.start(LOCAL_HOST, PORT_NUMBER, TOPIC_NAME)
@@ -52,8 +51,7 @@ class ServerFragment : Fragment() {
         this.hostNameTxt.text = addresses
     }
 
-    @OnClick(R.id.btn_server_stopserver)
-    fun stopServer() {
+    private fun stopServer() {
         try {
             this.server.stop()
             this.hostNameTxt.text = "Stopped"
@@ -83,8 +81,16 @@ class ServerFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        Log.i(TAG, "Menu item pressed")
-        return super.onOptionsItemSelected(item)
+        Log.i(TAG, "Menu item pressed ${item!!.title}")
+        val id = item.itemId
+
+        if (id == R.id.menu_item_server_start) {
+            startServer()
+        } else if (id == R.id.menu_item_server_stop) {
+            stopServer()
+        }
+
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
