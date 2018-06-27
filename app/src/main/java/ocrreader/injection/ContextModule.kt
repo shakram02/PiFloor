@@ -12,6 +12,9 @@ import javax.inject.Singleton
 
 @Module
 class ContextModule(private val app: Application) {
+    private var httpServer: HttpGameServer? = null
+    private var websocketServer: WebSocketHandler? = null
+
     @Provides
     @Singleton
     fun provideHolder(): GridItemHolder = GridItemHolder()
@@ -21,17 +24,35 @@ class ContextModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideHttpGameServer(): HttpGameServer = HttpGameServer(app)
+    fun provideHttpGameServer(): HttpGameServer {
+        // TODO: dagger should manage singleton instantiation
+        if (httpServer == null) {
+            httpServer = HttpGameServer(app)
+        }
+
+        return httpServer!!
+    }
 
     @Provides
     @Singleton
-    fun provideWebSocketServer(): WebSocketHandler = WebSocketHandler()
+    fun provideWebSocketServer(): WebSocketHandler {
+        // TODO: dagger should manage singleton instantiation
+        if (websocketServer == null) {
+            websocketServer = WebSocketHandler()
+        }
+
+        return websocketServer!!
+    }
 
     @Provides
     @Singleton
-    fun provideGameServer(): GameServer = GameServer(provideHttpGameServer(), provideWebSocketServer())
+    fun provideGameServer(): GameServer {
+        return GameServer(provideHttpGameServer(), provideWebSocketServer())
+    }
 
     @Provides
     @Singleton
-    fun provideConnectionUtils(): ConnectionUtils = ConnectionUtils(provideApplication())
+    fun provideConnectionUtils(): ConnectionUtils {
+        return ConnectionUtils(app)
+    }
 }
