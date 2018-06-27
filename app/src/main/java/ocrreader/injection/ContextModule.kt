@@ -12,8 +12,6 @@ import javax.inject.Singleton
 
 @Module
 class ContextModule(private val app: Application) {
-    private var httpServer: HttpGameServer? = null
-    private var websocketServer: WebSocketHandler? = null
 
     @Provides
     @Singleton
@@ -24,35 +22,25 @@ class ContextModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideHttpGameServer(): HttpGameServer {
-        // TODO: dagger should manage singleton instantiation
-        if (httpServer == null) {
-            httpServer = HttpGameServer(app)
-        }
-
-        return httpServer!!
+    fun provideHttpGameServer(app: Application): HttpGameServer {
+        return HttpGameServer(app)
     }
 
     @Provides
     @Singleton
     fun provideWebSocketServer(): WebSocketHandler {
-        // TODO: dagger should manage singleton instantiation
-        if (websocketServer == null) {
-            websocketServer = WebSocketHandler()
-        }
-
-        return websocketServer!!
+        return WebSocketHandler()
     }
 
     @Provides
     @Singleton
-    fun provideGameServer(): GameServer {
-        return GameServer(provideHttpGameServer(), provideWebSocketServer())
+    fun provideGameServer(gameServer: HttpGameServer, webSocketHandler: WebSocketHandler): GameServer {
+        return GameServer(gameServer, webSocketHandler)
     }
 
     @Provides
     @Singleton
-    fun provideConnectionUtils(): ConnectionUtils {
+    fun provideConnectionUtils(app: Application): ConnectionUtils {
         return ConnectionUtils(app)
     }
 }
