@@ -45,7 +45,7 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
     lateinit var gridItemHolder: GridItemHolder
 
     @Inject
-    lateinit var websocketHandler: WebSocketHandler
+    lateinit var webSocketHandler: WebSocketHandler
 
     /**
      * Initializes the UI and creates the detector pipeline.
@@ -103,11 +103,13 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
     override fun onNext(items: ArrayList<TextBlock>) {
         // Check if the current detections mismatch the ones in gridHolder
         // TODO: Apply gaussian filter
+        // TODO: Ensure that the server is running
         val diff = gridItemHolder.diff(items)
 
         if (diff.isNotEmpty()) {
             val missingItems = diff.joinToString()
-            Log.i(TAG, "Missing: $missingItems")
+            Log.d(TAG, "Missing: $missingItems")
+            webSocketHandler.broadcast(missingItems)
         }
     }
 
@@ -135,10 +137,5 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
 
     companion object {
         private const val TAG = "GameModeActivity"
-
-        private const val PORT_NUMBER = 5444   // TODO make this configurable
-        private const val TOPIC_NAME = "game"   // TODO make this configurable
-        private const val LOCAL_HOST = "127.0.0.1"
-
     }
 }
