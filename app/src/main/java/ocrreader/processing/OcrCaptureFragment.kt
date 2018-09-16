@@ -59,20 +59,20 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             // TODO: this probably isn't working well, check that the arguments are loaded
-            autoFocus = arguments.getBoolean(AutoFocus, true)
-            useFlash = arguments.getBoolean(UseFlash, false)
+            autoFocus = arguments!!.getBoolean(AutoFocus, true)
+            useFlash = arguments!!.getBoolean(UseFlash, false)
         }
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val fragmentView = inflater!!.inflate(R.layout.fragment_ocr_capture, container, false)
+        val fragmentView = inflater.inflate(R.layout.fragment_ocr_capture, container, false)
         unbinder = ButterKnife.bind(this, fragmentView)
 
         preview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
-        val applicationContext = this.activity.applicationContext
+        val applicationContext = this.activity?.applicationContext!!
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         val rc = ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
@@ -132,7 +132,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private fun requestCameraPermission() {
         Log.w(TAG, "Camera permission is not granted. Requesting permission")
         val permissions = arrayOf(Manifest.permission.CAMERA)
-        val thisActivity = this.activity
+        val thisActivity = this.activity!!
 
         if (!ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,
                         Manifest.permission.CAMERA)) {
@@ -161,7 +161,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
      */
     @SuppressLint("InlinedApi")
     private fun createCameraSource(autoFocus: Boolean, useFlash: Boolean) {
-        val context = this.activity.applicationContext
+        val context = this.activity?.applicationContext
         // A text recognizer is created to find text.  An associated processor instance
         // is set to receive the text recognition results and display graphics for each text block
         // on screen.
@@ -184,7 +184,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             // Check for low storage.  If there is low storage, the native library will not be
             // downloaded, so detection will not become operational.
             val lowstorageFilter = IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW)
-            val hasLowStorage = context.registerReceiver(null, lowstorageFilter) != null
+            val hasLowStorage = context?.registerReceiver(null, lowstorageFilter) != null
 
             if (hasLowStorage) {
                 Toast.makeText(this.activity, R.string.low_storage_error, Toast.LENGTH_LONG).show()
@@ -207,7 +207,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         val b = scaleGestureDetector!!.onTouchEvent(event)
         val c = gestureDetector!!.onTouchEvent(event)
 
-        return b || c || this.activity.onTouchEvent(event)
+        return b || c || this.activity!!.onTouchEvent(event)
     }
 
     /**
@@ -305,8 +305,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private fun startCameraSource() {
         // Check that the device has play services available.
         val activity = this.activity
-        val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                activity.applicationContext)
+        val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity?.applicationContext)
         if (code != ConnectionResult.SUCCESS) {
             val dlg = GoogleApiAvailability.getInstance().getErrorDialog(activity, code, RC_HANDLE_GMS)
             dlg.show()

@@ -3,8 +3,6 @@ package ocrreader.ui.camera;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.google.common.base.Optional;
-
 import ocrreader.graphcis.OcrGraphic;
 
 public class OcrGraphicOverlay<U extends OcrGraphic> extends GraphicOverlay {
@@ -13,15 +11,15 @@ public class OcrGraphicOverlay<U extends OcrGraphic> extends GraphicOverlay {
         super(context, attrs);
     }
 
-    public Optional<OcrGraphic> getByContent(String text) {
+    public OcrGraphic getByContent(String text) {
 
         for (OcrGraphic g : (Iterable<U>) mGraphics) {
             if (g.getValue().equals(text)) {
-                return Optional.of(g);
+                return g;
             }
         }
 
-        return Optional.absent();
+        return null;
     }
 
     public void add(U graphic) {

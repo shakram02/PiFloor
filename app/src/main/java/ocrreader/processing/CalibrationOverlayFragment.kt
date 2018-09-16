@@ -20,7 +20,7 @@ class CalibrationOverlayFragment : Fragment() {
 
     private lateinit var unbinder: Unbinder
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater!!.inflate(R.layout.fragment_calibration_overlay, container, false)
         unbinder = ButterKnife.bind(this, fragmentView)
 
@@ -29,7 +29,7 @@ class CalibrationOverlayFragment : Fragment() {
     }
 
     override fun onAttach(context: Context?) {
-        (this.activity.application as EdGridApplication).component.inject(this)
+        (this.activity?.application as EdGridApplication).component.inject(this)
         super.onAttach(context)
     }
 

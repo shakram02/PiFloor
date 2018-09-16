@@ -106,7 +106,7 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
             // If it was calibrated then went out of view: Add calibrated
             when {
                 virtualGrid.contains(item) -> newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
-                maybeGraphic.isPresent -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
+                maybeGraphic != null -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
                 else -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
             }
         }
