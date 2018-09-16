@@ -38,6 +38,7 @@ class GameServer(private val gameServer: HttpGameServer, private val webSocketHa
     }
 
     fun stop() {
+        Log.d(TAG, "Stopping game server")
         server.stop()
     }
 
