@@ -2,6 +2,7 @@ package ocrreader.utils
 
 import android.graphics.Point
 import android.graphics.Rect
+import android.util.Log
 import com.google.android.gms.vision.text.Text
 
 class GridItemHolder {
@@ -71,6 +72,14 @@ class GridItemHolder {
 
         fun getCenter(): Point {
             return Point(textBoundingBox.centerX(), textBoundingBox.centerY())
+        }
+
+        override fun hashCode(): Int {
+            return textValue.hashCode()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            return this.hashCode() == other!!.hashCode()
         }
     }
 }
