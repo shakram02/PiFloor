@@ -11,12 +11,12 @@ import butterknife.OnClick
 import butterknife.Unbinder
 import ocrreader.R
 import ocrreader.injection.EdGridApplication
-import ocrreader.utils.GridItemHolder
+import ocrreader.utils.VirtualGrid
 import javax.inject.Inject
 
 class CalibrationOverlayFragment : Fragment() {
     @Inject
-    lateinit var gridItemHolder: GridItemHolder
+    lateinit var virtualGrid: VirtualGrid
 
     private lateinit var unbinder: Unbinder
 
@@ -35,7 +35,7 @@ class CalibrationOverlayFragment : Fragment() {
 
     @OnClick(R.id.btn_clear_calibration_fragment)
     fun clearCalibration() {
-        gridItemHolder.clear()
+        virtualGrid.clear()
     }
 
     override fun onDestroyView() {

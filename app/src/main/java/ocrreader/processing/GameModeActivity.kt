@@ -27,7 +27,7 @@ import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
-import ocrreader.utils.GridItemHolder
+import ocrreader.utils.VirtualGrid
 import ocrreader.webserver.ServerFragment
 import ocrreader.webserver.WebSocketHandler
 import org.reactivestreams.Subscriber
@@ -43,7 +43,7 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
     private lateinit var captureFragment: OcrCaptureFragment
 
     @Inject
-    lateinit var gridItemHolder: GridItemHolder
+    lateinit var virtualGrid: VirtualGrid
 
     @Inject
     lateinit var webSocketHandler: WebSocketHandler
@@ -105,7 +105,10 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         // Check if the current detections mismatch the ones in gridHolder
         // TODO: Apply gaussian filter
         // TODO: Ensure that the server is running
-        val diff = gridItemHolder.diff(items.map { i -> i as Text })
+        val diff = virtualGrid.diff(items.map { i -> i as Text })
+
+        // TODO extract the choice out of the missing values
+
 
         if (diff.isNotEmpty()) {
             val missingItems = diff.joinToString()

@@ -3,7 +3,7 @@ package ocrreader.injection
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import ocrreader.utils.GridItemHolder
+import ocrreader.utils.VirtualGrid
 import ocrreader.webserver.ConnectionUtils
 import ocrreader.webserver.GameServer
 import ocrreader.webserver.HttpGameServer
@@ -15,7 +15,7 @@ class ContextModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideHolder(): GridItemHolder = GridItemHolder()
+    fun provideHolder(): VirtualGrid = VirtualGrid()
 
     @Provides
     fun provideApplication(): Application = app

@@ -2,36 +2,35 @@ package ocrreader.utils
 
 import android.graphics.Point
 import android.graphics.Rect
-import android.util.Log
 import com.google.android.gms.vision.text.Text
 
-class GridItemHolder {
-    private val entries = HashSet<GridText>()
+class VirtualGrid {
+    private val tiles = HashSet<GridTile>()
     val size
-        get() = entries.size
+        get() = tiles.size
 
-    val itemsAsString
-        get() = entries.asIterable().map { i -> i.value }
+    val tilesAsString
+        get() = tiles.asIterable().map { i -> i.value }
 
-    fun addGridItem(item: Text): Boolean {
-        return entries.add(GridText(item))
+    fun addTile(tile: Text): Boolean {
+        return tiles.add(GridTile(tile))
     }
 
-    fun contains(item: Text): Boolean {
-        return entries.any { i -> i.value == preProcess(item.value) }
+    fun contains(tile: Text): Boolean {
+        return tiles.any { i -> i.value == preProcess(tile.value) }
     }
 
     fun clear() {
-        entries.clear()
+        tiles.clear()
     }
 
-    fun diff(items: List<Text>): Set<Pair<String, Point>> {
-        val externalEntrySet = items
-                .filter { item -> item.value != null }
-                .map { item -> GridText(item) }
+    fun diff(tiles: List<Text>): Set<Pair<String, Point>> {
+        val detectedTiles = tiles
+                .filter { tile -> tile.value != null }
+                .map { tile -> GridTile(tile) }
                 .toHashSet()
 
-        return entries.subtract(externalEntrySet).toLabeledPoints()
+        return this.tiles.subtract(detectedTiles).toLabeledTiles()
     }
 
     companion object {
@@ -40,19 +39,19 @@ class GridItemHolder {
         }
     }
 
-    private fun Iterable<GridText>.toLabeledPoints(): Set<Pair<String, Point>> {
-        return this.map { label -> Pair(label.value, label.getCenter()) }.toHashSet()
+    private fun Iterable<GridTile>.toLabeledTiles(): Set<Pair<String, Point>> {
+        return this.map { tile -> Pair(tile.value, tile.getCenter()) }.toHashSet()
     }
 
     /**
      * Instantiating an instance of a [Text] is not possible, this class
      * gives us this ability (just a wrapper class)
      */
-    private data class GridText(private val textItem: Text) : Text {
+    private data class GridTile(private val textItem: Text) : Text {
         private val textBoundingBox: Rect = textItem.boundingBox
         private val textComponents: MutableList<out Text> = textItem.components
         private val textCornerPoints: Array<Point> = textItem.cornerPoints
-        private val textValue: String = GridItemHolder.preProcess(textItem.value)
+        private val textValue: String = VirtualGrid.preProcess(textItem.value)
 
         override fun getBoundingBox(): Rect {
             return textBoundingBox
