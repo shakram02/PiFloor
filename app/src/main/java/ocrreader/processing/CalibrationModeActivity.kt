@@ -4,8 +4,6 @@ package ocrreader.processing
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.ViewGroup.LayoutParams
 import com.google.android.gms.vision.text.TextBlock
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
@@ -59,11 +57,11 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     override fun onOcrGraphicTap(ocrGraphic: OcrGraphic, graphicOverlay: OcrGraphicOverlay<OcrGraphic>): Boolean {
         graphicOverlay.remove(ocrGraphic)
-        val text = ocrGraphic.value.toLowerCase()
+        val text = ocrGraphic.value
 
         Log.d(TAG, "Calibrating:$text")
         graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
-        gridItemHolder.addGridItem(ocrGraphic.value)
+        gridItemHolder.addGridItem(ocrGraphic.textBlock)
 
         if (gridItemHolder.size == GRID_SIZE) {
             finish()
@@ -102,12 +100,12 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         for (i in 0 until items.size) {
             val item = items[i]
             val maybeGraphic = graphicOverlay.getByContent(item.value)
-            val text = item.value.toLowerCase().replace(" ", "")
+
             // Check if the text was detected before.
             // If it was detected: update location
             // If it was calibrated then went out of view: Add calibrated
             when {
-                gridItemHolder.contains(text) -> newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
+                gridItemHolder.contains(item) -> newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
                 maybeGraphic.isPresent -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
                 else -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
             }
