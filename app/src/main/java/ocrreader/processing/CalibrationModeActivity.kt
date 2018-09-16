@@ -13,7 +13,7 @@ import ocrreader.graphcis.OcrGraphic
 import ocrreader.graphcis.PreviewOcrGraphic
 import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
-import ocrreader.utils.GridItemHolder
+import ocrreader.utils.VirtualGrid
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
     @Inject
-    lateinit var gridItemHolder: GridItemHolder
+    lateinit var virtualGrid: VirtualGrid
     private lateinit var captureFragment: OcrCaptureFragment
 
     public override fun onCreate(icicle: Bundle?) {
@@ -61,9 +61,9 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
         Log.d(TAG, "Calibrating:$text")
         graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
-        gridItemHolder.addGridItem(ocrGraphic.textBlock)
+        virtualGrid.addTile(ocrGraphic.textBlock)
 
-        if (gridItemHolder.size == GRID_SIZE) {
+        if (virtualGrid.size == GRID_SIZE) {
             finish()
         }
 
@@ -105,7 +105,7 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
             // If it was detected: update location
             // If it was calibrated then went out of view: Add calibrated
             when {
-                gridItemHolder.contains(item) -> newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
+                virtualGrid.contains(item) -> newFrameGraphics.add(CalibratedOcrGraphic(graphicOverlay, item))
                 maybeGraphic.isPresent -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
                 else -> newFrameGraphics.add(PreviewOcrGraphic(graphicOverlay, item))
             }
@@ -135,6 +135,6 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     companion object {
         private const val TAG = "CalibrationActivity"
-        private const val GRID_SIZE = 2 // TODO: fix this later
+        private const val GRID_SIZE = 7 // TODO: fix this later
     }
 }

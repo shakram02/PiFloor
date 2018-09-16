@@ -27,7 +27,7 @@ import butterknife.OnClick
 import ocrreader.injection.EdGridApplication
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
-import ocrreader.utils.GridItemHolder
+import ocrreader.utils.VirtualGrid
 import javax.inject.Inject
 
 
@@ -44,7 +44,7 @@ class MainActivity : Activity() {
     @BindView(R.id.status_message)
     lateinit var statusMessage: TextView
     @Inject
-    lateinit var gridItemHolder: GridItemHolder
+    lateinit var virtualGrid: VirtualGrid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +103,7 @@ class MainActivity : Activity() {
         }
 
         if (resultCode != Activity.RESULT_OK) {
-            statusMessage.text = gridItemHolder.itemsAsString.joinToString()
+            statusMessage.text = virtualGrid.tilesAsString.joinToString()
             return super.onActivityResult(requestCode, resultCode, data)
         }
     }

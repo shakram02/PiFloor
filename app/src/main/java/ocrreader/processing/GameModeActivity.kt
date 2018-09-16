@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import com.google.android.gms.vision.text.Text
 import com.google.android.gms.vision.text.TextBlock
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
@@ -27,7 +26,7 @@ import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.injection.EdGridApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
-import ocrreader.utils.GridItemHolder
+import ocrreader.utils.VirtualGrid
 import ocrreader.webserver.ServerFragment
 import ocrreader.webserver.WebSocketHandler
 import org.reactivestreams.Subscriber
@@ -43,7 +42,7 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
     private lateinit var captureFragment: OcrCaptureFragment
 
     @Inject
-    lateinit var gridItemHolder: GridItemHolder
+    lateinit var virtualGrid: VirtualGrid
 
     @Inject
     lateinit var webSocketHandler: WebSocketHandler
@@ -105,13 +104,8 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         // Check if the current detections mismatch the ones in gridHolder
         // TODO: Apply gaussian filter
         // TODO: Ensure that the server is running
-        val diff = gridItemHolder.diff(items.map { i -> i as Text })
-
-        if (diff.isNotEmpty()) {
-            val missingItems = diff.joinToString()
-            Log.d(TAG, "Missing: $missingItems")
-            webSocketHandler.broadcast(missingItems)
-        }
+        val choice = virtualGrid.findChoice(items) ?: return
+        webSocketHandler.broadcast(choice)
     }
 
     /**
