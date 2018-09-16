@@ -9,7 +9,7 @@ import com.koushikdutta.async.http.WebSocket
 import com.koushikdutta.async.http.server.AsyncHttpServer
 import com.koushikdutta.async.http.server.AsyncHttpServerRequest
 
-class WebSocketHandler : AsyncHttpServer.WebSocketRequestCallback {
+class WebSocketHandler : AsyncHttpServer.WebSocketRequestCallback, LifecycleObserver {
     private var clients = ArrayList<WebSocket>()
 
     private val onCloseCallback = CompletedCallback { ex ->
