@@ -24,13 +24,13 @@ class GridItemHolder {
         entries.clear()
     }
 
-    fun diff(items: List<Text>): Set<String> {
+    fun diff(items: List<Text>): Set<Pair<String, Point>> {
         val externalEntrySet = items
                 .filter { item -> item.value != null }
-                .map { item -> preProcess(item.value) }
+                .map { item -> GridText(item) }
                 .toHashSet()
 
-        return entries.map { i -> i.value }.subtract(externalEntrySet)
+        return entries.subtract(externalEntrySet).toLabeledPoints()
     }
 
     companion object {
@@ -39,6 +39,9 @@ class GridItemHolder {
         }
     }
 
+    private fun Iterable<GridText>.toLabeledPoints(): Set<Pair<String, Point>> {
+        return this.map { label -> Pair(label.value, label.getCenter()) }.toHashSet()
+    }
 
     /**
      * Instantiating an instance of a [Text] is not possible, this class
@@ -64,6 +67,10 @@ class GridItemHolder {
 
         override fun getValue(): String {
             return textValue
+        }
+
+        fun getCenter(): Point {
+            return Point(textBoundingBox.centerX(), textBoundingBox.centerY())
         }
     }
 }
