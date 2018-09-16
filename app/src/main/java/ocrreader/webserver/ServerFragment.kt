@@ -8,7 +8,6 @@ import android.view.*
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.OnClick
 import butterknife.Unbinder
 import ocrreader.R
 import ocrreader.injection.EdGridApplication
@@ -27,8 +26,9 @@ class ServerFragment : Fragment() {
     @Inject
     lateinit var connectionUtils: ConnectionUtils
 
+    private lateinit var fragmentView: View
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val fragmentView = inflater!!.inflate(R.layout.fragment_server, container, false)
+        fragmentView = inflater!!.inflate(R.layout.fragment_server, container, false)
         unbinder = ButterKnife.bind(this, fragmentView)
 
         return fragmentView
@@ -47,6 +47,10 @@ class ServerFragment : Fragment() {
             server.start(connectionUtils.getIpAddress(), PORT_NUMBER, TOPIC_NAME)
         }
 
+        displayAddresses()
+    }
+
+    private fun displayAddresses() {
         val addresses = "${server.webAddress}\n${server.webSocketAddress}"
         this.hostNameTxt.text = addresses
     }

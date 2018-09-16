@@ -12,6 +12,7 @@ import javax.inject.Singleton
 
 @Module
 class ContextModule(private val app: Application) {
+
     @Provides
     @Singleton
     fun provideHolder(): GridItemHolder = GridItemHolder()
@@ -21,17 +22,25 @@ class ContextModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideHttpGameServer(): HttpGameServer = HttpGameServer(app)
+    fun provideHttpGameServer(app: Application): HttpGameServer {
+        return HttpGameServer(app)
+    }
 
     @Provides
     @Singleton
-    fun provideWebSocketServer(): WebSocketHandler = WebSocketHandler()
+    fun provideWebSocketServer(): WebSocketHandler {
+        return WebSocketHandler()
+    }
 
     @Provides
     @Singleton
-    fun provideGameServer(): GameServer = GameServer(provideHttpGameServer(), provideWebSocketServer())
+    fun provideGameServer(gameServer: HttpGameServer, webSocketHandler: WebSocketHandler): GameServer {
+        return GameServer(gameServer, webSocketHandler)
+    }
 
     @Provides
     @Singleton
-    fun provideConnectionUtils(): ConnectionUtils = ConnectionUtils(provideApplication())
+    fun provideConnectionUtils(app: Application): ConnectionUtils {
+        return ConnectionUtils(app)
+    }
 }
