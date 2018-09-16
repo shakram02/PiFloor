@@ -27,15 +27,15 @@ class ServerFragment : Fragment() {
     lateinit var connectionUtils: ConnectionUtils
 
     private lateinit var fragmentView: View
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentView = inflater!!.inflate(R.layout.fragment_server, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        fragmentView = inflater.inflate(R.layout.fragment_server, container, false)
         unbinder = ButterKnife.bind(this, fragmentView)
 
         return fragmentView
     }
 
     override fun onAttach(context: Context?) {
-        (this.activity.application as EdGridApplication).component.inject(this)
+        (this.activity!!.application as EdGridApplication).component.inject(this)
         super.onAttach(context)
     }
 
