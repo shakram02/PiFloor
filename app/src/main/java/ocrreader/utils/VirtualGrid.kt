@@ -2,10 +2,14 @@ package ocrreader.utils
 
 import android.graphics.Point
 import android.graphics.Rect
+import android.util.Log
 import com.google.android.gms.vision.text.Text
+import com.google.android.gms.vision.text.TextBlock
+import java.util.*
 
 class VirtualGrid {
     private val tiles = HashSet<GridTile>()
+    private val timeFilter = TimeFilter<String>(CHOICE_COOL_DOWN)
     val size
         get() = tiles.size
 
@@ -24,7 +28,7 @@ class VirtualGrid {
         tiles.clear()
     }
 
-    fun diff(tiles: List<Text>): Set<Pair<String, Point>> {
+    private fun diff(tiles: List<TextBlock>): Set<Pair<String, Point>> {
         val detectedTiles = tiles
                 .filter { tile -> tile.value != null }
                 .map { tile -> GridTile(tile) }
@@ -33,7 +37,40 @@ class VirtualGrid {
         return this.tiles.subtract(detectedTiles).toLabeledTiles()
     }
 
+    fun findChoice(tiles: List<TextBlock>): String? {
+        val missingValues = diff(tiles)
+
+        if (missingValues.isEmpty()) {
+            return null
+        }
+
+        Log.i("FILTER", "Missing Value: ${missingValues.joinToString { i -> i.first }}}")
+
+        // Android Screen
+        // (0,0) -- (maxX,0)
+        // (0,maxY) -- (maxX,maxY)
+        // Note that the representation of Android screen (which the point are recorded WRT them)
+        // are different from reality. Take care of the mobile orientation also
+
+        val chosenPoint = missingValues.sortedByDescending { i -> i.second.y }.firstOrNull()
+                ?: return null
+
+        val chosenLabel = chosenPoint.first
+
+        // Filter the value
+        val coldEnough = timeFilter.isColdEnough(chosenLabel)
+        Log.i("FILTER", "Is $chosenLabel cold? $coldEnough")
+
+        if (coldEnough) {
+            return chosenLabel
+        }
+
+        return null
+    }
+
     companion object {
+        const val CHOICE_COOL_DOWN: Long = 1000
+
         private fun preProcess(s: String): String {
             return s.toLowerCase().replace(" ", "")
         }

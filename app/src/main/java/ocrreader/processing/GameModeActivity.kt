@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import com.google.android.gms.vision.text.Text
 import com.google.android.gms.vision.text.TextBlock
 import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
@@ -105,16 +104,8 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         // Check if the current detections mismatch the ones in gridHolder
         // TODO: Apply gaussian filter
         // TODO: Ensure that the server is running
-        val diff = virtualGrid.diff(items.map { i -> i as Text })
-
-        // TODO extract the choice out of the missing values
-
-
-        if (diff.isNotEmpty()) {
-            val missingItems = diff.joinToString()
-            Log.d(TAG, "Missing: $missingItems")
-            webSocketHandler.broadcast(missingItems)
-        }
+        val choice = virtualGrid.findChoice(items) ?: return
+        webSocketHandler.broadcast(choice)
     }
 
     /**

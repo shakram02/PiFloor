@@ -135,6 +135,6 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     companion object {
         private const val TAG = "CalibrationActivity"
-        private const val GRID_SIZE = 2 // TODO: fix this later
+        private const val GRID_SIZE = 7 // TODO: fix this later
     }
 }
