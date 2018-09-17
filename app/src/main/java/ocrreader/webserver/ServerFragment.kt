@@ -104,7 +104,8 @@ class ServerFragment : Fragment() {
 
     companion object {
         private const val PORT_NUMBER = 5444   // TODO make this configurable
-        private const val TOPIC_NAME = "game"   // TODO make this configurable
+        // TODO make this configurable?, This is hardcoded in the client code [Change both]
+        private const val TOPIC_NAME = "game"
         private const val LOCAL_HOST = "127.0.0.1"
         private val TAG = this::class.java.canonicalName.toString()
     }

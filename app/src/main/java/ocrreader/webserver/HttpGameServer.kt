@@ -2,16 +2,22 @@ package ocrreader.webserver
 
 import android.app.Application
 import android.util.Log
+import android.webkit.MimeTypeMap
 import com.koushikdutta.async.http.server.AsyncHttpServerRequest
 import com.koushikdutta.async.http.server.AsyncHttpServerResponse
 import com.koushikdutta.async.http.server.HttpServerRequestCallback
 import java.io.InputStreamReader
+import java.lang.IllegalStateException
+import java.net.URLConnection
+
 
 class HttpGameServer(private val context: Application) : HttpServerRequestCallback {
+    private val fileNameMap = URLConnection.getFileNameMap()
+
     override fun onRequest(request: AsyncHttpServerRequest, response: AsyncHttpServerResponse) {
         val assetManager = context.assets
         val requestedFile: String = sanitizeRequestedPath(request.path)
-        Log.i(TAG, "HTTP:${request.method}, $requestedFile")
+        Log.d(TAG, "HTTP:${request.method}, $requestedFile")
 
         try {
             if (requestedFile.matches(Regex(EMPTY_FILE_NAME_REGEX))) {
@@ -25,11 +31,21 @@ class HttpGameServer(private val context: Application) : HttpServerRequestCallba
             }
 
             val reader = InputStreamReader(assetManager.open(requestedFile))
-            val asset = reader.readText()
+            val extension = MimeTypeMap.getFileExtensionFromUrl(requestedFile)
 
-            response.send(asset)
+            if (extension == null) {
+                response.end()
+                throw IllegalStateException("The file $requestedFile doesn't have proper extension")
+            }
+
+            // HACK for some reason, javascript file isn't identified
+            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)?: "application/javascript"
+            Log.d(TAG, "Requested file: $requestedFile, Type:$mimeType")
+
+            response.send(mimeType, reader.readText())
+
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to load web page", e)
+            Log.e(TAG, "Failed to load [$requestedFile]", e)
         }
     }
 
