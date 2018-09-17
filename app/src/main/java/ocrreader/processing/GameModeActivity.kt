@@ -102,10 +102,14 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
      */
     override fun onNext(items: ArrayList<TextBlock>) {
         // Check if the current detections mismatch the ones in gridHolder
-        // TODO: Apply gaussian filter
         // TODO: Ensure that the server is running
         val choice = virtualGrid.findChoice(items) ?: return
-        webSocketHandler.broadcast(choice)
+
+        if (NUMERIC_NUMBER.contains(choice)) {
+            webSocketHandler.broadcast(NUMERIC_NUMBER[choice]!!)
+        } else {
+            webSocketHandler.broadcast(choice)
+        }
     }
 
     /**
@@ -132,5 +136,19 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
 
     companion object {
         private const val TAG = "GameModeActivity"
+
+        // TODO: the user should configure the indexes in a separate activity
+        // those indexes will create this hash map
+        private val NUMERIC_NUMBER = hashMapOf(
+                Pair("one", "1"),
+                Pair("two", "2"),
+                Pair("three", "3"),
+                Pair("four", "4"),
+                Pair("five", "5"),
+                Pair("six", "6"),
+                Pair("seven", "7"),
+                Pair("eight", "8"),
+                Pair("nine", "9")
+        )
     }
 }
