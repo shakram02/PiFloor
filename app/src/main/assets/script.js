@@ -105,3 +105,29 @@ var vm = new Vue({
 		},
 	},
 });
+
+function extractWebSocketAdressFromHttp(){
+	var webSocketUrl = window.location.origin.replace("http","ws");
+	webSocketUrl+= "/game"
+	return webSocketUrl
+}
+
+// TODO: Parse the url in android and change the file to aviod config
+// This is very brittle since it depends on the hard coded value in the app code
+var wsServer = extractWebSocketAdressFromHttp();
+var exampleSocket = new WebSocket(wsServer)
+
+exampleSocket.onopen = function (event) {
+	exampleSocket.send("Here's some text that the server is urgently awaiting!"); 
+};
+exampleSocket.onmessage = function (event) {
+	console.log(event.data);
+
+	if(isNaN(parseInt(event.data))){
+		console.log("Not INT")	
+	}
+	else{
+		vm.userAns = parseInt(event.data)
+		vm.checkAns()
+	}
+};
