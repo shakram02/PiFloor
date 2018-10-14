@@ -1,5 +1,5 @@
-# DMat (Work In Progress)
-An Android based interactive floor with minimal setup, oriented towards child education
+# PiFloor (Work In Progress)
+An Android Portable interactive floor with minimal setup, oriented towards child education
 
 # Thank You
 
