@@ -1,4 +1,9 @@
 # PiFloor (Work In Progress)
+
+
+[![DOI](https://zenodo.org/badge/131696857.svg)](https://zenodo.org/badge/latestdoi/131696857)
+
+
 An Android Portable interactive floor with minimal setup, oriented towards child education
 
 # Thank You
