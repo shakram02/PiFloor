@@ -7,11 +7,11 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId 'com.github.shakram02.ocrreader'
+        applicationId 'com.github.shakram02.pifloor'
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 0
+        versionName '0.1'
     }
     buildTypes {
         release {
