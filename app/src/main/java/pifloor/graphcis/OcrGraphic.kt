@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ocrreader.graphcis
+package pifloor.graphcis
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.ui.camera.GraphicOverlay
+import pifloor.ui.camera.GraphicOverlay
 import java.util.*
 
 /**

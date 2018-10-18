@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ocrreader.ui.camera;
+package pifloor.ui.camera;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

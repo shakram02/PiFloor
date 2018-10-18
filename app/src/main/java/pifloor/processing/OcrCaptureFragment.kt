@@ -1,4 +1,4 @@
-package ocrreader.processing
+package pifloor.processing
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -21,14 +21,14 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
-import ocrreader.MainActivity.Companion.AutoFocus
-import ocrreader.MainActivity.Companion.UseFlash
-import ocrreader.R
-import ocrreader.graphcis.OcrGraphic
-import ocrreader.processing.OcrCaptureFragment.OcrSelectionListener
-import ocrreader.ui.camera.CameraSource
-import ocrreader.ui.camera.CameraSourcePreview
-import ocrreader.ui.camera.OcrGraphicOverlay
+import pifloor.MainActivity.Companion.AutoFocus
+import pifloor.MainActivity.Companion.UseFlash
+import pifloor.R
+import pifloor.graphcis.OcrGraphic
+import pifloor.processing.OcrCaptureFragment.OcrSelectionListener
+import pifloor.ui.camera.CameraSource
+import pifloor.ui.camera.CameraSourcePreview
+import pifloor.ui.camera.OcrGraphicOverlay
 import org.reactivestreams.Subscriber
 import java.io.IOException
 

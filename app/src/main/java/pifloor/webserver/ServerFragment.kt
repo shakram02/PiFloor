@@ -1,4 +1,4 @@
-package ocrreader.webserver
+package pifloor.webserver
 
 import android.content.Context
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
-import ocrreader.R
-import ocrreader.injection.PiFloorApplication
+import pifloor.R
+import pifloor.injection.PiFloorApplication
 import java.io.IOException
 import javax.inject.Inject
 

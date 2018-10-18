@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ocrreader.processing
+package pifloor.processing
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.MainActivity.Companion.AutoFocus
-import ocrreader.MainActivity.Companion.UseFlash
-import ocrreader.R
-import ocrreader.graphcis.OcrGraphic
-import ocrreader.injection.PiFloorApplication
-import ocrreader.ui.camera.OcrGraphicOverlay
-import ocrreader.utils.VirtualGrid
-import ocrreader.webserver.ServerFragment
-import ocrreader.webserver.WebSocketHandler
+import pifloor.MainActivity.Companion.AutoFocus
+import pifloor.MainActivity.Companion.UseFlash
+import pifloor.R
+import pifloor.graphcis.OcrGraphic
+import pifloor.injection.PiFloorApplication
+import pifloor.ui.camera.OcrGraphicOverlay
+import pifloor.utils.VirtualGrid
+import pifloor.webserver.ServerFragment
+import pifloor.webserver.WebSocketHandler
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject

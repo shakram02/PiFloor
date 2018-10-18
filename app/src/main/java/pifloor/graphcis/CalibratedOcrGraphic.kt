@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ocrreader.graphcis
+package pifloor.graphcis
 
 import android.graphics.Color
 import android.graphics.Paint
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.ui.camera.GraphicOverlay
+import pifloor.ui.camera.GraphicOverlay
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic

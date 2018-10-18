@@ -1,11 +1,11 @@
-package ocrreader.injection
+package pifloor.injection
 
 import dagger.Component
-import ocrreader.MainActivity
-import ocrreader.webserver.ServerFragment
-import ocrreader.processing.CalibrationModeActivity
-import ocrreader.processing.CalibrationOverlayFragment
-import ocrreader.processing.GameModeActivity
+import pifloor.MainActivity
+import pifloor.webserver.ServerFragment
+import pifloor.processing.CalibrationModeActivity
+import pifloor.processing.CalibrationOverlayFragment
+import pifloor.processing.GameModeActivity
 import javax.inject.Singleton
 
 @Singleton

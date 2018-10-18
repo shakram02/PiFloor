@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ocrreader
+package pifloor
 
 import android.app.Activity
 import android.content.Intent
@@ -24,10 +24,10 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import ocrreader.injection.PiFloorApplication
-import ocrreader.processing.CalibrationModeActivity
-import ocrreader.processing.GameModeActivity
-import ocrreader.utils.VirtualGrid
+import pifloor.injection.PiFloorApplication
+import pifloor.processing.CalibrationModeActivity
+import pifloor.processing.GameModeActivity
+import pifloor.utils.VirtualGrid
 import javax.inject.Inject
 
 

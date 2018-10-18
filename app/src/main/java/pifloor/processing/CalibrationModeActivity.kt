@@ -1,19 +1,19 @@
-package ocrreader.processing
+package pifloor.processing
 
 
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
-import ocrreader.MainActivity.Companion.AutoFocus
-import ocrreader.MainActivity.Companion.UseFlash
-import ocrreader.R
-import ocrreader.graphcis.CalibratedOcrGraphic
-import ocrreader.graphcis.OcrGraphic
-import ocrreader.graphcis.PreviewOcrGraphic
-import ocrreader.injection.PiFloorApplication
-import ocrreader.ui.camera.OcrGraphicOverlay
-import ocrreader.utils.VirtualGrid
+import pifloor.MainActivity.Companion.AutoFocus
+import pifloor.MainActivity.Companion.UseFlash
+import pifloor.R
+import pifloor.graphcis.CalibratedOcrGraphic
+import pifloor.graphcis.OcrGraphic
+import pifloor.graphcis.PreviewOcrGraphic
+import pifloor.injection.PiFloorApplication
+import pifloor.ui.camera.OcrGraphicOverlay
+import pifloor.utils.VirtualGrid
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject

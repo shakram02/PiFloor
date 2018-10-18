@@ -1,4 +1,4 @@
-package ocrreader.processing
+package pifloor.processing
 
 import android.content.Context
 import android.os.Bundle
@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
-import ocrreader.R
-import ocrreader.injection.PiFloorApplication
-import ocrreader.utils.VirtualGrid
+import pifloor.R
+import pifloor.injection.PiFloorApplication
+import pifloor.utils.VirtualGrid
 import javax.inject.Inject
 
 class CalibrationOverlayFragment : Fragment() {

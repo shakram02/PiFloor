@@ -1,13 +1,13 @@
-package ocrreader.injection
+package pifloor.injection
 
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import ocrreader.utils.VirtualGrid
-import ocrreader.webserver.ConnectionUtils
-import ocrreader.webserver.GameServer
-import ocrreader.webserver.HttpGameServer
-import ocrreader.webserver.WebSocketHandler
+import pifloor.utils.VirtualGrid
+import pifloor.webserver.ConnectionUtils
+import pifloor.webserver.GameServer
+import pifloor.webserver.HttpGameServer
+import pifloor.webserver.WebSocketHandler
 import javax.inject.Singleton
 
 @Module

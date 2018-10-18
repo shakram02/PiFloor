@@ -1,9 +1,9 @@
-package ocrreader.ui.camera;
+package pifloor.ui.camera;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import ocrreader.graphcis.OcrGraphic;
+import pifloor.graphcis.OcrGraphic;
 
 public class OcrGraphicOverlay<U extends OcrGraphic> extends GraphicOverlay {
 

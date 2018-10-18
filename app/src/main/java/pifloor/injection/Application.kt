@@ -1,4 +1,4 @@
-package ocrreader.injection
+package pifloor.injection
 
 import android.app.Application
 

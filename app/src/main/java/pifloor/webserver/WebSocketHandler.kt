@@ -1,4 +1,4 @@
-package ocrreader.webserver
+package pifloor.webserver
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver

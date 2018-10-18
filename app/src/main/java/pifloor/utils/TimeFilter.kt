@@ -1,4 +1,4 @@
-package ocrreader.utils
+package pifloor.utils
 
 class TimeFilter<T>(private val coolDownMillis: Long) {
     private val entries: HashMap<T, Long> = hashMapOf()

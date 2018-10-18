@@ -1,4 +1,4 @@
-package ocrreader.utils
+package pifloor.utils
 
 import android.graphics.Point
 import android.graphics.Rect

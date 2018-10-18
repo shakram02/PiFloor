@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     tools:context=".processing.OcrCaptureFragment">
-    <ocrreader.ui.camera.CameraSourcePreview
+    <pifloor.ui.camera.CameraSourcePreview
         android:id="@+id/view_ocr_fragment_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ocrreader.ui.camera.OcrGraphicOverlay
+        <pifloor.ui.camera.OcrGraphicOverlay
             android:id="@+id/overlay_ocr_fragment_graphics"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </ocrreader.ui.camera.CameraSourcePreview>
+    </pifloor.ui.camera.CameraSourcePreview>
 </FrameLayout>
