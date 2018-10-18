@@ -11,7 +11,7 @@ import ocrreader.R
 import ocrreader.graphcis.CalibratedOcrGraphic
 import ocrreader.graphcis.OcrGraphic
 import ocrreader.graphcis.PreviewOcrGraphic
-import ocrreader.injection.EdGridApplication
+import ocrreader.injection.PiFloorApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
 import ocrreader.utils.VirtualGrid
 import org.reactivestreams.Subscriber
@@ -27,7 +27,7 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
-        (application as EdGridApplication).component.inject(this)
+        (application as PiFloorApplication).component.inject(this)
         loadFragment()
         loadOverlay()
     }

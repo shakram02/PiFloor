@@ -2,11 +2,11 @@
 <resources>
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
-    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission. The application will now exit.</string>
     <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
-    <string name="title_activity_main">Ocr Detector Sample</string>
+    <string name="title_activity_main">Pi Floor</string>
     <string name="ocr_header">Click &quot;Detect Text&quot; to detect text</string>
-    <string name="read_text">Detect Text</string>
+    <string name="game_mode">Game Mode</string>
     <string name="calibration_view">Calibrate Grid</string>
     <string name="server_view">Server Options</string>
     <string name="auto_focus">Auto Focus</string>

@@ -10,7 +10,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import ocrreader.R
-import ocrreader.injection.EdGridApplication
+import ocrreader.injection.PiFloorApplication
 import java.io.IOException
 import javax.inject.Inject
 
@@ -35,7 +35,7 @@ class ServerFragment : Fragment() {
     }
 
     override fun onAttach(context: Context?) {
-        (this.activity!!.application as EdGridApplication).component.inject(this)
+        (this.activity!!.application as PiFloorApplication).component.inject(this)
         super.onAttach(context)
     }
 

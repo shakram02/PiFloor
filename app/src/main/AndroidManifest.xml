@@ -11,12 +11,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".injection.EdGridApplication"
+        android:name=".injection.PiFloorApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon"
-        android:label="MultiTrackerApp"
+        android:label="PI Floor"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <!--<meta-data-->
@@ -36,10 +36,10 @@
         </activity>
         <activity
             android:name=".processing.GameModeActivity"
-            android:label="Read Text" />
+            android:label="Game Mode" />
         <activity
             android:name=".processing.CalibrationModeActivity"
-            android:label="Calibrate Grid" />
+            android:label="Calibration Mode" />
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ import ocrreader.MainActivity.Companion.AutoFocus
 import ocrreader.MainActivity.Companion.UseFlash
 import ocrreader.R
 import ocrreader.graphcis.OcrGraphic
-import ocrreader.injection.EdGridApplication
+import ocrreader.injection.PiFloorApplication
 import ocrreader.ui.camera.OcrGraphicOverlay
 import ocrreader.utils.VirtualGrid
 import ocrreader.webserver.ServerFragment
@@ -55,7 +55,7 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         setContentView(R.layout.activity_game_mode)
         setSupportActionBar(findViewById(R.id.toolbar_game_activity) as Toolbar)
 
-        (application as EdGridApplication).component.inject(this)
+        (application as PiFloorApplication).component.inject(this)
         loadFragment()
     }
 

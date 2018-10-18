@@ -2,7 +2,7 @@ package ocrreader.injection
 
 import android.app.Application
 
-class EdGridApplication : Application() {
+class PiFloorApplication : Application() {
     lateinit var component: ContextComponent
 
     override fun onCreate() {

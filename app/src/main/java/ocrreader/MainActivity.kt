@@ -24,7 +24,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import ocrreader.injection.EdGridApplication
+import ocrreader.injection.PiFloorApplication
 import ocrreader.processing.CalibrationModeActivity
 import ocrreader.processing.GameModeActivity
 import ocrreader.utils.VirtualGrid
@@ -49,7 +49,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        (application as EdGridApplication).component.inject(this)
+        (application as PiFloorApplication).component.inject(this)
         ButterKnife.bind(this)
     }
 
