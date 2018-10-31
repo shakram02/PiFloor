@@ -1,12 +1,6 @@
-body {
-	background: #ECFFED;
-	font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-#app {
-	display: block;
-	text-align: center;
-}
+/* #app {
+	
+} */
 
 #thewholething, #question-form {
 	display: inline-block;
@@ -14,36 +8,21 @@ body {
 }
 
 #game-header {
-	text-align:left;
-}
-
-.title {
-	display: inline-block;
-	color: #30505C;
-	font-weight: bold;
-	font-size: 75px;
-	margin: 0;
+	text-align: center;
 }
 
 #stats {
 	margin-top: 20px;
 	float: right;
 	text-align: right;
-	font-size: 18px;
 }
 
 #score {
 	display: inline-block;
-	text-align: center;
-	background: #30505C;
-	color: #ECFFED;
-	border-radius:3px;
-	height: 50px;
+	line-height: 10px;
+	border-radius: 3px;
+	height: 60px;
 	width: 135px;
-}
-
-#score p {
-	margin: 0px,20px,20px,20px;
 }
 
 #QandA {
@@ -51,44 +30,39 @@ body {
 	text-align: left;
 }
 
-#question-place {
+#question-text {
 	display: inline-block;
-	width: 77%;
-	background: #74B09D;
-	min-height: 57px;
+	/* width: 77%; */
+	/* min-height: 57px; */
 	border-radius: 3px;
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin: 15px;
 	text-align: left;
-	font-size: 18px;
-	color: #ECFFED;
-}
-#question-place p {
-	display: inline-block;
-	width: 100%;
-	margin-left: 10px;
+	font-size: 25px;
 }
 
-#answer-form {
+#question-place {
 	display: inline-block;
-	text-align: center;
-	background: #C8EAC0;
+	width: 100%;
+	margin: 10px;
+}
+
+/* #answer-form {
+	display: inline-block;
 	min-height: 57px;
-	width:18%;
+	width: 18%;
 	margin-top: 15px;
 	margin-bottom: 15px;
 	border-radius: 3px;
 	float: right;
 	padding-top: 5px;
 	padding-bottom: 5px;
-}
+} */
 
 #game-grid {
 	border-radius: 6px;
-	background: #74C79D;
 	display: inline-block;
-	/*color: #30505C;*/
 	font-size: 50px;
+	margin: 20px;
 }
 
 .grid-row {
@@ -105,16 +79,12 @@ body {
 	margin-right: 16px;
 	width: 135px;
 	height: 135px;
+	line-height: 40px;
 	text-align: center;
-	background: #C8EAC0;
-	border-radius:3px;
+	background: #71CDC6;
+	border-radius: 3px;
 }
 
 .grid-cell:last-child {
 	margin-right: 0;
 }
-
-/*.grid-cell p {
-    display: table-cell;
-    vertical-align: middle;
-}*/

@@ -1,19 +1,19 @@
 #question-form form {
 	margin-top: 10px;
-	background: #74B09D;
+	/* background: #74B09D; */
 	border-radius: 3px;
 	text-align: left;
 	padding: 1px 20px 20px 20px;
 }
 
 select {
-    width: 75px;
-    height: 30px;
+    width: 95px;
+    height: 40px;
     border-radius: 3px;
     border-width: 2px;
-    border-color: #ECFFED;
-    background-color: #f1f1f1;
-    margin-bottom: 10px;
+    /* border-color: #ECFFED; */
+    /* background-color: #f1f1f1; */
+    /* margin-bottom: 10px; */
 }
 
 /*.submit {
