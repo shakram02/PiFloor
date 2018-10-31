@@ -95,7 +95,7 @@ var vm = new Vue({
 				for(var j = 0; j < this.cols; j++) {
 					this.choices.push(k-1);
 					newRow.push({ val: parts[k++],
-						color: '#30505C',
+						color: '#ECFFED',
 						decor: 'none',
 					});
 				}
