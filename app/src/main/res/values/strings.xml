@@ -18,4 +18,12 @@
     <string name="server_state">Server state</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
+
+    <string name="welcome_title">PiFloor</string>
+    <string name="welcome_message">Welcome to PiFloor interactive education.</string>
+    <string name="start_tutorial">Tutorial</string>
+    <string name="new_game">New game</string>
+    <string name="start_game">Start game</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
 </resources>

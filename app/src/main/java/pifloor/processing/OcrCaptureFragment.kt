@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
+import android.widget.CompoundButton
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -21,8 +22,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
-import pifloor.MainActivity.Companion.AutoFocus
-import pifloor.MainActivity.Companion.UseFlash
 import pifloor.R
 import pifloor.graphcis.OcrGraphic
 import pifloor.processing.OcrCaptureFragment.OcrSelectionListener
@@ -59,8 +58,8 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             // TODO: this probably isn't working well, check that the arguments are loaded
-            autoFocus = arguments!!.getBoolean(AutoFocus, true)
-            useFlash = arguments!!.getBoolean(UseFlash, false)
+            autoFocus = arguments!!.getBoolean("AutoFocus", true)
+            useFlash = arguments!!.getBoolean("UseFlash", false)
         }
     }
 
@@ -73,11 +72,26 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
         preview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
         val applicationContext = this.activity?.applicationContext!!
+
+        val autofocusSwitch = fragmentView.findViewById<CompoundButton>(R.id.switch_autoFocus)
+        val useFlashSwitch = fragmentView.findViewById<CompoundButton>(R.id.switch_useFlash)
+
+        if (autoFocus != null) {
+            autofocusSwitch.isChecked = autoFocus as Boolean
+        } else {
+            autoFocus = autofocusSwitch.isChecked
+        }
+        if (useFlash != null) {
+            useFlashSwitch.isChecked = useFlash as Boolean
+        } else {
+            useFlash = useFlashSwitch.isChecked
+        }
+
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         val rc = ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
         if (rc == PackageManager.PERMISSION_GRANTED) {
-            createCameraSource(autoFocus!!, useFlash!!)
+            createCameraSource(autoFocus as Boolean, useFlash as Boolean)
         } else {
             requestCameraPermission()
         }
@@ -89,6 +103,19 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         Snackbar.make(graphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
                 .show()
+
+        autofocusSwitch.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView:CompoundButton, isChecked:Boolean) {
+                mCameraSource?.setFocusMode(
+                        if (isChecked) Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE else null)
+            }
+        })
+
+        useFlashSwitch.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView:CompoundButton, isChecked:Boolean) {
+                mCameraSource?.setFlashMode(if (isChecked) Camera.Parameters.FLASH_MODE_TORCH else Camera.Parameters.FLASH_MODE_OFF)
+            }
+        })
 
         return fragmentView
     }
@@ -340,10 +367,13 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         fun newInstance(autoFocus: Boolean, useFlash: Boolean): OcrCaptureFragment {
             val fragment = OcrCaptureFragment()
             val args = Bundle()
-            args.putBoolean(AutoFocus, autoFocus)
-            args.putBoolean(UseFlash, useFlash)
+            args.putBoolean("AutoFocus", autoFocus)
+            args.putBoolean("UseFlash", useFlash)
             fragment.arguments = args
             return fragment
+        }
+        fun newInstance() : OcrCaptureFragment {
+            return OcrCaptureFragment()
         }
     }
 

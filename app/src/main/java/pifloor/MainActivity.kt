@@ -19,32 +19,12 @@ package pifloor
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.CompoundButton
-import android.widget.TextView
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import pifloor.injection.PiFloorApplication
 import pifloor.processing.CalibrationModeActivity
-import pifloor.processing.GameModeActivity
-import pifloor.utils.VirtualGrid
-import javax.inject.Inject
 
-
-/**
- * Main activity demonstrating how to pass extra parameters to an activity that
- * recognizes text.
- */
 class MainActivity : Activity() {
-    // Use a compound button so either checkbox or switch widgets work.
-    @BindView(R.id.autoFocus)
-    lateinit var autoFocus: CompoundButton
-    @BindView(R.id.useFlash)
-    lateinit var useFlash: CompoundButton
-    @BindView(R.id.status_message)
-    lateinit var statusMessage: TextView
-    @Inject
-    lateinit var virtualGrid: VirtualGrid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,65 +33,15 @@ class MainActivity : Activity() {
         ButterKnife.bind(this)
     }
 
-    @OnClick(R.id.btn_main_calibrationmode)
-    fun startCalibrationActivity() {
+    @OnClick(R.id.button_main_startGame)
+    fun startCalibrationModeActivity() {
         val intent = Intent(this, CalibrationModeActivity::class.java)
-        startActivityForResult(intent, RC_OCR_CALIBRATE)
-    }
-
-    @OnClick(R.id.btn_main_gamemode)
-    fun startGameActivity() {
-        // launch Ocr capture activity.
-        val intent = Intent(this, GameModeActivity::class.java)
-        intent.putExtra(AutoFocus, autoFocus.isChecked)
-        intent.putExtra(UseFlash, useFlash.isChecked)
-
         startActivity(intent)
     }
 
-    /**
-     * Called when an activity you launched exits, giving you the requestCode
-     * you started it with, the resultCode it returned, and any additional
-     * data from it.  The <var>resultCode</var> will be
-     * [.RESULT_CANCELED] if the activity explicitly returned that,
-     * didn't return any result, or crashed during its operation.
-     *
-     *
-     *
-     * You will receive this call immediately before onResume() when your
-     * activity is re-starting.
-     *
-     *
-     *
-     * @param requestCode The integer request code originally supplied to
-     * startActivityForResult(), allowing you to identify who this
-     * result came from.
-     * @param resultCode  The integer result code returned by the child activity
-     * through its setResult().
-     * @param data        An Intent, which can return result data to the caller
-     * (various data can be attached to Intent "extras").
-     * @see .startActivityForResult
-     *
-     * @see .createPendingResult
-     *
-     * @see .setResult
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode != RC_OCR_CALIBRATE) {
-            statusMessage.text = String.format(getString(R.string.ocr_error), resultCode)
-            return
-        }
-
-        if (resultCode != Activity.RESULT_OK) {
-            statusMessage.text = virtualGrid.tilesAsString.joinToString()
-            return super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
-    companion object {
-        private const val RC_OCR_CALIBRATE = 9003
-        // TODO use a const provider when using dagger
-        const val AutoFocus = "AutoFocus"
-        const val UseFlash = "UseFlash"
+    @OnClick(R.id.button_main_startTutorial)
+    fun startTutorialActivity() {
+        val intent = Intent(this, TutorialActivity::class.java)
+        startActivity(intent)
     }
 }
