@@ -10,4 +10,6 @@
     <dimen name="mainactivity_button_height">48dp</dimen>
     <dimen name="mainactivity_tv_title_fontsize">64sp</dimen>
     <dimen name="mainactivity_tv_message_fontsize">32sp</dimen>
+    <dimen name="tutorialactivity_tv_title_fontsize">32sp</dimen>
+    <dimen name="tutorialactivity_tv_message_fontsize">16sp</dimen>
 </resources>
