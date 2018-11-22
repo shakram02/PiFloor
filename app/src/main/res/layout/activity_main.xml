@@ -5,21 +5,36 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_padding"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context="pifloor.MainActivity">
     <TextView
-        android:id="@+id/text_main_welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_title"/>
+        android:gravity="center"
+        android:text="@string/welcome_title"
+        android:textSize="@dimen/mainactivity_tv_title_fontsize"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/component_large_margin"
+        android:layout_marginBottom="@dimen/component_large_margin"
+        android:gravity="center"
+        android:text="@string/welcome_message"
+        android:textSize="@dimen/mainactivity_tv_message_fontsize"/>
     <!--TODO: Change to MaterialButton-->
     <Button
         android:id="@+id/button_main_startTutorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/component_large_margin"
+        android:layout_marginBottom="@dimen/component_large_margin"
+        android:gravity="center"
         android:text="@string/start_tutorial"/>
     <Button
         android:id="@+id/button_main_startGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/component_large_margin"
+        android:gravity="center"
         android:text="@string/new_game"/>
 </LinearLayout>

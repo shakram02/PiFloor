@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
+        android:layout_gravity="center_vertical|left"
         android:orientation="vertical">
         <CheckBox
             android:id="@+id/switch_autoFocus"
