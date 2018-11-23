@@ -49,7 +49,6 @@ What is 8x3\?,24,11,15,24,23</string>
         - Click on all text that is part of the grid, make sure the text turns green. \n
         - When you're done, click Start Game.</string>
     <string name="tutorial_message4">
-        - Expand the drop down menu (the 3 dots) at the top of the screen. Click Start to start the game server.\n
         - You will see a link to the game server. Open the link on your computer.\n
         - Upload the questions and start the game.\n\n
 Avoid unnecessary text around the grid, during calibration and during the game. Do not change the phone\'s orientation while scanning.</string>

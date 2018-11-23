@@ -59,19 +59,22 @@ class ServerFragment : Fragment() {
         try {
             this.server.stop()
             this.hostNameTxt.text = "Stopped"
+        }catch (e: UninitializedPropertyAccessException) {
+            Log.e(TAG, e::class.java.canonicalName, e)
         } catch (e: IOException) {
             // TODO: display a useful message
             throw RuntimeException(e)
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        startServer()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        try {
-            this.server.stop()
-        } catch (e: UninitializedPropertyAccessException) {
-            Log.e(TAG, e::class.java.canonicalName, e)
-        }
+        stopServer()
     }
 
     override fun onDestroyView() {
@@ -82,19 +85,6 @@ class ServerFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater!!.inflate(R.menu.server_fragment_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        Log.i(TAG, "Menu item pressed ${item!!.title}")
-        val id = item.itemId
-
-        if (id == R.id.menu_item_server_start) {
-            startServer()
-        } else if (id == R.id.menu_item_server_stop) {
-            stopServer()
-        }
-
-        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -52,7 +52,7 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         super.onCreate(icicle)
         setContentView(R.layout.activity_game_mode)
         setSupportActionBar(findViewById(R.id.toolbar_game_activity) as Toolbar)
-
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         (application as PiFloorApplication).component.inject(this)
         loadFragment()
     }

@@ -122,6 +122,7 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         val intent = Intent(this, GameModeActivity::class.java)
         intent.putExtra("AutoFocus", findViewById<CompoundButton>(R.id.switch_autoFocus)?.isChecked)
         intent.putExtra("UseFlash", findViewById<CompoundButton>(R.id.switch_useFlash)?.isChecked)
+        finish()
         startActivity(intent)
     }
 
