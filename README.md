@@ -1,7 +1,5 @@
 # PiFloor
-
-[![DOI](https://zenodo.org/badge/131696857.svg)](https://zenodo.org/badge/latestdoi/131696857)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1476834.svg)](https://doi.org/10.5281/zenodo.1476834)
 
 An Android Portable interactive floor with minimal setup, oriented towards child education
 

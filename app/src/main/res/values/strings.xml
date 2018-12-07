@@ -18,4 +18,39 @@
     <string name="server_state">Server state</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
+
+    <string name="welcome_title">PiFloor</string>
+    <string name="welcome_message">Welcome to PiFloor interactive education.</string>
+    <string name="start_tutorial">Tutorial</string>
+    <string name="new_game">New game</string>
+    <string name="start_game">Start game</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
+
+    <string name="game_activity_instructions">Keep the camera as stable as possible. Avoid unwanted text around the grid.</string>
+
+    <!-- Tutorial content -->
+    <string name="tutorial_title1">1. Setup the floor</string>
+    <string name="tutorial_title2">2. Create the questions file</string>
+    <string name="tutorial_title3">3. Start calibration</string>
+    <string name="tutorial_title4">4. Start the game</string>
+    <string name="tutorial_message1">- Choose the floor size. The number of rows and columns should be 2 to 4.\n
+        - Print the N x M unique choice lables on separate papers with big enough font to be seen by your camera.</string>
+    <string name="tutorial_message2">
+        - The teacher must create a file containing the questions, each on a single line.\n
+        - The number of options on all lines myst be equal to the number of tiles on the grid.\n
+        - The file must follow the following format (without the \'&lt;\' , \'&gt;\'):\n
+&lt;question1_text&gt;,&lt;correct_answer&gt;,&lt;option1&gt;,&lt;option2&gt;,...,&lt;optionN&gt;\n&lt;question2_text&gt;,&lt;correct_answer&gt;,&lt;option1&gt;,&lt;option2&gt;,...,&lt;optionN&gt;\n\n
+Example game of 2 questions for a 2x2 grid:\n\n
+What is 5x3\?,15,23,15,8,20\n
+What is 8x3\?,24,11,15,24,23</string>
+    <string name="tutorial_message3">
+        - Click the New Game button in the application\'s main screen to start the calibration mode.\n
+        - Click on all text that is part of the grid, make sure the text turns green. \n
+        - When you're done, click Start Game.</string>
+    <string name="tutorial_message4">
+        - Expand the drop down menu (the 3 dots) at the top of the screen. Click Start to start the game server.\n
+        - You will see a link to the game server. Open the link on your computer.\n
+        - Upload the questions and start the game.\n\n
+Avoid unnecessary text around the grid, during calibration and during the game. Do not change the phone\'s orientation while scanning.</string>
 </resources>

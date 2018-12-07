@@ -20,8 +20,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
-import pifloor.MainActivity.Companion.AutoFocus
-import pifloor.MainActivity.Companion.UseFlash
 import pifloor.R
 import pifloor.graphcis.OcrGraphic
 import pifloor.injection.PiFloorApplication
@@ -62,8 +60,8 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
     private fun loadFragment() {
         // read parameters from the intent used to launch the activity.
         // TODO: fix parameter resolution (it's not working)
-        val autoFocus = intent.getBooleanExtra(AutoFocus, true)
-        val useFlash = intent.getBooleanExtra(UseFlash, false)
+        val autoFocus = intent.getBooleanExtra("AutoFocus", true)
+        val useFlash = intent.getBooleanExtra("UseFlash", false)
         captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
 
         supportFragmentManager.beginTransaction()

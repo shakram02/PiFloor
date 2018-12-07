@@ -1,12 +1,16 @@
 package pifloor.processing
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
+import android.widget.Button
+import android.widget.CompoundButton
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.google.android.gms.vision.text.TextBlock
-import pifloor.MainActivity.Companion.AutoFocus
-import pifloor.MainActivity.Companion.UseFlash
 import pifloor.R
 import pifloor.graphcis.CalibratedOcrGraphic
 import pifloor.graphcis.OcrGraphic
@@ -24,34 +28,29 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
     lateinit var virtualGrid: VirtualGrid
     private lateinit var captureFragment: OcrCaptureFragment
 
+    @BindView(R.id.btn_startGame_calibrationModeActivity)
+    lateinit var startGameButton : Button
+
+    @BindView(R.id.btn_clear_calibrationModeActivity)
+    lateinit var clearButton : Button
+
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        ButterKnife.bind(this)
         (application as PiFloorApplication).component.inject(this)
         loadFragment()
-        loadOverlay()
     }
 
     private fun loadFragment() {
-        // read parameters from the intent used to launch the activity.
-        // TODO: fix parameter resolution (it's not working)
-        val autoFocus = intent.getBooleanExtra(AutoFocus, true)
-        val useFlash = intent.getBooleanExtra(UseFlash, false)
-        captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
+        captureFragment = OcrCaptureFragment.newInstance()
 
         supportFragmentManager.beginTransaction()
                 .add(R.id.container_calibrate_fragment_holder, captureFragment)
                 .runOnCommit {
                     captureFragment.subscribe(this)
                 }.commit()
-
-    }
-
-    private fun loadOverlay() {
-        val calibrationOverlayFragment = CalibrationOverlayFragment()
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container_calibrate_fragment_holder, calibrationOverlayFragment)
-                .commit()
 
     }
 
@@ -115,6 +114,20 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         for (g in newFrameGraphics) {
             graphicOverlay.add(g)
         }
+    }
+
+
+    @OnClick(R.id.btn_startGame_calibrationModeActivity)
+    fun startGameActivity() {
+        val intent = Intent(this, GameModeActivity::class.java)
+        intent.putExtra("AutoFocus", findViewById<CompoundButton>(R.id.switch_autoFocus)?.isChecked)
+        intent.putExtra("UseFlash", findViewById<CompoundButton>(R.id.switch_useFlash)?.isChecked)
+        startActivity(intent)
+    }
+
+    @OnClick(R.id.btn_clear_calibrationModeActivity)
+    fun clearCalibration() {
+        virtualGrid.clear()
     }
 
     /**
