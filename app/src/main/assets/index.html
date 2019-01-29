@@ -1,85 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pi Floor</title>
+    <script src="vue.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <gamePage v-if="playing"></gamePage>
+      <adminPage v-else></adminPage>
+    </div>
 
-<head>
-	<script src="vue.min.js"></script>
-	<title>Pi Floor</title>
-	<link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="game-styles.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="intro-styles.css" media="screen" />
-	<meta charset="utf-8" />
-</head>
-
-<body>
-	<div id="app">
-		<div id="thewholething" v-if="inGame">
-
-			<div id="game-header">
-				<div class="title-text">Pi Floor</div>
-				<div id="stats">
-					<div id="score" class="rect-background rect-text">
-						<p>Score: {{score}}</p>
-					</div>
-				</div>
-			</div>
-
-			<div id="QandA">
-				<div class="rect-background">
-					<p id="question-text" class="rect-text"><b>Q{{qInd}}: </b>{{curQuestion}}</p>
-				</div>
-				<!-- <div id="answer-form">
-				<p>Please select your answer:</p>
-				<button v-if="trials>=2 || success" v-on:click="nextQuestion">Next</button>
-				<form v-else v-on:submit.prevent="checkAns" >
-					<select name="playerAns" v-model="userAns">
-						<option selected="true" selected disabled>Answer</option>
-						<option v-for="choice in choices" v-bind:value="choice">{{choice}}</option>
-					</select><br>
-					<input class="submit" type="submit">
-				</form>
-			</div> -->
-			</div>
-			<div id="game-grid" class="rect-background">
-				<div class="grid-row" v-for="row in gridData">
-					<div class="grid-cell" v-for="item in row" v-bind:style='{color:item["color"],}'>
-
-						<p>{{item['val']}}</p>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-		<div v-else id="question-form">
-			<div id="game-header">
-				<div class="title-text">Pi Floor</div>
-			</div>
-			<div >
-				<form v-on:submit.prevent="startGame" class="rect-background rect-text">
-					<h3>Grid Dimensions</h3>
-					<select name="rowSize" v-model="rows">
-						<option selected="true" selected disabled>Rows</option>
-						<option value=2>2</option>
-						<option value=3>3</option>
-						<option value=4>4</option>
-					</select> X
-					<select name="colSize" v-model="cols">
-						<option selected="true" selected disabled>Columns</option>
-						<option value=2>2</option>
-						<option value=3>3</option>
-						<option value=4>4</option>
-					</select><br>
-					<h3>Upload Questions</h3>
-					<input id="upload" type="file" name="qfile" @change="loadFile($event)"> <br>
-					<input class="submit" type="submit" value="Start">
-				</form>
-			</div>
-		</div>
-
-	</div>
-
-	<script src="script.js"></script>
-
-</body>
-
+    <script src="admin.js"></script>
+    <script src="game.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
