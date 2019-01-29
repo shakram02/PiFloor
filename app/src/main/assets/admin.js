@@ -4,13 +4,13 @@ var adminPage = Vue.component('admin', {
       count: 0
     }
   },
-  template: `<center>
+  template: `<div><center>
               <h1>Pi Floor</h1>
               <br />
-              <input type="file" />
+              <uploader />
               <br /><br />
               <button>Edit Questions</button>
               <br /><br />
               <button>Play Game</button>
-            </center>`
+            </center></div>`
 })

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="dropzone.min.css">
+  </head>
+  <body>
+
+    <form action="/" class="dropzone" id="myForm">
+      <div class="fallback">
+        <input name="file" type="file" />
+      </div>
+    </form>
+
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="dropzone.min.js"></script>
+    <script>
+      Dropzone.options.myForm = {
+        accept: function (file, done) {
+          var reader = new FileReader();
+          reader.addEventListener("loadend", function(event) {localStorage.setItem("questions" , event.target.result);})
+          reader.readAsText(file);
+          done('Here you can write anything');
+          $('.dz-preview').last().toggleClass('dz-error dz-success');
+        }
+      };
+    </script>
+  </body>
+</html>
