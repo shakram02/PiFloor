@@ -41,7 +41,7 @@ class MainActivity : Activity() {
 
     @OnClick(R.id.button_main_startTutorial)
     fun startTutorialActivity() {
-        val intent = Intent(this, TutorialActivity::class.java)
+        val intent = Intent(this, IntroActivity::class.java)
         startActivity(intent)
     }
 }
