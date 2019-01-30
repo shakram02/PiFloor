@@ -19,7 +19,10 @@
       Dropzone.options.myForm = {
         accept: function (file, done) {
           var reader = new FileReader();
-          reader.addEventListener("loadend", function(event) {localStorage.setItem("questions" , event.target.result);})
+          reader.addEventListener("loadend", function(event) {
+            if (localStorage.questions === undefined) localStorage.questions = "";
+            localStorage.questions += event.target.result;
+          })
           reader.readAsText(file);
           done('Here you can write anything');
           $('.dz-preview').last().toggleClass('dz-error dz-success');
