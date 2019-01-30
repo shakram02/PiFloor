@@ -40,4 +40,3 @@ var modalQues = Vue.component('listOfQues', {
     </div>
   `
 })
-  
