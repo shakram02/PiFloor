@@ -10,8 +10,15 @@ var adminPage = Vue.component('question', {
     },
     template: `
     <div>
-        <h3>{{index+1}}. {{title}}</h3>
-        <input v-for="option in options" type="radio" id="option" value="option" v-model="picked">
+      <h3>{{index+1}}) <input type="text" v-model="title" /></h3>
+      <div v-for="(option, index) in options">
+        {{index+1}}. <input v-model="option" />
+      </div>
+      <select v-model="picked">
+        <option v-for="option in options" v-bind:value="option">
+          {{ option }}
+        </option>
+      </select>
     </div>`
   })
   
