@@ -4,7 +4,7 @@ var fileUploader = Vue.component('uploader', {
           <modal>
             <template slot="title">Add Questions</template>
             <template slot="content">
-              <iframe src="fileUploader.html" height="220px" style="border:none;" scrolling="no"></iframe>
+              <iframe src="fileUploader.html" height="220px" width="100%" style="border:none;"></iframe>
             </template>
           </modal>
       </div>

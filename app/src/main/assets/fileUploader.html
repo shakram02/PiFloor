@@ -17,6 +17,7 @@
     <script src="dropzone.min.js"></script>
     <script>
       Dropzone.options.myForm = {
+        acceptedFiles: ".txt",
         accept: function (file, done) {
           var reader = new FileReader();
           reader.addEventListener("loadend", function(event) {
