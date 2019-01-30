@@ -3,15 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Pi Floor</title>
+    <link rel="stylesheet" href="dropzone.min.css" />
+    <link rel="stylesheet" href="modal.css">
     <script src="vue.min.js"></script>
     <link rel="stylesheet" type="text/css" href="modal.css">
   </head>
   <body>
     <div id="app">
-      <!--<gamePage v-if="playing"></gamePage>-->
-      <admin></admin>
+      <gamePage v-if="playing"></gamePage>
+      <admin v-else></admin>
     </div>
 
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="dropzone.min.js"></script>
+    <script src="dropzoneOptions.js"></script>
+    <script src="modal.js"></script>
+    <script src="fileUploader.js"></script>
     <script src="admin.js"></script>
     <script src="listOfQuestions.js"></script>
     <script src="modal.js"></script>
