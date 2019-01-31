@@ -2,10 +2,10 @@
   <div>
     <b-btn variant="primary" @click="download">Download Questions</b-btn>
     <a v-bind:show="false" ref="link"></a>
-    <b-modal id="modal1"  ref="emptyFileModal">
-    <p>No questions added yet!</p>
-    <div slot="modal-footer"></div>
-  </b-modal>
+    <b-modal ref="emptyFileModal">
+      <p>No questions added yet!</p>
+      <div slot="modal-footer"></div>
+    </b-modal>
   </div>
 </template>
 
@@ -27,10 +27,5 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

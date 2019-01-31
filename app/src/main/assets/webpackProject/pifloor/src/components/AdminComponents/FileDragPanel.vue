@@ -24,7 +24,6 @@
       </div>
       <div class="example-btn">
         <file-upload
-          :extensions="extensions"
           :multiple="true"
           :drop="true"
           v-model="files"
@@ -44,7 +43,6 @@ export default {
   },
   data() {
     return {
-      extensions: 'text/plain',
       files: [],
       drop: true,
       questions: []
@@ -57,6 +55,12 @@ export default {
     },
     stringfyFiles(){
       for(var i=0; i<this.files.length; i++){
+        // Validate file type
+        if(this.files[i].name.slice(-4) !== '.txt'){
+          alert("Wrong file format, try again!");
+          this.questions = [];
+          return;
+        }
         let reader = new FileReader();
         reader.addEventListener("loadend", event=>{
           let questions = event.target.result;
