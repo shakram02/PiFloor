@@ -3,7 +3,6 @@
     <b-btn v-b-modal.modallg variant="primary">Add Questions</b-btn>
 
     <b-modal id="modallg" size="lg" title="Drag or Browse Question File" v-model="show">
-      <!--<b-form-file v-model="file" :state="Boolean(file)" placeholder="Choose a file..."></b-form-file>-->
       <FileDragPanel ref="dragger"/>
       <div slot="modal-footer">
         <b-button variant="success" @click="uploadFiles">Done</b-button>
@@ -31,6 +30,7 @@ export default {
   methods: {
     uploadFiles(){
       this.questions = this.$refs.dragger.saveFiles();
+      this.$parent.$parent.questions = this.questions;
       this.show = false;
     }
   }
