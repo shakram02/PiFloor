@@ -12,7 +12,9 @@ export default {
 
 <style scoped>
 h1{
-  background-color: lightblue;
-  color: white;
+  color: lightblue;
+  border: solid 2px lightblue;
+  border-radius: 5px;
+  padding: 20px;
 }
 </style>

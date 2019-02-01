@@ -1,31 +1,31 @@
 <template>
-  <div>
-    <div v-if="questions.length">
-      <ScoreBoard></ScoreBoard>
+  <b-container class="wrapper">
+    <GameHeader></GameHeader>
+    <b-container class="gameContainer" v-if="questions.length">
       <QuestionBody>{{questionText}}</QuestionBody>
       <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
-      <b-btn variant="primary" @click="nextQuestion">Next Question</b-btn>
-    </div>
+      <b-btn class="nextQues" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
+    </b-container>
     <b-modal ref="helperModal">
       <div slot="modal-header"></div>
       <p v-if="failed">No questions added yet!</p>
       <p v-else>Congrats, You finished your questions!</p>
       <div slot="modal-footer">
-        <b-btn variant="primary" @click="returnToHome">Back</b-btn>
+        <b-btn variant="outline-secondary" @click="returnToHome">Back</b-btn>
       </div>
     </b-modal>
-  </div>
+  </b-container>
 </template>
 
 <script>
-import ScoreBoard from './GameComponents/ScoreBoard.vue'
+import GameHeader from './GameComponents/GameHeader.vue'
 import QuestionBody from './GameComponents/QuestionBody.vue'
 import AnswersGrid from './GameComponents/AnswersGrid.vue'
 
 export default {
   name: 'AdminPage',
   components :{
-    ScoreBoard,
+    GameHeader,
     QuestionBody,
     AnswersGrid
   },
@@ -90,7 +90,16 @@ export default {
 </script>
 
 <style scoped>
-h1{
-  color: blue;
-}
+  .wrapper {
+    padding: 10px;
+  }
+  .gameContainer {
+    border: solid 2px grey;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  .nextQues {
+    margin-left: auto;
+    display: block;
+  }
 </style>

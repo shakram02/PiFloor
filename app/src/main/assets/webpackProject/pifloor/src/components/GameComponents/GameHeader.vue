@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h3>Score: {{score}}</h3>
+    <h3>Timer: {{timer}}s</h3>
   </div>
 </template>
 
@@ -8,7 +9,8 @@
 export default {
   data(){
     return{
-      score: 0
+      score: 0,
+      timer: 10,
     }
   },
   methods: {
@@ -20,5 +22,8 @@ export default {
 </script>
 
 <style scoped>
-
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
 </style>
