@@ -1,11 +1,11 @@
 <template>
   <div><center>
-    <b-btn v-b-modal.modallg variant="primary">Add Questions</b-btn>
+    <b-btn blockn variant="outline-secondary" v-b-modal.modallg>Add Questions</b-btn>
 
     <b-modal id="modallg" size="lg" title="Drag or Browse Question File" v-model="show">
       <FileDragPanel ref="dragger"/>
       <div slot="modal-footer">
-        <b-button variant="success" @click="uploadFiles">Done</b-button>
+        <b-button variant="outline-success" @click="uploadFiles">Done</b-button>
       </div>
     </b-modal>
 
