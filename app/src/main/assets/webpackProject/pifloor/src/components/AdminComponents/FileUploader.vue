@@ -30,9 +30,21 @@ export default {
   },
   methods: {
     uploadFiles(){
-      this.questions = this.$refs.dragger.saveFiles();
-      this.$parent.$parent.questions = this.questions;
-      this.show = false;
+      let tempArray = this.$refs.dragger.saveFiles();
+      setTimeout(()=>{
+        let resultArray = [];
+        for(let i=0; i<tempArray.length; i++){
+          let tempQues = tempArray[i].split(',');
+          resultArray.push({
+            "question": tempQues[0],
+            "correct": tempQues[1],
+            "choices": tempQues.slice(2)
+          })
+        }
+        this.questions = resultArray;
+        this.$parent.$parent.questions = this.questions;
+        this.show = false;
+      }, 300)
     }
   }
 }

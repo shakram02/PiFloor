@@ -6,7 +6,7 @@
         <br/>
         <FileUploader ref="uploader"/>
         <br/>
-        <ListOfQuestions v-bind:questions="questions"/>
+        <ListOfQuestions/>
         <br/>
         <FileDownloader class="btn-block" />
         <br/>
