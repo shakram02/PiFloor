@@ -1,11 +1,19 @@
 <template>
   <div>
     <div v-if="questions.length">
-      <ScoreBoard></ScoreBoard>
+      <ScoreBoard ref="scoreBoard"></ScoreBoard>
+
+      <!-- Testing components -->
+      <div id="test" v-if="testing">
+        <input type="text" v-model="testAnswer">
+        <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
+      </div>
+
       <QuestionBody>{{questionText}}</QuestionBody>
       <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
       <b-btn variant="primary" @click="nextQuestion">Next Question</b-btn>
     </div>
+
     <b-modal ref="helperModal">
       <div slot="modal-header"></div>
       <p v-if="failed">No questions added yet!</p>
@@ -23,7 +31,7 @@ import QuestionBody from './GameComponents/QuestionBody.vue'
 import AnswersGrid from './GameComponents/AnswersGrid.vue'
 
 export default {
-  name: 'AdminPage',
+  name: 'GamePage',
   components :{
     ScoreBoard,
     QuestionBody,
@@ -33,7 +41,9 @@ export default {
     return{
       questions : [],
       questionIndex: 0,
-      failed: true
+      failed: true,
+      testing: true,
+      testAnswer: ""
     }
   },
   computed: {
@@ -70,6 +80,22 @@ export default {
     returnToHome: function(){
       this.failed = true;
       this.$parent.playing = false;
+    },
+    checkAnswer: function(answer){
+      let ansIndex = this.possibleAnswers.indexOf(this.correctAnswer);
+      if(parseInt(answer) === ansIndex) this.celebrate();
+      else this.getUpset();
+      setTimeout(this.nextQuestion, 3000);
+    },
+    celebrate: function(){
+      // TODO: Animate celebrations
+      this.$refs.scoreBoard.score+=10;
+    },
+    getUpset: function(){
+      // TODO: Animate disappointment
+      // eslint-disable-next-line
+      console.log("Wrong answer");
+
     }
   },
   mounted() {
@@ -81,11 +107,11 @@ export default {
       connect: function () {
           this.$socket.emit('connected', "We're not connected")
       },
-      message: function (data) {
-          // To be configured
+      answer: function (data) {
+          if(isNaN(data)) alert('Wrong data type!');
+          else this.checkAnswer(data);
       }
   }
-}
 }
 </script>
 
