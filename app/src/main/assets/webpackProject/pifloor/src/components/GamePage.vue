@@ -87,7 +87,7 @@ export default {
   },
   mounted() {
     let rawQuestions = this.$parent.questions;
-    if(!rawQuestions.length)  this.questions = rawQuestions;
+    if(rawQuestions.length)  this.questions = rawQuestions;
     else  this.$refs.helperModal.show();
   },
   sockets: {
