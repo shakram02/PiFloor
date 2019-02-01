@@ -1,5 +1,3 @@
-<i18n src="../locales/AdminPage.json"></i18n>
-
 <template>
     <b-col offset-md="4" cols="4" align-self="center">
       <div  class="containerMenu">
@@ -14,8 +12,11 @@
         <br/>
         <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
         <br/>
-        <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
-      </div>
+        <b-form-select v-model="$i18n.locale">
+          <option v-for="option in this.$parent.lang" v-bind:key="option" v-bind:value="option">
+            {{ option }}
+          </option>
+        </b-form-select>      </div>
     </b-col>
 </template>
 
@@ -26,6 +27,7 @@ import ListOfQuestions from './AdminComponents/ListOfQuestions.vue'
 
 export default {
   name: 'AdminPage',
+  
   components: {
     FileUploader,
     FileDownloader,
@@ -36,11 +38,7 @@ export default {
       this.$parent.playing = true;
     }
   },
-  watch: {
-    locale (val) {
-      this.$i18n.locale = val
-    }
-  },
+
 }
 </script>
 

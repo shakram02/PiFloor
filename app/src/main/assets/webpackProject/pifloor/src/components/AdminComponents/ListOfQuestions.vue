@@ -1,5 +1,3 @@
-<i18n src="../../locales/AdminPage.json"></i18n>
-
 <template>
     <div>
         <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
