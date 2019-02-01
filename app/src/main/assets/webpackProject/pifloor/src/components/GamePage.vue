@@ -9,7 +9,7 @@
         <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
       </div>
 
-      <QuestionBody>{{questionText}}</QuestionBody>
+      <h1>{{questionText}}</h1>
       <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
       <b-btn variant="primary" @click="nextQuestion">Next Question</b-btn>
     </div>
@@ -27,14 +27,12 @@
 
 <script>
 import ScoreBoard from './GameComponents/ScoreBoard.vue'
-import QuestionBody from './GameComponents/QuestionBody.vue'
 import AnswersGrid from './GameComponents/AnswersGrid.vue'
 
 export default {
   name: 'GamePage',
   components :{
     ScoreBoard,
-    QuestionBody,
     AnswersGrid
   },
   data(){
@@ -48,27 +46,16 @@ export default {
   },
   computed: {
     questionText: function(){
-      return this.questions[this.questionIndex].body;
+      return this.questions[this.questionIndex].question;
     },
     correctAnswer: function(){
       return this.questions[this.questionIndex].correct;
     },
     possibleAnswers: function(){
-      return this.questions[this.questionIndex].answers;
+      return this.questions[this.questionIndex].choices;
     }
   },
   methods: {
-    preprocessQuestions: function(rawQuestions){
-      for(let i=0; i<rawQuestions.length; i++){
-        let sepQuestions = rawQuestions[i].split(',');
-        let obj = {
-          'body': sepQuestions[0],
-          'correct': sepQuestions[1],
-          'answers': sepQuestions.slice(2)
-        }
-        this.questions.push(obj);
-      }
-    },
     nextQuestion: function(){
       if(this.questionIndex == this.questions.length -1){
         // Display celebration ...
@@ -100,7 +87,7 @@ export default {
   },
   mounted() {
     let rawQuestions = this.$parent.questions;
-    if(rawQuestions.length)  this.preprocessQuestions(rawQuestions);
+    if(!rawQuestions.length)  this.questions = rawQuestions;
     else  this.$refs.helperModal.show();
   },
   sockets: {
@@ -113,6 +100,7 @@ export default {
       }
   }
 }
+
 </script>
 
 <style scoped>

@@ -15,11 +15,6 @@ export default {
     return{
     }
   },
-  methods: {
-    correctAnswer: function(){
-      this.score += 10;
-    }
-  },
   computed: {
     numPerRow: function(){
       let num = this.PossibleAnswers.length;

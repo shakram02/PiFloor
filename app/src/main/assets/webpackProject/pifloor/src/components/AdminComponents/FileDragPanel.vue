@@ -15,7 +15,7 @@
         <td colspan="7">
           <div class="text-center p-5">
             <h4>Drop files anywhere to upload<br/>or</h4>
-            <label for="file" class="btn btn-lg btn-primary">Select Files</label>
+            <label for="file" class="btn btn-lg btn-outline-secondary">Select Files</label>
           </div>
         </td>
       </ul>

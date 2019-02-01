@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-btn variant="primary" @click="download">Download Questions</b-btn>
+    <b-btn block variant="outline-secondary" @click="download">Download Questions</b-btn>
     <a v-bind:show="false" ref="link"></a>
     <b-modal ref="emptyFileModal">
       <p>No questions added yet!</p>
