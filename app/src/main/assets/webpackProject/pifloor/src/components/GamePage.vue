@@ -76,7 +76,16 @@ export default {
     let rawQuestions = this.$parent.questions;
     if(rawQuestions.length)  this.preprocessQuestions(rawQuestions);
     else  this.$refs.helperModal.show();
+  },
+  sockets: {
+      connect: function () {
+          this.$socket.emit('connected', "We're not connected")
+      },
+      message: function (data) {
+          // To be configured
+      }
   }
+}
 }
 </script>
 
