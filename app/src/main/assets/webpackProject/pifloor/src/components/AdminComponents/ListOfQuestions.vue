@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-btn block variant="outline-secondary" v-b-modal.questionsModal>Questions</b-btn>
+        <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         <b-modal size="lg" id="questionsModal" title="Questions">
             <div v-for="(question, index) in questions"  v-bind:key="index">
                 <Question 
@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style scoped>
+
 #breakLine {
     margin: 15px;
     height: 1px;

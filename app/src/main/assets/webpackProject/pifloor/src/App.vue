@@ -19,6 +19,7 @@ export default {
   },
   data() {
     return{
+      lang: ['en', 'ar'],
       questions: [],
       playing: false
     }
