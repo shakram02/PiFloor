@@ -1,7 +1,8 @@
 <template>
   <div><center>
-    <b-btn block variant="outline-secondary" v-b-modal.modallg>Add Questions</b-btn>
-
+    <div class="shape">
+      <b-btn block variant="outline-secondary" v-b-modal.modallg>Add Questions</b-btn>
+    </div>
     <b-modal id="modallg" size="lg" title="Drag or Browse Question File" v-model="show">
       <FileDragPanel ref="dragger"/>
       <div slot="modal-footer">

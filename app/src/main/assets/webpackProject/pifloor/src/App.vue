@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import AdminPage from './components/AdminPage.vue'
 import GamePage from './components/GamePage.vue'
+import './styles/irregularButton.scss';
 
 export default {
   name: 'app',

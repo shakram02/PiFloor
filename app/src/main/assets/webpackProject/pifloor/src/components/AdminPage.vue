@@ -10,13 +10,18 @@
         <br/>
         <FileDownloader class="btn-block" />
         <br/>
-        <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+        <div class="shape">
+          <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+        </div>
         <br/>
-        <b-form-select v-model="$i18n.locale">
-          <option v-for="option in this.$parent.lang" v-bind:key="option" v-bind:value="option">
-            {{ option }}
-          </option>
-        </b-form-select>      </div>
+        <div class="shape">
+          <b-form-select v-model="$i18n.locale">
+            <option v-for="option in this.$parent.lang" v-bind:key="option" v-bind:value="option">
+              {{ option }}
+            </option>
+          </b-form-select>     
+        </div> 
+      </div>
     </b-col>
 </template>
 
@@ -42,7 +47,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .containerMenu {
   padding: 20px;
   border: solid 2px grey;
