@@ -13,7 +13,7 @@
 export default {
   methods: {
       download(){
-        let questions = this.$parent.$refs.uploader.questions;
+        let questions = this.$parent.$refs.uploader.$refs.dragger.questions;
         if(!questions.length){this.$refs.emptyFileModal.show();}
         else{
           questions = questions.join('\n');
