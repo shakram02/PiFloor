@@ -1,7 +1,9 @@
+<i18n src="../locales/AdminPage.json"></i18n>
+
 <template>
     <b-col offset-md="4" cols="4" align-self="center">
       <div  class="containerMenu">
-        <h1>Pi Floor</h1>
+        <h1>{{ $t('PiFloor') }}</h1>
         <br/>
         <br/>
         <FileUploader ref="uploader"/>
@@ -10,7 +12,9 @@
         <br/>
         <FileDownloader class="btn-block" />
         <br/>
-        <b-btn block variant="outline-secondary" @click="startGame">Play Game</b-btn>
+        <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+        <br/>
+        <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
       </div>
     </b-col>
 </template>
@@ -31,7 +35,12 @@ export default {
     startGame(){
       this.$parent.playing = true;
     }
-  }
+  },
+  watch: {
+    locale (val) {
+      this.$i18n.locale = val
+    }
+  },
 }
 </script>
 
