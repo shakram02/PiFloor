@@ -15,7 +15,7 @@
     </b-row>
     <br/>
     <b-collapse v-bind:id="'collapse' + index" accordion="ques-accordion" class="mt-2">
-      <div v-for="(option, index) in options">
+      <div v-for="(option, index) in options" v-bind:key="option">
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="sheet input-group-text" style="margin-left: 15px;">{{index+1}}. </span>
@@ -55,7 +55,7 @@ export default {
         this.options.push("");
       },
       removeChoice: function(index) {
-        this.options.splice(index, 1);    
+        this.options.splice(index, 1);
       }
     }
 };
@@ -74,5 +74,3 @@ export default {
     background: white;
 }
 </style>
-
-  

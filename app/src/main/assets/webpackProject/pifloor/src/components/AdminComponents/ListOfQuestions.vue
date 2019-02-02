@@ -4,13 +4,13 @@
             <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         </div>
         <b-modal size="lg" id="questionsModal" title="Questions">
-            <div v-for="(ques, index) in $parent.$parent.questions">
-                <Question 
-                    v-bind:index="index" 
+            <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="ques">
+                <Question
+                    v-bind:index="index"
                     v-bind:title="ques.question"
                     v-bind:options="ques.choices"
                     v-bind:picked="ques.correct"
-                    v-bing:questions="$parent.$parent.questions"
+                    v-bind:questions="$parent.$parent.questions"
                 />
                 <button @click="() => deleteQuestion(index)">
                     delete

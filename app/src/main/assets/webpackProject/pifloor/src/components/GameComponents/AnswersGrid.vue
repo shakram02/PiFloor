@@ -23,6 +23,12 @@ export default {
       num = Math.ceil(Math.sqrt(num))
       return 12/num;
     }
+  },
+  mounted() {
+    let num = this.PossibleAnswers.length;
+    num = Math.pow(Math.ceil(Math.sqrt(num)),2);
+    num = num - this.PossibleAnswers.length;
+    for(let i=0; i<num; i++) this.PossibleAnswers.push("")
   }
 }
 </script>
@@ -39,6 +45,7 @@ span{
   font-size: 35px;
   padding: 20px;
   width: 80%;
+  height: 100px;
   display: block;
 }
 #grid{
