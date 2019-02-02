@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:orientation="vertical"
     android:background="@color/org"
-    tools:context="pifloor.introfragments.ZeroFragment"
+    tools:context="pifloor.introfragments.FirstFragment"
     android:padding="20dp">
 
     <TextView

@@ -20,6 +20,10 @@ class VirtualGrid {
         return tiles.add(GridTile(tile))
     }
 
+    fun removeTile(tile: Text): Boolean {
+        return tiles.remove(GridTile(tile))
+    }
+
     fun contains(tile: Text): Boolean {
         return tiles.any { i -> i.value == preProcess(tile.value) }
     }

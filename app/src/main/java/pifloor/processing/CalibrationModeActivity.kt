@@ -2,14 +2,22 @@ package pifloor.processing
 
 
 import android.content.Intent
+import android.hardware.Camera
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.widget.Button
-import android.widget.CompoundButton
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import co.dift.ui.SwipeToAction
 import com.google.android.gms.vision.text.TextBlock
 import pifloor.R
 import pifloor.graphcis.CalibratedOcrGraphic
@@ -22,29 +30,85 @@ import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import javax.inject.Inject
 
-
-class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
+class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
     @Inject
     lateinit var virtualGrid: VirtualGrid
     private lateinit var captureFragment: OcrCaptureFragment
 
     @BindView(R.id.btn_startGame_calibrationModeActivity)
-    lateinit var startGameButton : Button
+    lateinit var startGameButton : FloatingActionButton
 
-    @BindView(R.id.btn_clear_calibrationModeActivity)
-    lateinit var clearButton : Button
+    var mTopToolbar : Toolbar? = null
+    var focus :Boolean = false
+    var flash :Boolean = false
+
+    @BindView(R.id.recycler)
+    lateinit var recyclerView: RecyclerView
+    var swipeToAction : SwipeToAction? = null
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        //actionBar?.setDisplayHomeAsUpEnabled(true)
+        mTopToolbar = findViewById(R.id.my_toolbar)
+        setSupportActionBar(mTopToolbar)
         ButterKnife.bind(this)
         (application as PiFloorApplication).component.inject(this)
         loadFragment()
+        loadList()
+    }
+
+    private fun loadList() {
+        var layoutManager = LinearLayoutManager(this)
+        recyclerView.setLayoutManager(layoutManager)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.setAdapter(captureFragment.adapter)
+
+        swipeToAction = SwipeToAction(recyclerView, object : SwipeToAction.SwipeListener<String> {
+            override fun onClick(itemData: String?) {
+                displaySnackbar(itemData, null, null)
+            }
+
+            override fun swipeRight(itemData: String?): Boolean {
+                removeTile(itemData!!)
+                return true
+            }
+
+            override fun onLongClick(itemData: String?) {}
+
+            override fun swipeLeft(itemData: String?): Boolean {
+                removeTile(itemData!!)
+                return true
+            }
+
+        })
+    }
+
+    private fun removeTile(str : String): Int {
+        var pos = captureFragment.tiles!!.indexOf(str)
+        captureFragment.tiles!!.remove(str)
+        captureFragment.adapter!!.notifyItemRemoved(pos)
+        /*var g : OcrGraphic? = graphicOverlay.getByContent(str)
+        if (g != null) {
+            g.getRectPaint().color = Color.WHITE
+            g.getTextPaint().color = Color.WHITE
+            graphicOverlay.remove(g)
+        }*/
+        virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
+        return pos
+    }
+
+    private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
+        var snack : Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
+                .setAction(actionName, action)
+
+        var v : View = snack.getView()
+        v.setBackgroundColor(getResources().getColor(R.color.green))
+        snack.show()
     }
 
     private fun loadFragment() {
-        captureFragment = OcrCaptureFragment.newInstance()
+        captureFragment = OcrCaptureFragment.newInstance(focus, flash)
 
         supportFragmentManager.beginTransaction()
                 .add(R.id.container_calibrate_fragment_holder, captureFragment)
@@ -119,15 +183,19 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
 
     @OnClick(R.id.btn_startGame_calibrationModeActivity)
     fun startGameActivity() {
-        val intent = Intent(this, GameModeActivity::class.java)
-        intent.putExtra("AutoFocus", findViewById<CompoundButton>(R.id.switch_autoFocus)?.isChecked)
-        intent.putExtra("UseFlash", findViewById<CompoundButton>(R.id.switch_useFlash)?.isChecked)
+        val intent = Intent(this, GameModeActivity::class.java).apply {
+            putExtra("AutoFocus", focus)
+            putExtra("UseFlash", flash)
+            putExtra("tiles", captureFragment.tiles)
+        }
         startActivity(intent)
     }
 
-    @OnClick(R.id.btn_clear_calibrationModeActivity)
-    fun clearCalibration() {
+    private fun clearCalibration() {
         virtualGrid.clear()
+        captureFragment.tiles!!.clear()
+        captureFragment.adapter!!.notifyDataSetChanged()
+        captureFragment.counter = 0
     }
 
     /**
@@ -149,5 +217,42 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
     companion object {
         private const val TAG = "CalibrationActivity"
         private const val GRID_SIZE = 7 // TODO: fix this later
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.calb_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.getItemId()
+
+        if (id == R.id.flash) {
+            if (!flash) {
+                flash = true
+                item.setIcon(R.drawable.flash_on)
+                captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
+            } else {
+                flash = false
+                item.setIcon(R.drawable.flash)
+                captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+            }
+            return true
+        } else if(id == R.id.focus) {
+            if (!focus) {
+                focus = true
+                item.setIcon(R.drawable.focus_on)
+                captureFragment.mCameraSource!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO
+            } else {
+                focus = false
+                item.setIcon(R.drawable.focus)
+                captureFragment.mCameraSource!!.focusMode = null
+            }
+        } else if (id == R.id.restart) {
+            clearCalibration()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

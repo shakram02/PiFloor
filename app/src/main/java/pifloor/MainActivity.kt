@@ -17,6 +17,7 @@
 package pifloor
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import butterknife.ButterKnife
@@ -26,11 +27,22 @@ import pifloor.processing.CalibrationModeActivity
 
 class MainActivity : Activity() {
 
+    private val prefName = "intro"
+    private val value = "opened"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as PiFloorApplication).component.inject(this)
         ButterKnife.bind(this)
+        val sharedPref = getSharedPreferences(prefName, Context.MODE_PRIVATE)
+        if (!sharedPref.getBoolean(value, false)) {
+            // First time to view
+            val editor = sharedPref.edit()
+            editor.putBoolean(value, true)
+            editor.apply()
+            startTutorialActivity()
+        }
     }
 
     @OnClick(R.id.button_main_startGame)
