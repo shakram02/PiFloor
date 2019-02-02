@@ -1,6 +1,7 @@
 <template>
     <div>
     <b-row align-v="center">
+
       <b-col cols="9">
         <div class="input-group">
           <div class="input-group-prepend">
@@ -9,20 +10,22 @@
           <b-form-input type="text" class="sheet" v-model="question" />
         </div>
       </b-col>
+
       <b-col cols="3">
         <b-btn v-b-toggle="'collapse' + index" size="sm" variant="outline-secondary">close/open</b-btn>
       </b-col>
     </b-row>
     <br/>
+
     <b-collapse v-bind:id="'collapse' + index" accordion="ques-accordion" class="mt-2">
-      <div v-for="(option, index) in options" v-bind:key="option">
+      <div v-for="(option, i) in questions[index].choices">
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="sheet input-group-text" style="margin-left: 15px;">{{index+1}}. </span>
+            <span class="sheet input-group-text" style="margin-left: 15px;">{{i+1}}. </span>
           </div>
-          <b-form-input type="text" class="sheet" v-model="options[index]" />
+          <b-form-input type="text" class="sheet" v-model="questions[index].choices[i]" />
         </div>
-        <button @click="removeChoice(index)">
+        <button @click="removeChoice(i)">
           delete
         </button>
       </div>
@@ -32,8 +35,8 @@
       <br/>
       <div class="select">
         <p>Select Correct Answer</p>
-        <b-form-select v-model="picked">
-          <option v-for="(option, index) in options" v-bind:key="options[index]" v-bind:value="options[index]">
+        <b-form-select v-model="correct">
+          <option v-for="(option, i) in questions[index].choices" v-bind:key="questions[index].choices[i]" v-bind:value="questions[index].choices[i]">
             {{ option }}
           </option>
         </b-form-select>
@@ -44,33 +47,42 @@
 
 <script>
 export default {
-    props: ['index', 'title', 'options', 'picked'],
+    props: ['index', 'questions'],
     data(){
       return {
-        question: this.title,
+        question: this.questions[this.index].question,
+        correct: this.questions[this.index].correct,
       }
     },
     methods: {
       addChoice : function() {
-        this.options.push("");
+        this.questions[this.index].choices.push("");
       },
-      removeChoice: function(index) {
-        this.options.splice(index, 1);
+      removeChoice: function(i) {
+        this.questions[this.index].choices.splice(i, 1);
       }
-    }
+    },
+    watch: {
+    question(val) {
+      this.$emit('inputQuestion', val);
+    },
+    correct(val) {
+      this.$emit('inputCorrect', val);
+    },
+  }
 };
 </script>
 
 <style scoped>
-.select {
-  display: flex;
-}
-.sheet {
-    border: 0px;
-    border-bottom: solid 2px grey;
-    border-radius: 0px;
-    padding-right:0px;
-    padding-left:0px;
-    background: white;
-}
+  .select {
+    display: flex;
+  }
+  .sheet {
+      border: 0px;
+      border-bottom: solid 2px grey;
+      border-radius: 0px;
+      padding-right:0px;
+      padding-left:0px;
+      background: white;
+  }
 </style>
