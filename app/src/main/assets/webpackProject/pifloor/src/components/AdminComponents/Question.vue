@@ -6,7 +6,7 @@
           <div class="input-group-prepend">
             <span class="sheet input-group-text" style="margin-left: 15px;">{{index+1}}. </span>
           </div>
-          <b-form-input type="text" class="sheet" v-model="title" />
+          <b-form-input type="text" class="sheet" v-model="question" />
         </div>
       </b-col>
       <b-col cols="3">
@@ -15,15 +15,20 @@
     </b-row>
     <br/>
     <b-collapse v-bind:id="'collapse' + index" accordion="ques-accordion" class="mt-2">
-      <div v-for="(option, index) in options" v-bind:key="index">
+      <div v-for="(option, index) in options">
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="sheet input-group-text" style="margin-left: 15px;">{{index+1}}. </span>
           </div>
           <b-form-input type="text" class="sheet" v-model="options[index]" />
         </div>
+        <button @click="removeChoice(index)">
+          delete
+        </button>
       </div>
-
+      <button @click="addChoice">
+        plus
+      </button>
       <br/>
       <div class="select">
         <p>Select Correct Answer</p>
@@ -40,6 +45,19 @@
 <script>
 export default {
     props: ['index', 'title', 'options', 'picked'],
+    data(){
+      return {
+        question: this.title,
+      }
+    },
+    methods: {
+      addChoice : function() {
+        this.options.push("");
+      },
+      removeChoice: function(index) {
+        this.options.splice(index, 1);    
+      }
+    }
 };
 </script>
 

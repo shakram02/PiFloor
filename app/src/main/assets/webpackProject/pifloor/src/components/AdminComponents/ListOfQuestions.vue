@@ -4,15 +4,22 @@
             <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         </div>
         <b-modal size="lg" id="questionsModal" title="Questions">
-            <div v-for="(question, index) in questions"  v-bind:key="index">
+            <div v-for="(ques, index) in $parent.$parent.questions">
                 <Question 
                     v-bind:index="index" 
-                    v-bind:title="question.title"
-                    v-bind:options="question.options"
-                    v-bind:picked="question.picked"
+                    v-bind:title="ques.question"
+                    v-bind:options="ques.choices"
+                    v-bind:picked="ques.correct"
+                    v-bing:questions="$parent.$parent.questions"
                 />
+                <button @click="() => deleteQuestion(index)">
+                    delete
+                </button>
                 <div id="breakLine"/>
             </div>
+            <button @click="addQuestion">
+                new Question
+            </button>
         </b-modal>
     </div>
 </template>
@@ -21,13 +28,20 @@
 import Question from "./Question.vue";
 
 export default {
-    data: function () {
-      return {
-        questions: this.$parent.$parent.questions,
-      }
-    },
     components: {
         Question,
+    },
+    methods: {
+        addQuestion: function () {
+            this.$parent.$parent.questions.push({
+                    choices: [" "],
+                    correct: " ",
+                    question: " ",
+                });
+        },
+        deleteQuestion: function (index) {
+            this.$parent.$parent.questions.splice(index, 1);
+        }
     }
 }
 </script>
