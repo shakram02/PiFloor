@@ -13,6 +13,7 @@
 
       <b-col cols="3">
         <b-btn v-b-toggle="'collapse' + index" size="sm" variant="outline-secondary">close/open</b-btn>
+        <b-btn v-on:click="deleteQuestion(index)" variant="outline-secondary">delete</b-btn>
       </b-col>
     </b-row>
     <br/>
@@ -25,11 +26,11 @@
           </div>
           <b-form-input type="text" class="sheet" v-model="questions[index].choices[i]" />
         </div>
-        <button @click="removeChoice(i)">
+        <button v-on:click="removeChoice(i)">
           delete
         </button>
       </div>
-      <button @click="addChoice">
+      <button v-on:click="addChoice">
         plus
       </button>
       <br/>
@@ -60,7 +61,10 @@ export default {
       },
       removeChoice: function(i) {
         this.questions[this.index].choices.splice(i, 1);
-      }
+      },
+      deleteQuestion: function(i) {
+        this.questions.splice(i, 1);
+      },
     },
     watch: {
     question(val) {

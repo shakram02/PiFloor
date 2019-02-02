@@ -4,16 +4,13 @@
             <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         </div>
         <b-modal size="lg" id="questionsModal" title="Questions">
-            <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="index">
+            <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="ques">
                 <Question
                     v-bind:index="index"
                     v-bind:questions="$parent.$parent.questions"
                     @inputQuestion="(val) => setQuestion(val, index)"
                     @inputCorrect="(val) => setCorrect(val, index)"
                 />
-                <button @click="() => deleteQuestion(index)">
-                    delete
-                </button>
                 <div id="breakLine"/>
             </div>
             <button @click="addQuestion">
@@ -38,14 +35,12 @@ export default {
                     question: " ",
                 });
         },
-        deleteQuestion: function (index) {
-            this.$parent.$parent.questions.splice(index, 1);
-        },
         setQuestion: function (val, index) {
-            this.$parent.$parent.questions[0].question = val;
+            this.$parent.$parent.questions[index].question = val;
+            console.log()
         },
         setCorrect: function (val, index) {
-            this.$parent.$parent.questions[0].correct = val;
+            this.$parent.$parent.questions[index].correct = val;
         },
     }
 }
