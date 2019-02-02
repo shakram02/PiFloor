@@ -1,6 +1,6 @@
 <template>
-  <b-container class="wrapper">
-    <GameHeader></GameHeader>
+  <b-container class="wrapper" v-if="questions.length">
+    <GameHeader ref="gameHeader"></GameHeader>
 
     <!-- Testing components -->
     <div id="test" v-if="testing">
@@ -8,7 +8,7 @@
       <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
     </div>
 
-    <b-container class="gameContainer" v-if="questions.length">
+    <b-container class="gameContainer">
       <QuestionBody>{{questionText}}</QuestionBody>
       <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
       <b-btn class="nextQues" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
@@ -60,6 +60,9 @@ export default {
     nextQuestion: function(){
       if(this.questionIndex == this.questions.length -1){
         // Display celebration ...
+        // eslint-disable-next-line
+        let sound = new Audio(require('../assets/soundEffects/success.mp3'))
+        sound.play()
         this.failed = false;
         this.$refs.helperModal.show();
       }
@@ -77,12 +80,18 @@ export default {
     },
     celebrate: function(){
       // TODO: Animate celebrations
-      this.$refs.scoreBoard.score+=10;
+      this.$refs.gameHeader.correctAnswer();
+      // eslint-disable-next-line
+      let sound = new Audio(require('../assets/soundEffects/correct.mp3'));
+      sound.play();
     },
     getUpset: function(){
       // TODO: Animate disappointment
       // eslint-disable-next-line
       console.log("Wrong answer");
+      // eslint-disable-next-line
+      let sound = new Audio(require('../assets/soundEffects/fail.mp3'))
+      sound.play()
 
     }
   },
