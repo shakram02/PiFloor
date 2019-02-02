@@ -2,7 +2,7 @@
   <b-container>
     <center>
       <b-row id="grid" no-gutters class="justify-content-center">
-        <b-col v-bind:cols="numPerRow" v-for="answer in PossibleAnswers" v-bind:key="answer" class="answer">
+        <b-col v-bind:cols="numPerRow" v-for="(answer, index) in PossibleAnswers" v-bind:key="answer + index" class="answer">
           <span>{{answer}}</span>
         </b-col>
       </b-row>
@@ -25,10 +25,20 @@ export default {
     }
   },
   mounted() {
-    let num = this.PossibleAnswers.length;
-    num = Math.pow(Math.ceil(Math.sqrt(num)),2);
-    num = num - this.PossibleAnswers.length;
-    for(let i=0; i<num; i++) this.PossibleAnswers.push("")
+    setTimeout(()=>{
+      let num = this.PossibleAnswers.length;
+      num = Math.pow(Math.ceil(Math.sqrt(num)),2);
+      num = num - this.PossibleAnswers.length;
+      for(let i=0; i<num; i++) this.PossibleAnswers.push("")
+    },200)
+  },
+  beforeUpdate() {
+    setTimeout(()=>{
+      let num = this.PossibleAnswers.length;
+      num = Math.pow(Math.ceil(Math.sqrt(num)),2);
+      num = num - this.PossibleAnswers.length;
+      for(let i=0; i<num; i++) this.PossibleAnswers.push("")
+    },200)
   }
 }
 </script>

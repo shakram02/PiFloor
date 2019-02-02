@@ -4,7 +4,7 @@
             <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         </div>
         <b-modal size="lg" id="questionsModal" title="Questions">
-            <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="ques">
+            <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="ques + index">
                 <Question
                     v-bind:index="index"
                     v-bind:questions="$parent.$parent.questions"
@@ -37,6 +37,7 @@ export default {
         },
         setQuestion: function (val, index) {
             this.$parent.$parent.questions[index].question = val;
+            // eslint-disable-next-line
             console.log()
         },
         setCorrect: function (val, index) {
