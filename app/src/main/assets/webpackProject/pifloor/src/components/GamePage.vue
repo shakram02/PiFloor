@@ -1,17 +1,19 @@
 <template>
-  <b-container class="wrapper" v-if="questions.length">
-    <GameHeader ref="gameHeader"></GameHeader>
+  <div>
+    <b-container class="wrapper" v-if="questions.length">
+      <GameHeader ref="gameHeader"></GameHeader>
 
-    <!-- Testing components -->
-    <div id="test" v-if="testing">
-      <input type="text" v-model="testAnswer">
-      <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
-    </div>
+      <!-- Testing components -->
+      <div id="test" v-if="testing">
+        <input type="text" v-model="testAnswer">
+        <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
+      </div>
 
-    <b-container class="game-container">
-      <QuestionBody>{{questionText}}</QuestionBody>
-      <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
-      <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
+      <b-container class="game-container">
+        <QuestionBody>{{questionText}}</QuestionBody>
+        <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
+        <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
+      </b-container>
     </b-container>
     <b-modal ref="helperModal">
       <div slot="modal-header"></div>
@@ -21,7 +23,7 @@
         <b-btn variant="outline-secondary" @click="returnToHome">Back</b-btn>
       </div>
     </b-modal>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -102,9 +104,10 @@ export default {
   },
   sockets: {
       connect: function () {
-          this.$socket.emit('connected', "We're not connected")
+          // eslint-disable-next-line
+          console.log("We're connected!");
       },
-      answer: function (data) {
+      game: function (data) {
           if(isNaN(data)) alert('Wrong data type!');
           else this.checkAnswer(data);
       }

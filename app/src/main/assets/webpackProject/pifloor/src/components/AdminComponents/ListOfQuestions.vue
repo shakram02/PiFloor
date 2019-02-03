@@ -7,10 +7,14 @@
             <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="ques">
                 <Question
                     v-bind:index="index"
+                    v-bind:title="ques.question"
+                    v-bind:options="ques.choices"
+                    v-bind:picked="ques.correct"
                     v-bind:questions="$parent.$parent.questions"
-                    @inputQuestion="(val) => setQuestion(val, index)"
-                    @inputCorrect="(val) => setCorrect(val, index)"
                 />
+                <button @click="() => deleteQuestion(index)">
+                    delete
+                </button>
                 <div id="breakLine"/>
             </div>
             <button @click="addQuestion">
@@ -35,13 +39,9 @@ export default {
                     question: " ",
                 });
         },
-        setQuestion: function (val, index) {
-            this.$parent.$parent.questions[index].question = val;
-            console.log()
-        },
-        setCorrect: function (val, index) {
-            this.$parent.$parent.questions[index].correct = val;
-        },
+        deleteQuestion: function (index) {
+            this.$parent.$parent.questions.splice(index, 1);
+        }
     }
 }
 </script>
