@@ -104,9 +104,10 @@ export default {
   },
   sockets: {
       connect: function () {
-          this.$socket.emit('connected', "We're not connected")
+          // eslint-disable-next-line
+          console.log("We're connected!");
       },
-      answer: function (data) {
+      game: function (data) {
           if(isNaN(data)) alert('Wrong data type!');
           else this.checkAnswer(data);
       }
