@@ -39,6 +39,7 @@ dependencies {
     //implementation 'com.github.AppIntro:AppIntro:v5.1.0'
     implementation 'com.github.apl-devs:appintro:v4.2.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+    implementation 'co.dift.ui.swipetoaction:library:1.1'
 
 
     def daggerVersion = 2.16

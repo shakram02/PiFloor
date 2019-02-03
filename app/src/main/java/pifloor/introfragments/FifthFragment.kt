@@ -1,13 +1,9 @@
 package pifloor.introfragments
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +35,6 @@ class FifthFragment : Fragment(), ISlideBackgroundColorHolder {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_fifth, container, false)
         layoutContainer = view.findViewById(R.id.container) as LinearLayout
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA),0)
-        }
         return view
     }
 

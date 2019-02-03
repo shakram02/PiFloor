@@ -53,5 +53,5 @@
         You will see a link to the game server. Open the link on your computer.\n
         Upload the questions and start the game.\n\n
         Avoid unnecessary text around the grid, during calibration and during the game. Do not change the phone\'s orientation while scanning.</string>
-    <string name="title_activity_indices_assignment">IndicesAssignmentActivity</string>
+    <string name="list_title">Read Tiles</string>
 </resources>

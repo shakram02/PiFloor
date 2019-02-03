@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="35dp">
+
+    <!-- this view reveals when swipe right -->
+    <RelativeLayout
+        android:tag="reveal-left"
+        android:background="@color/red_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:tint="@color/white"
+            android:src="@drawable/del"/>
+    </RelativeLayout>
+
+    <!-- this view reveals when swipe left -->
+    <RelativeLayout
+        android:tag="reveal-left"
+        android:background="@color/red_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:tint="@color/white"
+            android:src="@drawable/del"/>
+    </RelativeLayout>
+
+
+    <!-- this is the item front view -->
+    <LinearLayout
+        android:tag="front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:layout_gravity="center"
+            android:textColor="@color/gray"/>
+
+    </LinearLayout>
+
+
+    <!-- just a divider -->
+    <View android:background="@color/gray"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp" />
+
+</FrameLayout>
