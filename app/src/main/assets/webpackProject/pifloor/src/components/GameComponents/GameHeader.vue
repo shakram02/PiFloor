@@ -1,7 +1,11 @@
 <template>
-  <div class="wrapper">
-    <h3>Score: {{score}}</h3>
-    <h3>Timer: {{timer}}s</h3>
+  <div class="wrapper" v-if="$i18n.locale==='ar'">
+    <h3>{{score}} :{{t('Score')}}</h3>
+    <h3>{{timer}} :{{t('Timer')}}</h3>
+  </div>
+  <div class="wrapper" v-else>
+    <h3>{{t('Score')}}: {{score}}</h3>
+    <h3>{{t('Timer')}}: {{timer}}s</h3>
   </div>
 </template>
 

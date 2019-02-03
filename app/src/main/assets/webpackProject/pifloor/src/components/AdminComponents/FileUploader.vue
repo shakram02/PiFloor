@@ -1,12 +1,12 @@
 <template>
   <div><center>
     <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-      <b-btn block variant="outline-secondary" v-b-modal.modallg>Add Questions</b-btn>
+      <b-btn block variant="outline-secondary" v-b-modal.modallg>{{ $t('AddQuestions') }}</b-btn>
     </div>
-    <b-modal id="modallg" size="lg" title="Drag or Browse Question File" v-model="show">
+    <b-modal id="modallg" size="lg" v-model="show">
       <FileDragPanel ref="dragger"/>
       <div slot="modal-footer">
-        <b-button variant="outline-success" @click="uploadFiles">Done</b-button>
+        <b-button variant="outline-success" @click="uploadFiles">{{ $t('Done') }}</b-button>
       </div>
     </b-modal>
 

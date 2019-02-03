@@ -3,7 +3,7 @@
         <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
             <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         </div>
-        <b-modal size="lg" id="questionsModal" title="Questions">
+        <b-modal size="lg" id="questionsModal">
             <div v-for="(ques, index) in $parent.$parent.questions" v-bind:key="ques">
                 <Question
                     v-bind:index="index"
@@ -13,13 +13,16 @@
                     v-bind:questions="$parent.$parent.questions"
                 />
                 <button @click="() => deleteQuestion(index)">
-                    delete
+                    {{ $t('Delete') }}
                 </button>
                 <div id="breakLine"/>
             </div>
             <button @click="addQuestion">
-                new Question
+                {{ $t('NewQuestion') }}
             </button>
+            <div slot="modal-footer">
+              <b-button variant="outline-success" @click="uploadFiles">{{ $t('Done') }}</b-button>
+            </div>
         </b-modal>
     </div>
 </template>

@@ -12,8 +12,8 @@
       </b-col>
 
       <b-col cols="3">
-        <b-btn v-b-toggle="'collapse' + index" size="sm" variant="outline-secondary">close/open</b-btn>
-        <b-btn v-on:click="deleteQuestion(index)" variant="outline-secondary">delete</b-btn>
+        <b-btn v-b-toggle="'collapse' + index" size="sm" variant="outline-secondary">{{ $t('CloseAndOpen') }}</b-btn>
+        <b-btn v-on:click="deleteQuestion(index)" variant="outline-secondary">{{ $t('Delete') }}</b-btn>
       </b-col>
     </b-row>
     <br/>
@@ -27,15 +27,15 @@
           <b-form-input type="text" class="sheet" v-model="questions[index].choices[i]" />
         </div>
         <button v-on:click="removeChoice(i)">
-          delete
+          {{ $t('Delete') }}
         </button>
       </div>
       <button v-on:click="addChoice">
-        plus
+        {{ $t('Add') }}
       </button>
       <br/>
       <div class="select">
-        <p>Select Correct Answer</p>
+        <p>{{ $('SelectCorrectAnswer') }}</p>
         <b-form-select v-model="correct">
           <option v-for="(option, i) in questions[index].choices" v-bind:key="questions[index].choices[i]" v-bind:value="questions[index].choices[i]">
             {{ option }}

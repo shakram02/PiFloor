@@ -12,15 +12,15 @@
       <b-container class="game-container">
         <QuestionBody>{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
-        <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
+        <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
       </b-container>
     </b-container>
     <b-modal ref="helperModal">
       <div slot="modal-header"></div>
-      <p v-if="failed">No questions added yet!</p>
-      <p v-else>Congrats, You finished your questions!</p>
+      <p v-if="failed">{{ $t('NoQuestionsYet') }}</p>
+      <p v-else>{{ $t('CongratsYouFinished') }}</p>
       <div slot="modal-footer">
-        <b-btn variant="outline-secondary" @click="returnToHome">Back</b-btn>
+        <b-btn variant="outline-secondary" @click="returnToHome">{{ $t('Back') }}</b-btn>
       </div>
     </b-modal>
   </div>

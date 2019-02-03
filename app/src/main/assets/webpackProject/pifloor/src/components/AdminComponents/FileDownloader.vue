@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-      <b-btn block variant="outline-secondary" @click="download">Download Questions</b-btn>
+      <b-btn block variant="outline-secondary" @click="download">{{ $t('DownloadQuestions') }}</b-btn>
     </div>
     <a v-bind:show="false" ref="link"></a>
     <b-modal ref="emptyFileModal">
-      <p>No questions added yet!</p>
+      <p>{{ $('NoQuestionsYet') }}</p>
       <div slot="modal-footer"></div>
     </b-modal>
   </div>

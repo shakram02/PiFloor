@@ -14,13 +14,13 @@
       <ul v-else>
         <td colspan="7">
           <div class="text-center p-5">
-            <h4>Drop files anywhere to upload<br/>or</h4>
-            <label for="file" class="btn btn-lg btn-outline-secondary">Select Files</label>
+            <h4>{{ $t('DropAnyWhere') }}<br/>{{ $t('Or') }}</h4>
+            <label for="file" class="btn btn-lg btn-outline-secondary">{{ $t('SelectFiles') }}</label>
           </div>
         </td>
       </ul>
       <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-        <h3>Drop files to upload</h3>
+        <h3>{{ $t('DropFiles') }}</h3>
       </div>
       <div class="example-btn">
         <file-upload
