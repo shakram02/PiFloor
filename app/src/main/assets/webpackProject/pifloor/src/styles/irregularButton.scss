@@ -1,23 +1,37 @@
-.shape {
-    border-bottom: 40px solid lightblue;
-    border-left: 15px solid transparent;
-    border-right: 10px solid transparent;
-    height: 0;
-    width: 200px;
-    transform: rotate(-2deg);
-    filter: drop-shadow(3px 3px 0 #333);
-  }
-  .shape:hover {
-    border-bottom: 40px solid grey;
-    transition: 0.3s;
-  }
-  .shape button,
-  .shape button:active,
-  .shape button:focus,
-  .shape button:active:focus,
-  .shape button:not(:disabled):not(.disabled):active:focus {
-    border: 0px;
-    background: transparent !important;
-    -webkit-box-shadow: 0 0 0 0;
-    box-shadow: 0 0 0 0;
-  }
+%shape {
+  height: 0;
+  width: 100%;
+  transform: perspective(300px) rotateY(25deg);
+  filter: drop-shadow(3px 3px 0 #333);
+}
+
+%shape:hover {
+  border-bottom: 40px solid grey; //not responsive
+  transition: 0.3s;
+}
+%shape button,
+%shape button:active,
+%shape button:focus,
+%shape button:active:focus,
+%shape button:not(:disabled):not(.disabled):active:focus,
+.form-control,
+.custom-select, .custom-select:focus, .custom-select:hover {
+  border: 0px;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+}
+
+.custom-select:hover {
+  color: white;
+}
+
+.shape-blue {
+  @extend %shape;
+  border-bottom: 40px solid lightblue; //not responsive
+}
+
+.shape-pink {
+  @extend %shape;
+  border-bottom: 40px solid lightcoral; //not responsive
+}

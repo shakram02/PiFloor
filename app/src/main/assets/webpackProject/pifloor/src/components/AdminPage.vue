@@ -1,26 +1,27 @@
 <template>
     <b-col offset-md="4" cols="4" align-self="center">
-      <div  class="containerMenu">
-        <h1>{{ $t('PiFloor') }}</h1>
-        <br/>
-        <br/>
-        <FileUploader ref="uploader"/>
-        <br/>
-        <ListOfQuestions/>
-        <br/>
-        <FileDownloader class="btn-block" />
-        <br/>
-        <div class="shape">
-          <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+      <div class="shape-container">
+        <div  class="container-menu">
+          <h1>{{ $t('PiFloor') }}</h1>
+          <br/>
+          <FileUploader ref="uploader"/>
+          <br/>
+          <ListOfQuestions/>
+          <br/>
+          <FileDownloader class="btn-block" />
+          <br/>
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+          </div>
+          <br/>
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-form-select v-model="$i18n.locale">
+              <option class="option-style" v-for="option in this.$parent.lang" v-bind:key="option" v-bind:value="option">
+                {{ option }}
+              </option>
+            </b-form-select>     
+          </div> 
         </div>
-        <br/>
-        <div class="shape">
-          <b-form-select v-model="$i18n.locale">
-            <option v-for="option in this.$parent.lang" v-bind:key="option" v-bind:value="option">
-              {{ option }}
-            </option>
-          </b-form-select>     
-        </div> 
       </div>
     </b-col>
 </template>
@@ -48,11 +49,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.containerMenu {
+.container-menu {
   padding: 20px;
-  border: solid 2px grey;
-  border-radius:5px;
   width: fit-content;
   margin: auto;
+}
+.shape-container { // problem with responsiveness with border-bottom
+  width: 70%;
+  height: 0px;
+  border-bottom: 450px solid #FFFACD;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  filter: drop-shadow(5px 5px 0 grey);
+}
+.option-style {
+  color: grey;
+  background: lightblue;
+
+}
+.option-style :focus { //not working :(
+  background: grey;
+  color: white;
 }
 </style>

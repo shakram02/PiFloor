@@ -22,7 +22,8 @@ export default {
     return{
       lang: ['en', 'ar'],
       questions: [],
-      playing: false
+      themeColor: 'blue',
+      playing: false,
     }
   }
 }

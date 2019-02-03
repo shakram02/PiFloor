@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="shape">
+    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
       <b-btn block variant="outline-secondary" @click="download">Download Questions</b-btn>
     </div>
     <a v-bind:show="false" ref="link"></a>

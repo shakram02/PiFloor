@@ -1,6 +1,6 @@
 <template>
   <div><center>
-    <div class="shape">
+    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
       <b-btn block variant="outline-secondary" v-b-modal.modallg>Add Questions</b-btn>
     </div>
     <b-modal id="modallg" size="lg" title="Drag or Browse Question File" v-model="show">

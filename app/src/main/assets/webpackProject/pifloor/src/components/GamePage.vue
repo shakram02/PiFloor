@@ -8,10 +8,10 @@
       <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
     </div>
 
-    <b-container class="gameContainer">
+    <b-container class="game-container">
       <QuestionBody>{{questionText}}</QuestionBody>
       <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
-      <b-btn class="nextQues" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
+      <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">Next Question</b-btn>
     </b-container>
     <b-modal ref="helperModal">
       <div slot="modal-header"></div>
@@ -117,12 +117,12 @@ export default {
   .wrapper {
     padding: 10px;
   }
-  .gameContainer {
+  .game-container {
     border: solid 2px grey;
     border-radius: 5px;
     padding: 20px;
   }
-  .nextQues {
+  .next-ques {
     margin-left: auto;
     display: block;
   }
