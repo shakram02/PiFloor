@@ -56,11 +56,11 @@ export default {
 }
 .shape-container { // problem with responsiveness with border-bottom
   width: 70%;
-  height: 0px;
-  border-bottom: 450px solid #FFFACD;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  filter: drop-shadow(5px 5px 0 grey);
+  background-color: #FFFACD;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid grey;
+  border-right: 3px solid grey;
+  border-left: 3px solid transparent;
 }
 .option-style {
   color: grey;
