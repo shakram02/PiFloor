@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <AdminPage v-if="!playing"/>
-    <GamePage v-else/>
+    <div v-if="loggedin">
+      <AdminPage v-if="!playing"/>
+      <GamePage v-else/>
+    </div>
+    <HomePage v-else />
   </div>
 </template>
 
@@ -10,13 +13,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import AdminPage from './components/AdminPage.vue'
 import GamePage from './components/GamePage.vue'
+import HomePage from './components/HomePage.vue'
 import './styles/irregularButton.scss';
 
 export default {
   name: 'app',
   components: {
     AdminPage,
-    GamePage
+    GamePage,
+    HomePage
   },
   data() {
     return{
@@ -24,6 +29,7 @@ export default {
       questions: [],
       themeColor: 'blue',
       playing: false,
+      loggedin: false
     }
   }
 }
