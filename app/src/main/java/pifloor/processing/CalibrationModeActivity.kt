@@ -10,6 +10,7 @@ import android.widget.CompoundButton
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.Optional
 import com.google.android.gms.vision.text.TextBlock
 import pifloor.R
 import pifloor.graphcis.CalibratedOcrGraphic
@@ -116,15 +117,20 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         }
     }
 
-
+    @Optional
     @OnClick(R.id.btn_startGame_calibrationModeActivity)
-    fun startGameActivity() {
-        val intent = Intent(this, GameModeActivity::class.java)
-        intent.putExtra("AutoFocus", findViewById<CompoundButton>(R.id.switch_autoFocus)?.isChecked)
-        intent.putExtra("UseFlash", findViewById<CompoundButton>(R.id.switch_useFlash)?.isChecked)
+    fun startAssignmentActivity() {
+        val intent = Intent(this, AssignmentActivity::class.java)
+        var x: ArrayList<String> = arrayListOf()
+        x.add("one")
+        x.add("two")
+        x.add("three")
+        x.add("four")
+        intent.putExtra("tiles", x)
         startActivity(intent)
     }
 
+    @Optional
     @OnClick(R.id.btn_clear_calibrationModeActivity)
     fun clearCalibration() {
         virtualGrid.clear()
