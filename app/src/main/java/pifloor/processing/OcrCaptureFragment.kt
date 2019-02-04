@@ -45,7 +45,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     var preview: CameraSourcePreview? = null
     @BindView(R.id.overlay_ocr_fragment_graphics)
     lateinit var graphicOverlay: OcrGraphicOverlay<OcrGraphic>
-    var tiles : ArrayList<String>? = ArrayList()
+    var tiles: ArrayList<String>? = ArrayList()
     private lateinit var unbinder: Unbinder
     // Helper objects for detecting taps and pinches.
     private var scaleGestureDetector: ScaleGestureDetector? = null
@@ -55,7 +55,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     var counter = 0
     private lateinit var mListener: OcrSelectionListener
     private val processor = OcrDetectorProcessor()
-    var adapter : TilesAdapter? = TilesAdapter(tiles)
+    var adapter: TilesAdapter? = TilesAdapter(tiles)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -253,7 +253,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
         }
     }
 
-    private fun addTile(pos : Int, str : String) {
+    private fun addTile(pos: Int, str: String) {
         tiles!!.add(str)
         adapter!!.notifyItemInserted(pos)
     }
@@ -358,7 +358,8 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             fragment.arguments = args
             return fragment
         }
-        fun newInstance() : OcrCaptureFragment {
+
+        fun newInstance(): OcrCaptureFragment {
             return OcrCaptureFragment()
         }
     }
