@@ -51,6 +51,7 @@ export default {
   methods: {
     saveFiles(){
       this.stringfyFiles();
+      this.sendToServer();
       return this.questions;
     },
     stringfyFiles(){
@@ -73,6 +74,9 @@ export default {
         reader.readAsText(this.files[i].file);
       }
     },
+    sendToServer: function(){
+      //this.$socket.emit('questions', JSON.stringify(this.questions));
+    }
   }
 }
 </script>

@@ -3,7 +3,7 @@
     <center>
       <b-row id="grid" no-gutters class="justify-content-center">
         <b-col v-bind:cols="numPerRow" v-for="(answer, index) in PossibleAnswers" v-bind:key="answer + index" class="answer">
-          <div class="grid-cell">{{answer}}</div>
+          <div class="grid-cell" ref="cell">{{answer}}</div>
         </b-col>
       </b-row>
     </center>
@@ -13,11 +13,46 @@
 <script>
 export default {
   props: ["PossibleAnswers"],
+  data(){
+    return{
+      oldPosition: null,
+      oldPositionScore: 0
+    }
+  },
   computed: {
     numPerRow: function(){
       let num = this.PossibleAnswers.length;
       num = Math.ceil(Math.sqrt(num))
       return 12/num;
+    }
+  },
+  methods: {
+    changeLocation: function(position){
+      //Remove from from other
+      for(let i=0; i<this.$refs.cell.length; i++){
+        this.$refs.cell[i].classList.remove("current-cell");
+      }
+      //Display footprints on this tile
+      this.$refs.cell[position].classList.add("current-cell");
+
+      //check if the same as old, if so increment
+      if(position===this.oldPosition){
+        if(this.oldPositionScore>=10){
+          this.$parent.checkAnswer(position);
+          this.resetData()
+        }
+        else{
+          this.oldPositionScore++;
+        }
+      }
+      else{
+        this.resetData();
+        this.oldPosition = position;
+      }
+    },
+    resetData: function(){
+      this.oldPositionScore = 0;
+      this.oldPosition = null;
     }
   },
   mounted() {
@@ -53,5 +88,12 @@ export default {
 #grid{
   width: 80%;
 }
-
+.current-cell {
+  background-color: #5B9BD5;
+  background-image: url('../../assets/images/footstep.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
 </style>

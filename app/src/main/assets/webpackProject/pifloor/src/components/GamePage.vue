@@ -7,7 +7,7 @@
       </br>
       <b-container class="game-container">
         <QuestionBody>{{questionText}}</QuestionBody>
-        <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
+        <AnswersGrid v-bind:PossibleAnswers="possibleAnswers" ref="AnswersGrid" />
         </br>
         <div class="next-ques" v-bind:class="['shape-' + $root.$children[0].themeColor]">
           <b-btn variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
@@ -26,8 +26,8 @@
       <div id="test" v-if="testing">
         </br>
         <input type="text" v-model="testAnswer">
-        
-        <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
+
+        <button type="button" @click="traceMovement(testAnswer)">Submit</button>
       </div>
   </div>
 </template>
@@ -103,6 +103,9 @@ export default {
       let sound = new Audio(require('../assets/soundEffects/fail.mp3'))
       sound.play();
       setTimeout(this.nextQuestion, 1000);
+    },
+    traceMovement: function(data){
+      this.$refs.AnswersGrid.changeLocation(parseInt(data))
     }
   },
   mounted() {
@@ -117,7 +120,7 @@ export default {
       },
       game: function (data) {
           if(isNaN(data)) alert('Wrong data type!');
-          else this.checkAnswer(data);
+          else traceMovement(data);
       }
   }
 }
@@ -128,7 +131,10 @@ export default {
   .game-container {
     padding: 20px;
     background-color: #FFC000;
-    border-bottom: 10px solid #ED7D31;
+    border-top: 5px solid lightgrey;
+    border-bottom: 5px solid grey;
+    border-right: 5px solid grey;
+    border-left: 5px solid lightgrey;
   }
   .next-ques {
     margin-left: auto;
