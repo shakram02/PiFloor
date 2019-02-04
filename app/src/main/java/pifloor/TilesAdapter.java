@@ -16,7 +16,9 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<String> items;
 
 
-    /** References to the views for each data item **/
+    /**
+     * References to the views for each data item
+     **/
     public class TileViewHolder extends SwipeToAction.ViewHolder<String> {
         public TextView titleView;
 
@@ -27,7 +29,9 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    /** Constructor **/
+    /**
+     * Constructor
+     **/
     public TilesAdapter(List<String> items) {
         this.items = items;
     }

@@ -39,7 +39,8 @@ class HttpGameServer(private val context: Application) : HttpServerRequestCallba
             }
 
             // HACK for some reason, javascript file isn't identified
-            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)?: "application/javascript"
+            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+                    ?: "application/javascript"
             Log.d(TAG, "Requested file: $requestedFile, Type:$mimeType")
 
             response.send(mimeType, reader.readText())

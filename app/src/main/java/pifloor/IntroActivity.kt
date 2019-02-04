@@ -14,7 +14,7 @@ class IntroActivity : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),0)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 0)
         }
         addSlide(ZeroFragment())
         addSlide(FirstFragment())
