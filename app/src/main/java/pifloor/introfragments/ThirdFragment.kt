@@ -12,11 +12,9 @@ import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder
 import pifloor.R
 
 
-
-
 class ThirdFragment : Fragment(), ISlideBackgroundColorHolder {
 
-    var layoutContainer : LinearLayout?=null
+    var layoutContainer: LinearLayout? = null
 
     override fun getDefaultBackgroundColor(): Int {
         return Color.parseColor(R.color.black.toString())
@@ -33,7 +31,7 @@ class ThirdFragment : Fragment(), ISlideBackgroundColorHolder {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_third, container, false)
+        val view = inflater.inflate(R.layout.fragment_third, container, false)
         layoutContainer = view.findViewById(R.id.container) as LinearLayout
         return view
     }
