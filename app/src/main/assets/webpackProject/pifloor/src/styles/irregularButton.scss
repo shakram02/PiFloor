@@ -1,15 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans");
+
 %shape {
   display: flex;
   width: 100%;
   height: 20%;
   left: 2%;
   transform: perspective(300px) rotateY(35deg);
-  filter: drop-shadow(3px 3px 0 #0a8688);
-  
+  filter: drop-shadow(3px 3px 0 #325575);
 }
 
 %shape:hover {
-  background-color: grey;
+  background-color: #325575;
+  color: white;
   transition: 0.3s;
 }
 %shape button,
@@ -21,11 +23,12 @@
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
+  color: #325575;
 }
 
 .shape-blue {
   @extend %shape;
-  background-color: #4dbed6;
+  background-color: #5B9BD5;
 }
 
 .shape-pink {

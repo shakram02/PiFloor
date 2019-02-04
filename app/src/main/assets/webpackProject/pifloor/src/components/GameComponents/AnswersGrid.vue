@@ -43,24 +43,13 @@ export default {
 .answer{
   padding: 2%;
 }
-.spana{
-  color: white;
-  background: lightgreen;
-  border: solid 2px;
-  border-radius: 5px;
-  font-size: 35px;
-  padding: 20px;
-  width: 100%;
-  height: 100px;
-  display: block;
-}
 .grid-cell {
   width: 70%;
   padding: 10%;
-  background-color: lightblue;
+  background-color: #5B9BD5;
   border-top: 3px solid transparent;
-  border-bottom: 3px solid grey;
-  border-right: 3px solid grey;
+  border-bottom: 3px solid #325575;
+  border-right: 3px solid #325575;
   border-left: 3px solid transparent;
 
 }

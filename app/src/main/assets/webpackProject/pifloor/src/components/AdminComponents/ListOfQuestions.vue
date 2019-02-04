@@ -11,9 +11,9 @@
                 />
                 <div class="breakLine"/>
             </div>
-            <button @click="addQuestion">
+            <b-btn block variant="outline-secondary" @click="addQuestion">
                 {{ $t('NewQuestion') }}
-            </button>
+            </b-btn>
             <div slot="modal-footer">
               <b-button variant="outline-success" @click="hideModal">{{ $t('Done') }}</b-button>
             </div>

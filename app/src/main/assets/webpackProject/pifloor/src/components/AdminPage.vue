@@ -49,6 +49,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  font-family: cursive;
+  color: #325575;
+}
 .container-menu {
   padding: 20px;
   width: fit-content;
@@ -56,7 +60,7 @@ export default {
 }
 .shape-container { // problem with responsiveness with border-bottom
   width: 70%;
-  background-color: #ffc059;
+  background-color: #FFC000;
   border-top: 3px solid lightgrey;
   border-bottom: 3px solid grey;
   border-right: 3px solid grey;
