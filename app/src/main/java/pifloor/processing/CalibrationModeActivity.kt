@@ -35,16 +35,13 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     lateinit var virtualGrid: VirtualGrid
     private lateinit var captureFragment: OcrCaptureFragment
 
-    @BindView(R.id.btn_startGame_calibrationModeActivity)
-    lateinit var startGameButton : FloatingActionButton
-
-    var mTopToolbar : Toolbar? = null
-    var focus :Boolean = false
-    var flash :Boolean = false
+    var mTopToolbar: Toolbar? = null
+    var focus: Boolean = false
+    var flash: Boolean = false
 
     @BindView(R.id.recycler)
     lateinit var recyclerView: RecyclerView
-    var swipeToAction : SwipeToAction? = null
+    var swipeToAction: SwipeToAction? = null
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
@@ -59,10 +56,10 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     private fun loadList() {
-        var layoutManager = LinearLayoutManager(this)
-        recyclerView.setLayoutManager(layoutManager)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        recyclerView.setAdapter(captureFragment.adapter)
+        recyclerView.adapter = captureFragment.adapter
 
         swipeToAction = SwipeToAction(recyclerView, object : SwipeToAction.SwipeListener<String> {
             override fun onClick(itemData: String?) {
@@ -85,7 +82,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     private fun removeTile(str : String): Int {
-        var pos = captureFragment.tiles!!.indexOf(str)
+        val pos = captureFragment.tiles!!.indexOf(str)
         captureFragment.tiles!!.remove(str)
         captureFragment.adapter!!.notifyItemRemoved(pos)
         /*var g : OcrGraphic? = graphicOverlay.getByContent(str)
@@ -99,11 +96,11 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
-        var snack : Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
+        var snack: Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
                 .setAction(actionName, action)
 
-        var v : View = snack.getView()
-        v.setBackgroundColor(getResources().getColor(R.color.green))
+        var v: View = snack.view
+        v.setBackgroundColor(resources.getColor(R.color.green))
         snack.show()
     }
 
@@ -226,7 +223,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.getItemId()
+        val id = item.itemId
 
         if (id == R.id.flash) {
             if (!flash) {
@@ -239,7 +236,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
                 captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
             }
             return true
-        } else if(id == R.id.focus) {
+        } else if (id == R.id.focus) {
             if (!focus) {
                 focus = true
                 item.setIcon(R.drawable.focus_on)
