@@ -1,7 +1,20 @@
 <template>
   <div>
-    <b-btn variant="outline-secondary" @click="useAsTeacher">Teacher</b-btn>
-    <b-btn variant="outline-secondary" @click="useAsStudent">Student</b-btn>
+    <b-col offset-md="4" cols="4" align-self="center">
+      <div class="shape-container">
+        <div  class="container-menu">
+          <h1>{{ $t('PiFloor') }}</h1>
+          <br/>
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-btn variant="outline-secondary" @click="useAsTeacher">Teacher</b-btn>
+          </div>
+          </br>
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+          <b-btn variant="outline-secondary" @click="useAsStudent">Student</b-btn>
+          </div>
+        </div>
+      </div>
+    </b-col>
   </div>
 </template>
 
@@ -21,6 +34,22 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+h1 {
+  font-family: cursive;
+  color: #325575;
+}
+.container-menu {
+  padding: 20px;
+  width: fit-content;
+  margin: auto;
+}
+.shape-container { // problem with responsiveness with border-bottom
+  width: 70%;
+  background-color: #FFC000;
+  border-top: 3px solid lightgrey;
+  border-bottom: 3px solid grey;
+  border-right: 3px solid grey;
+  border-left: 3px solid lightgrey;
+}
 </style>

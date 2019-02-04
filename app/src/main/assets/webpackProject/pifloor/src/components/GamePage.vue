@@ -9,7 +9,9 @@
         <QuestionBody>{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
         </br>
-        <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
+        <div class="next-ques" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+          <b-btn variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
+        </div>
       </b-container>
     </b-container>
     <b-modal ref="helperModal">
@@ -24,6 +26,7 @@
       <div id="test" v-if="testing">
         </br>
         <input type="text" v-model="testAnswer">
+        
         <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
       </div>
   </div>
@@ -122,7 +125,7 @@ export default {
 <style scoped>
   .game-container {
     padding: 20px;
-    background-color: #FFFACD;
+    background-color: #FFC000;
     border-top: 5px solid lightgrey;
     border-bottom: 5px solid grey;
     border-right: 5px solid grey;
@@ -131,5 +134,6 @@ export default {
   .next-ques {
     margin-left: auto;
     display: block;
+    width: fit-content;
   }
 </style>
