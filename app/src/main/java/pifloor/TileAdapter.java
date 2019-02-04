@@ -11,7 +11,7 @@ import java.util.List;
 
 import co.dift.ui.SwipeToAction;
 
-public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> items;
 
@@ -31,7 +31,7 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     /**
      * Constructor
      **/
-    public TilesAdapter(List<String> items) {
+    public TileAdapter(List<String> items) {
         this.items = items;
     }
 

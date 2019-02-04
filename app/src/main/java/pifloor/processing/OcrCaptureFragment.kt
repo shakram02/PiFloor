@@ -28,7 +28,7 @@ import pifloor.ui.camera.CameraSource
 import pifloor.ui.camera.CameraSourcePreview
 import pifloor.ui.camera.OcrGraphicOverlay
 import org.reactivestreams.Subscriber
-import pifloor.TilesAdapter
+import pifloor.TileAdapter
 import java.io.IOException
 
 
@@ -55,7 +55,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     var counter = 0
     private lateinit var mListener: OcrSelectionListener
     private val processor = OcrDetectorProcessor()
-    var adapter: TilesAdapter? = TilesAdapter(tiles)
+    var adapter: TileAdapter? = TileAdapter(tiles)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
