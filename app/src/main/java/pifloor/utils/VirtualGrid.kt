@@ -21,7 +21,7 @@ class VirtualGrid {
     }
 
     fun removeTile(text: String): Boolean {
-        return tiles.removeAll { i -> i.value == text }
+        return tiles.removeAll { i -> i.value == preProcess(text) }
     }
 
     fun contains(tile: Text): Boolean {

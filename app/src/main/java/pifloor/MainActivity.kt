@@ -22,8 +22,6 @@ import android.content.Intent
 import android.os.Bundle
 import butterknife.ButterKnife
 import butterknife.OnClick
-import butterknife.Optional
-import io.reactivex.annotations.Nullable
 import pifloor.injection.PiFloorApplication
 import pifloor.processing.CalibrationModeActivity
 
@@ -47,13 +45,12 @@ class MainActivity : Activity() {
         }
     }
 
-    @Optional
     @OnClick(R.id.button_main_startGame)
     fun startCalibrationModeActivity() {
         val intent = Intent(this, CalibrationModeActivity::class.java)
         startActivity(intent)
     }
-    @Optional
+
     @OnClick(R.id.button_main_startTutorial)
     fun startTutorialActivity() {
         val intent = Intent(this, IntroActivity::class.java)

@@ -1,53 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:padding="@dimen/activity_padding"
+    android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context="pifloor.MainActivity">
-
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="379dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="@string/welcome_title"
-        android:textColor="#000000"
-        android:textSize="@dimen/mainactivity_tv_title_fontsize"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:textSize="@dimen/mainactivity_tv_title_fontsize"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/component_large_margin"
+        android:layout_marginBottom="@dimen/component_large_margin"
+        android:gravity="center"
+        android:text="@string/welcome_message"
+        android:textSize="@dimen/mainactivity_tv_message_fontsize"/>
+    <!--TODO: Change to MaterialButton-->
     <Button
         android:id="@+id/button_main_startTutorial"
-        android:layout_width="128dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="424dp"
-        android:background="#496c21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/component_large_margin"
+        android:layout_marginBottom="@dimen/component_large_margin"
         android:gravity="center"
-        android:text="@string/start_tutorial"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:text="@string/start_tutorial"/>
     <Button
         android:id="@+id/button_main_startGame"
-        android:layout_width="134dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="424dp"
-        android:layout_marginEnd="47dp"
-        android:background="#496c21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/component_large_margin"
         android:gravity="center"
-        android:text="@string/new_game"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        android:text="@string/new_game"/>
+</LinearLayout>

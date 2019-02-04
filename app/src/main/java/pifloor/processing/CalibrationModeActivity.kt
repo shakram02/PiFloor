@@ -111,7 +111,6 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         val text = ocrGraphic.value
 
         Log.d(TAG, "Calibrating:$text")
-        graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
         virtualGrid.addTile(ocrGraphic.textBlock)
 
         if (virtualGrid.size == GRID_SIZE) {
