@@ -5,7 +5,6 @@ import android.graphics.Rect
 import android.util.Log
 import com.google.android.gms.vision.text.Text
 import com.google.android.gms.vision.text.TextBlock
-import java.util.*
 
 class VirtualGrid {
     private val tiles = mutableSetOf<GridTile>()
@@ -14,7 +13,7 @@ class VirtualGrid {
         get() = tiles.size
 
     val tilesAsString
-        get() = tiles.asIterable().map { i -> i.value }
+        get() = tiles.asIterable().map { i -> i.value }.toTypedArray()
 
     fun addTile(tile: Text): Boolean {
         return tiles.add(GridTile(tile))
@@ -26,6 +25,18 @@ class VirtualGrid {
 
     fun contains(tile: Text): Boolean {
         return tiles.any { i -> i.value == preProcess(tile.value) }
+    }
+
+    fun getAtIndex(index: Int): String {
+        return tiles.elementAt(index).value
+    }
+
+    fun indexOf(text: String): Int {
+        return tiles.indexOfFirst { i -> i.value == preProcess(text) }
+    }
+
+    fun count(): Int {
+        return tiles.count()
     }
 
     fun clear() {

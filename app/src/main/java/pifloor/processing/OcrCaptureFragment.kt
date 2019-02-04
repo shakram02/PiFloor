@@ -21,14 +21,13 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
+import org.reactivestreams.Subscriber
 import pifloor.R
 import pifloor.graphcis.OcrGraphic
 import pifloor.processing.OcrCaptureFragment.OcrSelectionListener
 import pifloor.ui.camera.CameraSource
 import pifloor.ui.camera.CameraSourcePreview
 import pifloor.ui.camera.OcrGraphicOverlay
-import org.reactivestreams.Subscriber
-import pifloor.TileAdapter
 import java.io.IOException
 
 
@@ -45,7 +44,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     var preview: CameraSourcePreview? = null
     @BindView(R.id.overlay_ocr_fragment_graphics)
     lateinit var graphicOverlay: OcrGraphicOverlay<OcrGraphic>
-    var tiles: ArrayList<String>? = ArrayList()
     private lateinit var unbinder: Unbinder
     // Helper objects for detecting taps and pinches.
     private var scaleGestureDetector: ScaleGestureDetector? = null
@@ -55,7 +53,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     var counter = 0
     private lateinit var mListener: OcrSelectionListener
     private val processor = OcrDetectorProcessor()
-    var adapter: TileAdapter? = TileAdapter(tiles)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -245,17 +242,8 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
                 Log.i(TAG, "No graphic detected")
                 return super.onSingleTapConfirmed(e)
             }
-            if (!tiles!!.contains(graphic.value)) {
-                addTile(counter, graphic.value)
-                counter++
-            }
             return ocrSelectionListener.onOcrGraphicTap(graphic, graphicOverlay)
         }
-    }
-
-    private fun addTile(pos: Int, str: String) {
-        tiles!!.add(str)
-        adapter!!.notifyItemInserted(pos)
     }
 
     private inner class ScaleListener : ScaleGestureDetector.OnScaleGestureListener {
