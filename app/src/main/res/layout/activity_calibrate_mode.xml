@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:keepScreenOn="true" >
-    <LinearLayout
-        android:id="@+id/container_calibrate_fragment_holder"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.0"
-        android:orientation="vertical"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:gravity="center_horizontal">
-        <Button
-            android:id="@+id/btn_startGame_calibrationModeActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_game" />
-        <Button
-            android:id="@+id/btn_clear_calibrationModeActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clear" />
-    </LinearLayout>
+    android:keepScreenOn="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container_calibrate_fragment_holder">
 
-</LinearLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#00000000"
+        android:elevation="4dp"
+        android:layout_gravity="center|top"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title=""
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center|bottom"
+        android:id="@+id/btn_startGame_calibrationModeActivity"
+        android:src="@drawable/tick"
+        app:backgroundTint="@color/green"
+        android:layout_margin="10dp"
+        android:padding="0dp"/>
+</FrameLayout>
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ti"
+            android:text="@string/list_title" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ti"
+            android:id="@+id/recycler"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -13,7 +13,6 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
-import android.widget.CompoundButton
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -22,13 +21,13 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
+import org.reactivestreams.Subscriber
 import pifloor.R
 import pifloor.graphcis.OcrGraphic
 import pifloor.processing.OcrCaptureFragment.OcrSelectionListener
 import pifloor.ui.camera.CameraSource
 import pifloor.ui.camera.CameraSourcePreview
 import pifloor.ui.camera.OcrGraphicOverlay
-import org.reactivestreams.Subscriber
 import java.io.IOException
 
 
@@ -41,8 +40,8 @@ import java.io.IOException
  * create an instance of this fragment.
  */
 class OcrCaptureFragment : Fragment(), View.OnTouchListener {
-    private var mCameraSource: CameraSource? = null
-    private var preview: CameraSourcePreview? = null
+    var mCameraSource: CameraSource? = null
+    var preview: CameraSourcePreview? = null
     @BindView(R.id.overlay_ocr_fragment_graphics)
     lateinit var graphicOverlay: OcrGraphicOverlay<OcrGraphic>
     private lateinit var unbinder: Unbinder
@@ -51,13 +50,13 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     private var gestureDetector: GestureDetector? = null
     private var autoFocus: Boolean? = null
     private var useFlash: Boolean? = null
+    var counter = 0
     private lateinit var mListener: OcrSelectionListener
     private val processor = OcrDetectorProcessor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            // TODO: this probably isn't working well, check that the arguments are loaded
             autoFocus = arguments!!.getBoolean("AutoFocus", true)
             useFlash = arguments!!.getBoolean("UseFlash", false)
         }
@@ -72,20 +71,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
 
         preview = fragmentView.findViewById(R.id.view_ocr_fragment_preview) as CameraSourcePreview?
         val applicationContext = this.activity?.applicationContext!!
-
-        val autofocusSwitch = fragmentView.findViewById<CompoundButton>(R.id.switch_autoFocus)
-        val useFlashSwitch = fragmentView.findViewById<CompoundButton>(R.id.switch_useFlash)
-
-        if (autoFocus != null) {
-            autofocusSwitch.isChecked = autoFocus as Boolean
-        } else {
-            autoFocus = autofocusSwitch.isChecked
-        }
-        if (useFlash != null) {
-            useFlashSwitch.isChecked = useFlash as Boolean
-        } else {
-            useFlash = useFlashSwitch.isChecked
-        }
 
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
@@ -104,19 +89,9 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
                 Snackbar.LENGTH_LONG)
                 .show()
 
-        autofocusSwitch.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView:CompoundButton, isChecked:Boolean) {
-                mCameraSource?.setFocusMode(
-                        if (isChecked) Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE else null)
-            }
-        })
+        mCameraSource?.focusMode = if (this!!.autoFocus!!) Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO else null
 
-        useFlashSwitch.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView:CompoundButton, isChecked:Boolean) {
-                mCameraSource?.setFlashMode(if (isChecked) Camera.Parameters.FLASH_MODE_TORCH else Camera.Parameters.FLASH_MODE_OFF)
-            }
-        })
-
+        mCameraSource?.flashMode = if (this!!.useFlash!!) Camera.Parameters.FLASH_MODE_TORCH else Camera.Parameters.FLASH_MODE_OFF
         return fragmentView
     }
 
@@ -225,7 +200,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
                 .setRequestedPreviewSize(1280, 1024)
                 .setRequestedFps(2.0f)
                 .setFlashMode(if (useFlash) Camera.Parameters.FLASH_MODE_TORCH else null)
-                .setFocusMode(if (autoFocus) Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE else null)
+                .setFocusMode(if (autoFocus) Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO else null)
                 .build()
     }
 
@@ -267,7 +242,6 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
                 Log.i(TAG, "No graphic detected")
                 return super.onSingleTapConfirmed(e)
             }
-
             return ocrSelectionListener.onOcrGraphicTap(graphic, graphicOverlay)
         }
     }
@@ -372,7 +346,8 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             fragment.arguments = args
             return fragment
         }
-        fun newInstance() : OcrCaptureFragment {
+
+        fun newInstance(): OcrCaptureFragment {
             return OcrCaptureFragment()
         }
     }
