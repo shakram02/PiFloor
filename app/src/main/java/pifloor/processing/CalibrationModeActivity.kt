@@ -4,7 +4,6 @@ package pifloor.processing
 import android.content.Intent
 import android.hardware.Camera
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -19,6 +18,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import co.dift.ui.SwipeToAction
 import com.google.android.gms.vision.text.TextBlock
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
 import pifloor.R
 import pifloor.graphcis.CalibratedOcrGraphic
 import pifloor.graphcis.OcrGraphic
@@ -26,8 +27,6 @@ import pifloor.graphcis.PreviewOcrGraphic
 import pifloor.injection.PiFloorApplication
 import pifloor.ui.camera.OcrGraphicOverlay
 import pifloor.utils.VirtualGrid
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 import javax.inject.Inject
 
 class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
@@ -35,21 +34,17 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     lateinit var virtualGrid: VirtualGrid
     private lateinit var captureFragment: OcrCaptureFragment
 
-    @BindView(R.id.btn_startGame_calibrationModeActivity)
-    lateinit var startGameButton : FloatingActionButton
-
-    var mTopToolbar : Toolbar? = null
-    var focus :Boolean = false
-    var flash :Boolean = false
+    var mTopToolbar: Toolbar? = null
+    var focus: Boolean = false
+    var flash: Boolean = false
 
     @BindView(R.id.recycler)
     lateinit var recyclerView: RecyclerView
-    var swipeToAction : SwipeToAction? = null
+    var swipeToAction: SwipeToAction? = null
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
-        //actionBar?.setDisplayHomeAsUpEnabled(true)
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         ButterKnife.bind(this)
@@ -59,10 +54,10 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     private fun loadList() {
-        var layoutManager = LinearLayoutManager(this)
-        recyclerView.setLayoutManager(layoutManager)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        recyclerView.setAdapter(captureFragment.adapter)
+        recyclerView.adapter = captureFragment.adapter
 
         swipeToAction = SwipeToAction(recyclerView, object : SwipeToAction.SwipeListener<String> {
             override fun onClick(itemData: String?) {
@@ -84,26 +79,19 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         })
     }
 
-    private fun removeTile(str : String): Int {
-        var pos = captureFragment.tiles!!.indexOf(str)
+    private fun removeTile(str: String) {
+        val position = captureFragment.tiles!!.indexOf(str)
         captureFragment.tiles!!.remove(str)
-        captureFragment.adapter!!.notifyItemRemoved(pos)
-        /*var g : OcrGraphic? = graphicOverlay.getByContent(str)
-        if (g != null) {
-            g.getRectPaint().color = Color.WHITE
-            g.getTextPaint().color = Color.WHITE
-            graphicOverlay.remove(g)
-        }*/
-        virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
-        return pos
+        captureFragment.adapter!!.notifyItemRemoved(position)
+        virtualGrid.removeTile(str)
     }
 
     private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
-        var snack : Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
+        val snack: Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
                 .setAction(actionName, action)
 
-        var v : View = snack.getView()
-        v.setBackgroundColor(getResources().getColor(R.color.green))
+        val v: View = snack.view
+        v.setBackgroundColor(resources.getColor(R.color.green))
         snack.show()
     }
 
@@ -226,7 +214,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.getItemId()
+        val id = item.itemId
 
         if (id == R.id.flash) {
             if (!flash) {
@@ -239,7 +227,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
                 captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
             }
             return true
-        } else if(id == R.id.focus) {
+        } else if (id == R.id.focus) {
             if (!focus) {
                 focus = true
                 item.setIcon(R.drawable.focus_on)

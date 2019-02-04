@@ -8,7 +8,7 @@ import com.google.android.gms.vision.text.TextBlock
 import java.util.*
 
 class VirtualGrid {
-    private val tiles = HashSet<GridTile>()
+    private val tiles = mutableSetOf<GridTile>()
     private val timeFilter = TimeFilter<String>(CHOICE_COOL_DOWN)
     val size
         get() = tiles.size
@@ -20,8 +20,8 @@ class VirtualGrid {
         return tiles.add(GridTile(tile))
     }
 
-    fun removeTile(tile: Text): Boolean {
-        return tiles.remove(GridTile(tile))
+    fun removeTile(text: String): Boolean {
+        return tiles.removeAll { i -> i.value == text }
     }
 
     fun contains(tile: Text): Boolean {
@@ -88,34 +88,22 @@ class VirtualGrid {
      * Instantiating an instance of a [Text] is not possible, this class
      * gives us this ability (just a wrapper class)
      */
-    private data class GridTile(private val textItem: Text) : Text {
-        private val textBoundingBox: Rect = textItem.boundingBox
-        private val textComponents: MutableList<out Text> = textItem.components
-        private val textCornerPoints: Array<Point> = textItem.cornerPoints
-        private val textValue: String = VirtualGrid.preProcess(textItem.value)
-
-        override fun getBoundingBox(): Rect {
-            return textBoundingBox
-        }
-
-        override fun getComponents(): MutableList<out Text> {
-            return textComponents
-        }
-
-        override fun getCornerPoints(): Array<Point> {
-            return textCornerPoints
-        }
-
-        override fun getValue(): String {
-            return textValue
-        }
+    private data class GridTile(private val textItem: Text) {
+        val textBoundingBox: Rect
+            get() = textItem.boundingBox
+        val components: MutableList<out Text>
+            get() = textItem.components
+        val cornerPoints: Array<Point>
+            get() = textItem.cornerPoints
+        val value: String
+            get() = VirtualGrid.preProcess(textItem.value)
 
         fun getCenter(): Point {
             return Point(textBoundingBox.centerX(), textBoundingBox.centerY())
         }
 
         override fun hashCode(): Int {
-            return textValue.hashCode()
+            return value.hashCode()
         }
 
         override fun equals(other: Any?): Boolean {
