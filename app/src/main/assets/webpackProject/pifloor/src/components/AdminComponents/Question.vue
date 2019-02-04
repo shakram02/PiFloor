@@ -27,13 +27,15 @@
           </div>
           <b-form-input type="text" class="sheet" v-model="questions[index].choices[i]" />
         </div>
-        <button v-on:click="removeChoice(i)">
+        </br>
+        <b-btn block variant="outline-secondary" v-on:click="removeChoice(i)">
           {{ $t('Delete') }}
-        </button>
+        </b-btn>
       </div>
-      <button v-on:click="addChoice">
+      </br>
+      <b-btn block variant="outline-secondary" v-on:click="addChoice">
         {{ $t('Add') }}
-      </button>
+      </b-btn>
       <br/>
       <div class="select">
         <p>{{ $t('SelectCorrectAnswer') }}</p>

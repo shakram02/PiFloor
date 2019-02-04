@@ -11,9 +11,9 @@
                 />
                 <div class="breakLine"/>
             </div>
-            <button @click="addQuestion">
+            <b-btn block variant="outline-secondary" @click="addQuestion">
                 {{ $t('NewQuestion') }}
-            </button>
+            </b-btn>
         </b-modal>
     </div>
 </template>
