@@ -71,7 +71,10 @@ export default {
         this.failed = false;
         this.$refs.helperModal.show();
       }
-      else  this.questionIndex++;
+      else{
+        this.questionIndex++;
+        this.$refs.gameHeader.startTimeDown()
+      }
     },
     returnToHome: function(){
       this.failed = true;
@@ -81,7 +84,6 @@ export default {
       let ansIndex = this.possibleAnswers.indexOf(this.correctAnswer);
       if(parseInt(answer) === ansIndex) this.celebrate();
       else this.getUpset();
-      setTimeout(this.nextQuestion, 3000);
     },
     celebrate: function(){
       // TODO: Animate celebrations
@@ -89,15 +91,15 @@ export default {
       // eslint-disable-next-line
       let sound = new Audio(require('../assets/soundEffects/correct.mp3'));
       sound.play();
+      setTimeout(this.nextQuestion, 3000);
     },
     getUpset: function(){
       // TODO: Animate disappointment
-      // eslint-disable-next-line
-      console.log("Wrong answer");
+      this.$refs.gameHeader.wrongAnswer();
       // eslint-disable-next-line
       let sound = new Audio(require('../assets/soundEffects/fail.mp3'))
-      sound.play()
-
+      sound.play();
+      setTimeout(this.nextQuestion, 1000);
     }
   },
   mounted() {

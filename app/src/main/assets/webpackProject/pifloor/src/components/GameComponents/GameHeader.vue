@@ -23,12 +23,32 @@ export default {
     return{
       score: 0,
       timer: 10,
+      timeout: false,
+      timeVariable : null
     }
   },
   methods: {
     correctAnswer: function(){
       this.score += 10;
+    },
+    wrongAnswer: function(){
+      this.stopTimer();
+      this.timer = 10;
+    },
+    startTimeDown: function(){
+      this.timeVariable = setInterval(()=>{
+        if(this.timer === 0){
+          this.$parent.getUpset();
+        }
+        else this.timer -= 1;
+      },1000)
+    },
+    stopTimer: function(){
+      clearInterval(this.timeVariable);
     }
+  },
+  mounted(){
+    this.startTimeDown();
   }
 }
 </script>
