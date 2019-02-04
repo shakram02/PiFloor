@@ -29,6 +29,8 @@ export default {
   },
   methods: {
     correctAnswer: function(){
+      this.stopTimer()
+      this.timer = 10;
       this.score += 10;
     },
     wrongAnswer: function(){
