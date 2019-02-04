@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder
-
 import pifloor.R
 
-class SecondFragment : Fragment(), ISlideBackgroundColorHolder {
+
+class FifthIntroFragment : Fragment(), ISlideBackgroundColorHolder {
 
     var layoutContainer: LinearLayout? = null
 
@@ -31,7 +31,7 @@ class SecondFragment : Fragment(), ISlideBackgroundColorHolder {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_second, container, false)
+        val view = inflater.inflate(R.layout.fragment_fifth, container, false)
         layoutContainer = view.findViewById(R.id.container) as LinearLayout
         return view
     }

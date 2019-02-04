@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:orientation="vertical"
     android:background="@color/red_white"
-    tools:context="pifloor.introfragments.FourthFragment"
+    tools:context="pifloor.introfragments.FourthIntroFragment"
     android:paddingLeft="20dp"
     android:paddingTop="20dp"
     android:paddingRight="20dp"

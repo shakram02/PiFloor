@@ -12,7 +12,7 @@ import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder
 import pifloor.R
 
 
-class ZeroFragment : Fragment(), ISlideBackgroundColorHolder {
+class ZerothIntroFragment : Fragment(), ISlideBackgroundColorHolder {
 
     var layoutContainer: LinearLayout? = null
 

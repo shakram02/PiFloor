@@ -20,12 +20,11 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      * References to the views for each data item
      **/
     public class TileViewHolder extends SwipeToAction.ViewHolder<String> {
-        public TextView titleView;
+        TextView titleView;
 
-        public TileViewHolder(View v) {
+        TileViewHolder(View v) {
             super(v);
-
-            titleView = (TextView) v.findViewById(R.id.title);
+            titleView = v.findViewById(R.id.title);
         }
     }
 
@@ -56,7 +55,7 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         String item = items.get(position);
         TileViewHolder vh = (TileViewHolder) holder;
         vh.titleView.setText(item);
