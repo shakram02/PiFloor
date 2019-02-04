@@ -49,7 +49,7 @@ export default {
       questions : [],
       questionIndex: 0,
       failed: true,
-      testing: true,
+      testing: false,
       testAnswer: ""
     }
   },

@@ -75,7 +75,7 @@ export default {
       }
     },
     sendToServer: function(){
-      //this.$socket.emit('questions', JSON.stringify(this.questions));
+      this.$socket.emit('questions', JSON.stringify(this.questions));
     }
   }
 }
