@@ -1,11 +1,11 @@
 <template>
   <b-row class="wrapper" v-if="$i18n.locale === 'ar'">
-    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-      <h3>{{score}} :{{$t('Score')}}</h3>
-    </div>
-    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-      <h3>{{timer}} :{{$t('Timer')}}</h3>
-    </div>
+    <b-col cols="3" class="" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+      <h3>{{score}} : {{$t('Score')}}</h3>
+    </b-col>
+    <b-col cols="3" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+      <h3>{{timer}} : {{$t('Timer')}}</h3>
+    </b-col>
   </b-row>
   <b-row class="wrapper" v-else>
     <b-col cols="3" class="" v-bind:class="['shape-' + $root.$children[0].themeColor]">
