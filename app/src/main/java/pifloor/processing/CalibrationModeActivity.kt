@@ -4,7 +4,6 @@ package pifloor.processing
 import android.content.Intent
 import android.hardware.Camera
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -19,6 +18,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import co.dift.ui.SwipeToAction
 import com.google.android.gms.vision.text.TextBlock
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
 import pifloor.R
 import pifloor.graphcis.CalibratedOcrGraphic
 import pifloor.graphcis.OcrGraphic
@@ -26,8 +27,6 @@ import pifloor.graphcis.PreviewOcrGraphic
 import pifloor.injection.PiFloorApplication
 import pifloor.ui.camera.OcrGraphicOverlay
 import pifloor.utils.VirtualGrid
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
 import javax.inject.Inject
 
 class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
@@ -46,7 +45,6 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
-        //actionBar?.setDisplayHomeAsUpEnabled(true)
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         ButterKnife.bind(this)
@@ -89,10 +87,10 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
     }
 
     private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
-        var snack: Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
+        val snack: Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
                 .setAction(actionName, action)
 
-        var v: View = snack.view
+        val v: View = snack.view
         v.setBackgroundColor(resources.getColor(R.color.green))
         snack.show()
     }
