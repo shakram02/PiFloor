@@ -62,7 +62,6 @@ h1 {
   width: 70%;
   background-color: #FFC000;
   border-bottom: 10px solid #ED7D31;
-  transform: rotateY(10deg);
 }
 .form-control,
 .custom-select,
