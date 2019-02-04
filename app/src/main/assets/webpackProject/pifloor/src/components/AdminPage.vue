@@ -61,10 +61,8 @@ h1 {
 .shape-container { // problem with responsiveness with border-bottom
   width: 70%;
   background-color: #FFC000;
-  border-top: 3px solid lightgrey;
-  border-bottom: 3px solid grey;
-  border-right: 3px solid grey;
-  border-left: 3px solid lightgrey;
+  border-bottom: 10px solid #ED7D31;
+  transform: rotateY(10deg);
 }
 .form-control,
 .custom-select,

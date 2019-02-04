@@ -126,10 +126,7 @@ export default {
   .game-container {
     padding: 20px;
     background-color: #FFC000;
-    border-top: 5px solid lightgrey;
-    border-bottom: 5px solid grey;
-    border-right: 5px solid grey;
-    border-left: 5px solid lightgrey;
+    border-bottom: 10px solid #ED7D31;
   }
   .next-ques {
     margin-left: auto;

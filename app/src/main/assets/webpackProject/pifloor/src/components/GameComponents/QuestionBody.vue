@@ -15,9 +15,8 @@ h1{
   border-radius: 5px;
   padding: 1%;
   position: relative;
-  transform: perspective(250px) rotateY(10deg) translateY(-50%);
+  transform: rotateY(15deg) translateY(-50%);
   width: 70%;
   margin: auto;
-  left: 10%;
 }
 </style>

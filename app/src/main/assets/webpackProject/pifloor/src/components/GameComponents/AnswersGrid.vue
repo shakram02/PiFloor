@@ -47,11 +47,8 @@ export default {
   width: 70%;
   padding: 10%;
   background-color: #5B9BD5;
-  border-top: 3px solid transparent;
-  border-bottom: 3px solid #325575;
-  border-right: 3px solid #325575;
-  border-left: 3px solid transparent;
-
+  border-bottom: 5px solid #325575;
+  transform: perspective(300px) rotateY(15deg);
 }
 #grid{
   width: 80%;
