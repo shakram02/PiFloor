@@ -3,7 +3,7 @@
         <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
             <b-btn block variant="outline-secondary" v-b-modal.questionsModal>{{ $t('Questions') }}</b-btn>
         </div>
-        <b-modal size="lg" id="questionsModal">
+        <b-modal size="lg" id="questionsModal" ref="questionsModal">
             <div v-for="(ques, index) in $root.$children[0].questions" v-bind:key="ques">
                 <Question
                     v-bind:index="index"
@@ -14,6 +14,9 @@
             <button @click="addQuestion">
                 {{ $t('NewQuestion') }}
             </button>
+            <div slot="modal-footer">
+              <b-button variant="outline-success" @click="hideModal">{{ $t('Done') }}</b-button>
+            </div>
         </b-modal>
     </div>
 </template>
@@ -33,6 +36,9 @@ export default {
                     question: " ",
                 });
         },
+        hideModal: function() {
+          this.$refs.questionsModal.hide();
+        }
     }
 }
 </script>
