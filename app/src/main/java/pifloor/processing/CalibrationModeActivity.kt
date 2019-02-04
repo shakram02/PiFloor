@@ -81,18 +81,11 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         })
     }
 
-    private fun removeTile(str : String): Int {
-        val pos = captureFragment.tiles!!.indexOf(str)
+    private fun removeTile(str: String) {
+        val position = captureFragment.tiles!!.indexOf(str)
         captureFragment.tiles!!.remove(str)
-        captureFragment.adapter!!.notifyItemRemoved(pos)
-        /*var g : OcrGraphic? = graphicOverlay.getByContent(str)
-        if (g != null) {
-            g.getRectPaint().color = Color.WHITE
-            g.getTextPaint().color = Color.WHITE
-            graphicOverlay.remove(g)
-        }*/
-        virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
-        return pos
+        captureFragment.adapter!!.notifyItemRemoved(position)
+        virtualGrid.removeTile(str)
     }
 
     private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
