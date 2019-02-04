@@ -6,7 +6,10 @@
     android:orientation="vertical"
     android:background="@color/green"
     tools:context="pifloor.introfragments.FourthFragment"
-    android:padding="20dp">
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="70dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +17,7 @@
         android:layout_gravity="center"
         android:text="@string/tutorial_title4"
         android:textAppearance="@style/title"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +25,7 @@
         android:layout_gravity="center"
         android:text="@string/tutorial_message4"
         android:textAppearance="@style/desc"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="10dp"/>
 
     <ImageView
         android:layout_width="wrap_content"

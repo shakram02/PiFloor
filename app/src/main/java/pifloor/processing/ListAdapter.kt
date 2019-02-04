@@ -58,7 +58,6 @@ class ListAdapter (private val activity: Activity, items: ArrayList<String>, ass
         } else{
             view = convertView
         }
-        Log.d("elements", items[0]+","+items[1]+","+items[2]+","+items[3])
         return view
     }
 

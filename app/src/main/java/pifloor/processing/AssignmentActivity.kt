@@ -9,6 +9,7 @@ import android.widget.Toast
 import butterknife.OnClick
 import butterknife.Optional
 import pifloor.R
+import java.util.*
 
 class AssignmentActivity : AppCompatActivity() {
 
@@ -22,8 +23,8 @@ class AssignmentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_assignment)
         var i = getIntent()
         tiles = i.getStringArrayListExtra("tiles")
-        flash = i.getBooleanExtra("flash", false)
-        focus = i.getBooleanExtra("focus", false)
+        flash = i.getBooleanExtra("UseFlash", false)
+        focus = i.getBooleanExtra("AutoFocus", false)
 
 //        Toast.makeText(this, "Hi" + tiles.size.toString(), Toast.LENGTH_SHORT).show()
 

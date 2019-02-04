@@ -20,8 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".processing.IndicesAssignmentActivity"
-            android:label="@string/title_activity_indices_assignment"
+            android:name=".processing.AssignmentActivity"
+            android:label="Assignment"
             android:theme="@style/NoActionBar"></activity>
         <!-- <meta-data -->
         <!-- android:name="com.google.android.gms.vision.DEPENDENCIES" -->
@@ -49,7 +49,6 @@
             android:configChanges="keyboardHidden|screenLayout"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".IntroActivity" />
-        <activity android:name=".processing.AssignmentActivity" />
     </application>
 
 </manifest>
