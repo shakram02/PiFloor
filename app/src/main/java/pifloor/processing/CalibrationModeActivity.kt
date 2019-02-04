@@ -30,10 +30,7 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
     private lateinit var captureFragment: OcrCaptureFragment
 
     @BindView(R.id.btn_startGame_calibrationModeActivity)
-    lateinit var startGameButton : Button
-
-    @BindView(R.id.btn_clear_calibrationModeActivity)
-    lateinit var clearButton : Button
+    lateinit var startGameButton: Button
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
@@ -128,12 +125,6 @@ class CalibrationModeActivity : FragmentActivity(), OcrCaptureFragment.OcrSelect
         x.add("four")
         intent.putExtra("tiles", x)
         startActivity(intent)
-    }
-
-    @Optional
-    @OnClick(R.id.btn_clear_calibrationModeActivity)
-    fun clearCalibration() {
-        virtualGrid.clear()
     }
 
     /**
