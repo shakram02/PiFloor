@@ -26,6 +26,7 @@
     <string name="start_game">Start game</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="title_activity_indices_assignment">IndicesAssignmentActivity</string>
 
     <string name="game_activity_instructions">Keep the camera as stable as possible. Avoid unwanted text around the grid.</string>
 
