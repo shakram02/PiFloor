@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1><slot></slot></h1>
+  <div >
+    <h1 v-bind:class="['shape-' + $root.$children[0].themeColor]"><slot></slot></h1>
   </div>
 </template>
 
@@ -12,9 +12,12 @@ export default {
 
 <style scoped>
 h1{
-  color: lightblue;
-  border: solid 2px lightblue;
   border-radius: 5px;
-  padding: 20px;
+  padding: 1%;
+  position: relative;
+  transform: perspective(250px) rotateY(10deg) translateY(-50%);
+  width: 70%;
+  margin: auto;
+  left: 10%;
 }
 </style>

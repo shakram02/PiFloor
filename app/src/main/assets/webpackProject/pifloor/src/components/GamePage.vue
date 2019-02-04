@@ -1,17 +1,14 @@
 <template>
   <div>
-    <b-container class="wrapper" v-if="questions.length">
+    <b-container v-if="questions.length">
       <GameHeader ref="gameHeader"></GameHeader>
-
-      <!-- Testing components -->
-      <div id="test" v-if="testing">
-        <input type="text" v-model="testAnswer">
-        <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
-      </div>
-
+      </br>
+      </br>
+      </br>
       <b-container class="game-container">
         <QuestionBody>{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="possibleAnswers"/>
+        </br>
         <b-btn class="next-ques" variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
       </b-container>
     </b-container>
@@ -23,6 +20,12 @@
         <b-btn variant="outline-secondary" @click="returnToHome">{{ $t('Back') }}</b-btn>
       </div>
     </b-modal>
+    <!-- Testing components -->
+      <div id="test" v-if="testing">
+        </br>
+        <input type="text" v-model="testAnswer">
+        <button type="button" @click="checkAnswer(testAnswer)">Submit</button>
+      </div>
   </div>
 </template>
 
@@ -117,13 +120,13 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
-    padding: 10px;
-  }
   .game-container {
-    border: solid 2px grey;
-    border-radius: 5px;
     padding: 20px;
+    background-color: #FFFACD;
+    border-top: 5px solid lightgrey;
+    border-bottom: 5px solid grey;
+    border-right: 5px solid grey;
+    border-left: 5px solid lightgrey;
   }
   .next-ques {
     margin-left: auto;

@@ -56,11 +56,11 @@ export default {
 }
 .shape-container { // problem with responsiveness with border-bottom
   width: 70%;
-  background-color: #FFFACD;
-  border-top: 3px solid transparent;
+  background-color: #ffc059;
+  border-top: 3px solid lightgrey;
   border-bottom: 3px solid grey;
   border-right: 3px solid grey;
-  border-left: 3px solid transparent;
+  border-left: 3px solid lightgrey;
 }
 .form-control,
 .custom-select,

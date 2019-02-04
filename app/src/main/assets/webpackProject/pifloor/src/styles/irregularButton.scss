@@ -1,12 +1,15 @@
 %shape {
-  height: 0;
+  display: flex;
   width: 100%;
-  transform: perspective(300px) rotateY(25deg);
-  filter: drop-shadow(3px 3px 0 #333);
+  height: 20%;
+  left: 2%;
+  transform: perspective(300px) rotateY(35deg);
+  filter: drop-shadow(3px 3px 0 #0a8688);
+  
 }
 
 %shape:hover {
-  border-bottom: 40px solid grey; //not responsive
+  background-color: grey;
   transition: 0.3s;
 }
 %shape button,
@@ -22,7 +25,7 @@
 
 .shape-blue {
   @extend %shape;
-  border-bottom: 40px solid lightblue; //not responsive
+  background-color: #4dbed6;
 }
 
 .shape-pink {

@@ -3,7 +3,7 @@
     <center>
       <b-row id="grid" no-gutters class="justify-content-center">
         <b-col v-bind:cols="numPerRow" v-for="(answer, index) in PossibleAnswers" v-bind:key="answer + index" class="answer">
-          <span>{{answer}}</span>
+          <div class="grid-cell">{{answer}}</div>
         </b-col>
       </b-row>
     </center>
@@ -13,10 +13,6 @@
 <script>
 export default {
   props: ["PossibleAnswers"],
-  data(){
-    return{
-    }
-  },
   computed: {
     numPerRow: function(){
       let num = this.PossibleAnswers.length;
@@ -45,22 +41,31 @@ export default {
 
 <style scoped>
 .answer{
-  padding: 10px;
+  padding: 2%;
 }
-span{
+.spana{
   color: white;
   background: lightgreen;
   border: solid 2px;
   border-radius: 5px;
   font-size: 35px;
   padding: 20px;
-  width: 80%;
+  width: 100%;
   height: 100px;
   display: block;
 }
+.grid-cell {
+  width: 70%;
+  padding: 10%;
+  background-color: lightblue;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid grey;
+  border-right: 3px solid grey;
+  border-left: 3px solid transparent;
+
+}
 #grid{
   width: 80%;
-  padding: 15px;
 }
 
 </style>

@@ -1,12 +1,20 @@
 <template>
-  <div class="wrapper" v-if="$i18n.locale==='ar'">
-    <h3>{{score}} :{{t('Score')}}</h3>
-    <h3>{{timer}} :{{t('Timer')}}</h3>
-  </div>
-  <div class="wrapper" v-else>
-    <h3>{{t('Score')}}: {{score}}</h3>
-    <h3>{{t('Timer')}}: {{timer}}s</h3>
-  </div>
+  <b-row class="wrapper" v-if="$i18n.locale === 'ar'">
+    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+      <h3>{{score}} :{{$t('Score')}}</h3>
+    </div>
+    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+      <h3>{{timer}} :{{$t('Timer')}}</h3>
+    </div>
+  </b-row>
+  <b-row class="wrapper" v-else>
+    <b-col cols="3" class="" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+      <h3>{{$t('Score')}}: {{score}}</h3>
+    </b-col>
+    <b-col cols="3" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+      <h3>{{$t('Timer')}}: {{timer}}s</h3>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
