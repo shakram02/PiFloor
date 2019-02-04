@@ -5,7 +5,7 @@
     </div>
     <a v-bind:show="false" ref="link"></a>
     <b-modal ref="emptyFileModal">
-      <p>{{ $('NoQuestionsYet') }}</p>
+      <p>{{ $t('NoQuestionsYet') }}</p>
       <div slot="modal-footer"></div>
     </b-modal>
   </div>
@@ -27,7 +27,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

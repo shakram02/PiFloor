@@ -7,7 +7,7 @@
           <div class="input-group-prepend">
             <span class="sheet input-group-text" style="margin-left: 15px;">{{index+1}}. </span>
           </div>
-          <b-form-input type="text" class="sheet" v-model="question" />
+          <b-form-input type="text" class="sheet" v-model="questions[index].question" />
         </div>
       </b-col>
 
@@ -15,6 +15,7 @@
         <b-btn v-b-toggle="'collapse' + index" size="sm" variant="outline-secondary">{{ $t('CloseAndOpen') }}</b-btn>
         <b-btn v-on:click="deleteQuestion(index)" variant="outline-secondary">{{ $t('Delete') }}</b-btn>
       </b-col>
+
     </b-row>
     <br/>
 
@@ -35,8 +36,8 @@
       </button>
       <br/>
       <div class="select">
-        <p>{{ $('SelectCorrectAnswer') }}</p>
-        <b-form-select v-model="correct">
+        <p>{{ $t('SelectCorrectAnswer') }}</p>
+        <b-form-select v-model="questions[index].correct">
           <option v-for="(option, i) in questions[index].choices" v-bind:key="questions[index].choices[i]" v-bind:value="questions[index].choices[i]">
             {{ option }}
           </option>
@@ -49,12 +50,6 @@
 <script>
 export default {
     props: ['index', 'questions'],
-    data(){
-      return {
-        question: this.questions[this.index].question,
-        correct: this.questions[this.index].correct,
-      }
-    },
     methods: {
       addChoice : function() {
         this.questions[this.index].choices.push("");

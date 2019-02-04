@@ -8,7 +8,7 @@
           <br/>
           <ListOfQuestions/>
           <br/>
-          <FileDownloader class="btn-block" />
+          <FileDownloader />
           <br/>
           <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
             <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
@@ -16,7 +16,7 @@
           <br/>
           <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
             <b-form-select v-model="$i18n.locale">
-              <option class="option-style" v-for="option in this.$parent.lang" v-bind:key="option" v-bind:value="option">
+              <option class="option-style" v-for="option in this.$root.$children[0].lang" v-bind:key="option" v-bind:value="option">
                 {{ option }}
               </option>
             </b-form-select>     
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     startGame(){
-      this.$parent.playing = true;
+      this.$root.$children[0].playing = true;
     }
   },
 
@@ -62,6 +62,20 @@ export default {
   border-right: 3px solid grey;
   border-left: 3px solid transparent;
 }
+.form-control,
+.custom-select,
+.custom-select:focus,
+.custom-select:hover {
+  border: 0px;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+}
+
+.custom-select:hover {
+  color: white;
+}
+
 .option-style {
   color: grey;
   background: lightblue;

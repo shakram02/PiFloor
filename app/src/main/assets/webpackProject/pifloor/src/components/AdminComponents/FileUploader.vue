@@ -42,7 +42,7 @@ export default {
           })
         }
         this.questions = resultArray;
-        this.$parent.$parent.questions = this.questions;
+        this.$root.$children[0].questions = this.questions;
         this.show = false;
       }, 300)
     }
@@ -50,6 +50,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

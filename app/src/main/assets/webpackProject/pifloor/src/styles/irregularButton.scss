@@ -13,17 +13,11 @@
 %shape button:active,
 %shape button:focus,
 %shape button:active:focus,
-%shape button:not(:disabled):not(.disabled):active:focus,
-.form-control,
-.custom-select, .custom-select:focus, .custom-select:hover {
+%shape button:not(:disabled):not(.disabled):active:focus {
   border: 0px;
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
-}
-
-.custom-select:hover {
-  color: white;
 }
 
 .shape-blue {
