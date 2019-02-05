@@ -27,6 +27,7 @@
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="assign_title">Reorder Words :</string>
+    <string name="upload">Upload</string>
 
     <string name="game_activity_instructions">Keep the camera as stable as possible. Avoid unwanted text around the grid.</string>
 

@@ -6,13 +6,4 @@
     android:orientation="vertical"
     tools:context=".webserver.ServerFragment">
 
-    <TextView
-        android:layout_marginTop="400dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/txt_server_hostname"
-        android:layout_width="wrap_content"
-        android:textColor="#000000"
-        android:background="#FFFFFF"
-        android:layout_height="wrap_content" />
 </FrameLayout>

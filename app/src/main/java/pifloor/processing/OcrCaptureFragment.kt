@@ -254,7 +254,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
     }
 
     private fun addTile(pos : Int, str : String) {
-        tiles!!.add(str)
+        tiles!!.add(str.toLowerCase())
         adapter!!.notifyItemInserted(pos)
     }
 
@@ -328,7 +328,7 @@ class OcrCaptureFragment : Fragment(), View.OnTouchListener {
             try {
                 preview!!.start(mCameraSource, graphicOverlay)
             } catch (e: IOException) {
-                Log.e(TAG, "Unable to start camera source.", e)
+                Log.e(TAG, "Unable to start_off camera source.", e)
                 mCameraSource!!.release()
                 mCameraSource = null
             }

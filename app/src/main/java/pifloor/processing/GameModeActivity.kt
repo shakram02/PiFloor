@@ -15,10 +15,15 @@
  */
 package pifloor.processing
 
+import android.hardware.Camera
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import com.google.android.gms.vision.text.TextBlock
 import pifloor.R
 import pifloor.graphcis.OcrGraphic
@@ -45,21 +50,34 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
     @Inject
     lateinit var webSocketHandler: WebSocketHandler
 
+    private val choiceMap = hashMapOf<String, String>()
+
+    var mTopToolbar: Toolbar? = null
+
+    private var serverFragment: ServerFragment? = null
+
     /**
      * Initializes the UI and creates the detector pipeline.
      */
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_game_mode)
-        setSupportActionBar(findViewById(R.id.toolbar_game_activity) as Toolbar)
+        mTopToolbar = findViewById(R.id.my_toolbar)
+        setSupportActionBar(mTopToolbar)
 
         (application as PiFloorApplication).component.inject(this)
+        val tiles = intent.getStringArrayListExtra("tiles")
+
+        for (tileIndex in tiles.indices) {
+            val tileText = tiles[tileIndex]
+            choiceMap[tileText] = tileIndex.toString()
+        }
         loadFragment()
     }
 
     private fun loadFragment() {
         // read parameters from the intent used to launch the activity.
-        val autoFocus = intent.getBooleanExtra("AutoFocus", false)
+        val autoFocus = intent.getBooleanExtra("AutoFocus", true)
         val useFlash = intent.getBooleanExtra("UseFlash", false)
         captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
 
@@ -68,18 +86,75 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
                     captureFragment.subscribe(this)
                 }.commit()
 
-        val serverFragment = ServerFragment()
+        /*if (useFlash) {
+            captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
+        } else {
+            captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+        }
+
+        if (autoFocus) {
+            captureFragment.mCameraSource!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO
+        } else {
+            captureFragment.mCameraSource!!.focusMode = null
+        }*/
+
+        serverFragment = ServerFragment()
 
         supportFragmentManager.beginTransaction()
                 .add(R.id.container_game_fragment_holder, serverFragment)
                 .commit()
+
+        //serverFragment!!.startServer()
+        //displaySnackbar(serverFragment!!.hostNameTxt.text as String?,null,null)
+
+    }
+
+    private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
+        var snack: Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
+                .setAction(actionName, action)
+
+        var v: View = snack.getView()
+        v.setBackgroundColor(getResources().getColor(R.color.green))
+        snack.show()
+    }
+
+    var munItems : Menu? = null
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        munItems = menu
+        menuInflater.inflate(R.menu.game_menu, menu)
+        return true
+    }
+
+    var state : Boolean = false
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.getItemId()
+
+        if (id == R.id.info) {
+            displaySnackbar(serverFragment!!.hostNameTxt, null, null)
+            return true
+        } else if (id == R.id.start) {
+
+            if (state) {
+                serverFragment!!.stopServer()
+                item.setIcon(R.drawable.start_on)
+            } else {
+                serverFragment!!.startServer()
+                item.setIcon(R.drawable.stop_on)
+            }
+            state = !state
+            displaySnackbar(serverFragment!!.hostNameTxt, null, null)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     /**
      * Invoked after calling [Publisher.subscribe].
      *
      *
-     * No data will start flowing until [Subscription.request] is invoked.
+     * No data will start_off flowing until [Subscription.request] is invoked.
      *
      *
      * It is the responsibility of this [Subscriber] instance to call [Subscription.request] whenever more data is wanted.
@@ -101,9 +176,9 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         // Check if the current detections mismatch the ones in gridHolder
         // TODO: Ensure that the server is running
         val choice = virtualGrid.findChoice(items) ?: return
-
-        if (NUMERIC_NUMBER.contains(choice)) {
-            webSocketHandler.broadcast(NUMERIC_NUMBER[choice]!!)
+        Log.i(TAG, "Current choice:$choice")
+        if (choiceMap.contains(choice)) {
+            webSocketHandler.broadcast(choiceMap[choice]!!)
         } else {
             webSocketHandler.broadcast(choice)
         }
@@ -133,19 +208,5 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
 
     companion object {
         private const val TAG = "GameModeActivity"
-
-        // TODO: the user should configure the indexes in a separate activity
-        // those indexes will create this hash map
-        private val NUMERIC_NUMBER = hashMapOf(
-                Pair("one", "1"),
-                Pair("two", "2"),
-                Pair("three", "3"),
-                Pair("four", "4"),
-                Pair("five", "5"),
-                Pair("six", "6"),
-                Pair("seven", "7"),
-                Pair("eight", "8"),
-                Pair("nine", "9")
-        )
     }
 }

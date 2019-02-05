@@ -49,6 +49,11 @@
             android:configChanges="keyboardHidden|screenLayout"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".IntroActivity" />
+        <activity android:name=".UploadActivity"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAeT8zHqrqzSGZMWajX9HeTb8K3VtnKnBY" />
     </application>
 
 </manifest>

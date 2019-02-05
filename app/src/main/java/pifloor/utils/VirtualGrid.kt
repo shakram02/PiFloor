@@ -73,7 +73,7 @@ class VirtualGrid {
     }
 
     companion object {
-        const val CHOICE_COOL_DOWN: Long = 1000
+        const val CHOICE_COOL_DOWN: Long = 10
 
         private fun preProcess(s: String): String {
             return s.toLowerCase().replace(" ", "")

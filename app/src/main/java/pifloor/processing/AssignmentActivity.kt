@@ -64,6 +64,7 @@ class AssignmentActivity : Activity() {
         val intent = Intent(this, GameModeActivity::class.java)
         intent.putExtra("AutoFocus", focus)
         intent.putExtra("UseFlash", flash)
+        intent.putExtra("tiles", tiles)
         startActivity(intent)
     }
 

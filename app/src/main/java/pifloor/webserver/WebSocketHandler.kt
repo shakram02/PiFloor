@@ -30,6 +30,7 @@ class WebSocketHandler : AsyncHttpServer.WebSocketRequestCallback, LifecycleObse
 
         webSocket.stringCallback = WebSocket.StringCallback { string ->
             Log.i(TAG, "Client sent:$string")
+            //Todo: Start Saving file
             webSocket.send("Welcome Client!")
         }
 

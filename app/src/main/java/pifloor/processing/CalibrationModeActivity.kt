@@ -138,7 +138,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
      * Invoked after calling [Publisher.subscribe].
      *
      *
-     * No data will start flowing until [Subscription.request] is invoked.
+     * No data will start_off flowing until [Subscription.request] is invoked.
      *
      *
      * It is the responsibility of this [Subscriber] instance to call [Subscription.request] whenever more data is wanted.
