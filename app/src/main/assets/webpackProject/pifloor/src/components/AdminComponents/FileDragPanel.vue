@@ -75,7 +75,9 @@ export default {
       }
     },
     sendToServer: function(){
-      this.$socket.emit('questions', JSON.stringify(this.questions));
+      setTimeout(()=>{
+        this.$socket.send(this.questions.join('\n'));
+      },300)
     }
   }
 }

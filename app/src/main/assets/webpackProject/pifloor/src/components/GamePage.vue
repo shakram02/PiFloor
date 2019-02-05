@@ -49,7 +49,7 @@ export default {
       questions : [],
       questionIndex: 0,
       failed: true,
-      testing: false,
+      testing: true,
       testAnswer: ""
     }
   },
@@ -109,19 +109,13 @@ export default {
     }
   },
   mounted() {
+    this.$options.sockets.onmessage = (data) => {
+      if(isNaN(data.data)) console.log("Wrong Data type", typeof(data.data), data);
+      else this.traceMovement(data.data);
+    }
     let rawQuestions = this.$parent.questions;
     if(rawQuestions.length)  this.questions = rawQuestions;
     else  this.$refs.helperModal.show();
-  },
-  sockets: {
-      connect: function () {
-          // eslint-disable-next-line
-          console.log("We're connected!");
-      },
-      game: function (data) {
-          if(isNaN(data)) alert('Wrong data type!');
-          else traceMovement(data);
-      }
   }
 }
 
