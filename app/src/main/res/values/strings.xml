@@ -22,10 +22,11 @@
     <string name="welcome_title">PiFloor</string>
     <string name="welcome_message">Welcome to PiFloor interactive education.</string>
     <string name="start_tutorial">Tutorial</string>
-    <string name="new_game">New game</string>
+    <string name="new_game">Lets Play</string>
     <string name="start_game">Start game</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="assign_title">Reorder Words :</string>
 
     <string name="game_activity_instructions">Keep the camera as stable as possible. Avoid unwanted text around the grid.</string>
 

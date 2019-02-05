@@ -19,10 +19,6 @@
         android:label="PI Floor"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity
-            android:name=".processing.AssignmentActivity"
-            android:label="Assignment"
-            android:theme="@style/NoActionBar"></activity>
         <!-- <meta-data -->
         <!-- android:name="com.google.android.gms.vision.DEPENDENCIES" -->
         <!-- android:value="ocr" /> -->
@@ -42,6 +38,10 @@
         <activity
             android:name=".processing.GameModeActivity"
             android:label="Game Mode" />
+        <activity
+            android:name=".processing.AssignmentActivity"
+            android:label="Reorder Tiles :"
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".processing.CalibrationModeActivity"
             android:parentActivityName=".MainActivity"

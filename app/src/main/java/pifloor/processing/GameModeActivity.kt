@@ -59,8 +59,7 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
 
     private fun loadFragment() {
         // read parameters from the intent used to launch the activity.
-        // TODO: fix parameter resolution (it's not working)
-        val autoFocus = intent.getBooleanExtra("AutoFocus", true)
+        val autoFocus = intent.getBooleanExtra("AutoFocus", false)
         val useFlash = intent.getBooleanExtra("UseFlash", false)
         captureFragment = OcrCaptureFragment.newInstance(autoFocus, useFlash)
 

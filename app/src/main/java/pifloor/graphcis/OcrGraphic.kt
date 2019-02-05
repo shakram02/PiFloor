@@ -18,6 +18,7 @@ package pifloor.graphcis
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import android.util.Log
 import com.google.android.gms.vision.text.TextBlock
 import pifloor.ui.camera.GraphicOverlay
 import java.util.*
@@ -71,7 +72,24 @@ abstract class OcrGraphic internal constructor(overlay: GraphicOverlay<*>, val t
         rect.top = translateY(rect.top)
         rect.right = translateX(rect.right)
         rect.bottom = translateY(rect.bottom)
-        canvas.drawRect(rect, getRectPaint())
+        val height = rect.bottom - rect.top
+        val width = rect.right - rect.left
+        if(height < 50) {
+            //rect.top = translateY(rect.top - (50 - height) / 2)
+            rect.top = translateY(rect.top - 20F)
+            //rect.bottom = translateY(rect.bottom + (50 - height) / 2)
+            rect.bottom = translateY(rect.bottom + 20F)
+        }
+
+        if(width < 100) {
+            //rect.left = translateX(rect.left - (100 - width) / 2)
+            rect.left = translateX(rect.left - 20F)
+            //rect.right = translateX(rect.right + (100 - width) / 2)
+            rect.right = translateX(rect.right + 20F)
+        }
+        //Log.i("dodo",(rect.bottom - rect.top).toString() + " H ")
+        //Log.i("dodo",(rect.right - rect.left).toString() + " V ")
+        //canvas.drawRect(rect, getRectPaint())
         // Break the text into multiple lines and draw each one according to its own bounding box.
         val textComponents = text.components
         for (currentText in textComponents) {
