@@ -86,11 +86,13 @@ class AssignmentActivity : Activity() {
 
     internal class MyAdapter(tiles : ArrayList<String>) : RecyclerView.Adapter<MyViewHolder>(), DraggableItemAdapter<MyViewHolder> {
         var mItems: MutableList<MyItem>
+        private var ties : ArrayList<String>? = null
 
         init {
             setHasStableIds(true) // this is required for D&D feature.
 
             mItems = ArrayList()
+            ties = tiles
             var counter = 0
             for (i in tiles) {
                 mItems.add(MyItem(counter.toLong(), i))
@@ -136,6 +138,10 @@ class AssignmentActivity : Activity() {
 
         override fun onItemDragStarted(position: Int) {}
 
-        override fun onItemDragFinished(fromPosition: Int, toPosition: Int, result: Boolean) {}
+        override fun onItemDragFinished(fromPosition: Int, toPosition: Int, result: Boolean) {
+            var temp = this!!.ties?.get(fromPosition)
+            ties!!.removeAt(fromPosition)
+            ties!!.add(toPosition,temp!!)
+        }
     }
 }

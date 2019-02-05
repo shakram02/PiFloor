@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="pifloor.MainActivity"
+    >
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
-    android:gravity="center_horizontal"
-    tools:context="pifloor.MainActivity">
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/yellow"
+        android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/title"
@@ -18,41 +29,50 @@
         android:fontFamily="sans-serif-thin"
         android:textSize="70sp"
         android:text="@string/title_activity_main"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="50dp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/button_main_startTutorial"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:backgroundTint="@color/green"
-        android:src="@drawable/book"
-        android:layout_margin="5dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:id="@+id/button_main_startGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@drawable/corner_button"
+                android:text="@string/new_game"
+                android:textSize="20sp"
+                />
 
-    <Button
-        android:id="@+id/button_main_startGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@drawable/corner_button"
-        android:text="@string/new_game"
-        android:textSize="20sp"
-        android:layout_below="@+id/title"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="90dp"
-        />
+            <Button
+                android:id="@+id/button_main_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@drawable/corner_button"
+                android:text="@string/upload"
+                android:textSize="20sp"
+                android:layout_below="@+id/button_main_startGame"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/button_main_upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@drawable/corner_button"
-        android:text="@string/upload"
-        android:textSize="20sp"
-        android:layout_below="@+id/button_main_startGame"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="15dp"
-        />
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/button_main_startTutorial"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:backgroundTint="@color/green"
+                android:src="@drawable/book"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</FrameLayout>

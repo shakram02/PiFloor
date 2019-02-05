@@ -65,6 +65,8 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
 
+        //webSocketHandler.addContext(this)
+
         (application as PiFloorApplication).component.inject(this)
         val tiles = intent.getStringArrayListExtra("tiles")
 
@@ -85,18 +87,6 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
                 .add(R.id.container_game_fragment_holder, captureFragment).runOnCommit {
                     captureFragment.subscribe(this)
                 }.commit()
-
-        /*if (useFlash) {
-            captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
-        } else {
-            captureFragment.mCameraSource!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
-        }
-
-        if (autoFocus) {
-            captureFragment.mCameraSource!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO
-        } else {
-            captureFragment.mCameraSource!!.focusMode = null
-        }*/
 
         serverFragment = ServerFragment()
 
@@ -132,7 +122,8 @@ class GameModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionLis
         val id = item.getItemId()
 
         if (id == R.id.info) {
-            displaySnackbar(serverFragment!!.hostNameTxt, null, null)
+            var res = if (serverFragment!!.hostNameTxt != null) serverFragment!!.hostNameTxt else "Not started yet"
+            displaySnackbar(res, null, null)
             return true
         } else if (id == R.id.start) {
 

@@ -4,9 +4,12 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     android:orientation="vertical"
-    android:background="@color/blue_white"
+    android:background="@color/green"
     tools:context="pifloor.introfragments.FourthFragment"
-    android:padding="20dp">
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="70dp">
 
     <TextView
         android:layout_width="wrap_content"

@@ -14,10 +14,12 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import co.dift.ui.SwipeToAction
+import com.google.android.gms.common.util.ArrayUtils.toArrayList
 import com.google.android.gms.vision.text.TextBlock
 import pifloor.R
 import pifloor.graphcis.CalibratedOcrGraphic
@@ -28,6 +30,7 @@ import pifloor.ui.camera.OcrGraphicOverlay
 import pifloor.utils.VirtualGrid
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
+import pifloor.TilesAdapter
 import javax.inject.Inject
 
 class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
@@ -44,16 +47,17 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
 
     @BindView(R.id.recycler)
     lateinit var recyclerView: RecyclerView
+    lateinit var tileAdapter: TilesAdapter
     var swipeToAction : SwipeToAction? = null
 
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
-        //actionBar?.setDisplayHomeAsUpEnabled(true)
+        (application as PiFloorApplication).component.inject(this)
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         ButterKnife.bind(this)
-        (application as PiFloorApplication).component.inject(this)
+        tileAdapter = TilesAdapter(virtualGrid)
         loadFragment()
         loadList()
     }
@@ -62,7 +66,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         var layoutManager = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layoutManager)
         recyclerView.setHasFixedSize(true)
-        recyclerView.setAdapter(captureFragment.adapter)
+        recyclerView.adapter = tileAdapter
 
         swipeToAction = SwipeToAction(recyclerView, object : SwipeToAction.SwipeListener<String> {
             override fun onClick(itemData: String?) {
@@ -84,19 +88,26 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         })
     }
 
-    private fun removeTile(str : String): Int {
+    /*private fun removeTile(str : String): Int {
         var pos = captureFragment.tiles!!.indexOf(str)
         captureFragment.tiles!!.remove(str)
         captureFragment.adapter!!.notifyItemRemoved(pos)
-        /*var g : OcrGraphic? = graphicOverlay.getByContent(str)
+        var g : OcrGraphic? = captureFragment.graphicOverlay.getByContent(str)
+        captureFragment.graphicOverlay.remove(g)
+        //virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
         if (g != null) {
-            g.getRectPaint().color = Color.WHITE
-            g.getTextPaint().color = Color.WHITE
-            graphicOverlay.remove(g)
-        }*/
-        virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
+            virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
+        }
         return pos
+    }*/
+
+    private fun removeTile(str: String) {
+        val position = virtualGrid.indexOf(str)
+        virtualGrid.removeTile(str)
+        tileAdapter.notifyItemRemoved(position)
+        virtualGrid.removeTile(str)
     }
+
 
     private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
         var snack : Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
@@ -123,8 +134,11 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         val text = ocrGraphic.value
 
         Log.d(TAG, "Calibrating:$text")
-        graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
-        virtualGrid.addTile(ocrGraphic.textBlock)
+        if(!virtualGrid.contains(ocrGraphic.textBlock)) {
+            graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
+            virtualGrid.addTile(ocrGraphic.textBlock)
+            tileAdapter.notifyItemInserted(virtualGrid.count() - 1)
+        }
 
         if (virtualGrid.size == GRID_SIZE) {
             finish()
@@ -186,15 +200,14 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         val intent = Intent(this, AssignmentActivity::class.java).apply {
             putExtra("AutoFocus", focus)
             putExtra("UseFlash", flash)
-            putExtra("tiles", captureFragment.tiles)
+            putExtra("tiles", toArrayList(virtualGrid.tilesAsString))
         }
         startActivity(intent)
     }
 
     private fun clearCalibration() {
         virtualGrid.clear()
-        captureFragment.tiles!!.clear()
-        captureFragment.adapter!!.notifyDataSetChanged()
+        tileAdapter.notifyDataSetChanged()
         captureFragment.counter = 0
     }
 

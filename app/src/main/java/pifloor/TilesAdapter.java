@@ -7,13 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import co.dift.ui.SwipeToAction;
+import pifloor.utils.VirtualGrid;
 
 public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<String> items;
+    private VirtualGrid gridItems;
 
 
     /** References to the views for each data item **/
@@ -28,8 +27,8 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     /** Constructor **/
-    public TilesAdapter(List<String> items) {
-        this.items = items;
+    public TilesAdapter(VirtualGrid gridItems) {
+        this.gridItems = gridItems;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return gridItems.count();
     }
 
     @NonNull
@@ -53,7 +52,7 @@ public class TilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        String item = items.get(position);
+        String item = gridItems.getAtIndex(position);
         TileViewHolder vh = (TileViewHolder) holder;
         vh.titleView.setText(item);
         vh.data = item;
