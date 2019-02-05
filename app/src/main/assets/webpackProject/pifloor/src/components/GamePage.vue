@@ -49,7 +49,7 @@ export default {
       questions : [],
       questionIndex: 0,
       failed: true,
-      testing: true,
+      testing: false,
       testAnswer: ""
     }
   },
@@ -69,7 +69,7 @@ export default {
       if(this.questionIndex == this.questions.length -1){
         // Display celebration ...
         // eslint-disable-next-line
-        let sound = new Audio(require('../assets/soundEffects/success.mp3'))
+        let sound = new Audio('http://'+ window.location.host + ':' + window.location.port + '/success.mp3')
         sound.play()
         this.failed = false;
         this.$refs.helperModal.show();
@@ -92,7 +92,7 @@ export default {
       // TODO: Animate celebrations
       this.$refs.gameHeader.correctAnswer();
       // eslint-disable-next-line
-      let sound = new Audio(require('../assets/soundEffects/correct.mp3'));
+      let sound = new Audio('http://'+ window.location.host + ':' + window.location.port + '/correct.mp3');
       sound.play();
       setTimeout(this.nextQuestion, 3000);
     },
@@ -100,11 +100,12 @@ export default {
       // TODO: Animate disappointment
       this.$refs.gameHeader.wrongAnswer();
       // eslint-disable-next-line
-      let sound = new Audio(require('../assets/soundEffects/fail.mp3'))
+      let sound = new Audio('http://'+ window.location.host + ':' + window.location.port + '/fail.mp3')
       sound.play();
       setTimeout(this.nextQuestion, 1000);
     },
     traceMovement: function(data){
+      console.log("Recieved Data:" + data);
       this.$refs.AnswersGrid.changeLocation(parseInt(data))
     }
   },

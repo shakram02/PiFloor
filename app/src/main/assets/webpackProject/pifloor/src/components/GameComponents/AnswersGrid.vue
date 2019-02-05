@@ -15,8 +15,8 @@ export default {
   props: ["PossibleAnswers"],
   data(){
     return{
-      oldPosition: null,
-      oldPositionScore: 0
+      answerFrequencyKey: [],
+      answerFrequencyValue: []
     }
   },
   computed: {
@@ -28,31 +28,39 @@ export default {
   },
   methods: {
     changeLocation: function(position){
-      //Remove from from other
-      for(let i=0; i<this.$refs.cell.length; i++){
-        this.$refs.cell[i].classList.remove("current-cell");
-      }
-      //Display footprints on this tile
-      this.$refs.cell[position].classList.add("current-cell");
+      // Add to hashtable, or increment
+      if (this.answerFrequencyKey.indexOf(position) !== -1){
+        let index = this.answerFrequencyKey.indexOf(position);
+        this.answerFrequencyValue[index]++;
 
-      //check if the same as old, if so increment
-      if(position===this.oldPosition){
-        if(this.oldPositionScore>=10){
+        // Check if value exceeded 4
+        if(this.answerFrequencyValue[index] >= 3){
           this.$parent.checkAnswer(position);
           this.resetData()
-        }
-        else{
-          this.oldPositionScore++;
+          return;
         }
       }
       else{
-        this.resetData();
-        this.oldPosition = position;
+        this.answerFrequencyKey.push(position);
+        this.answerFrequencyValue.push(1);
       }
+
+      // Remove from others
+      for(let i=0; i<this.$refs.cell.length; i++){
+        this.$refs.cell[i].classList.remove("current-cell");
+      }
+
+      // Get most frequent answer
+      let arr = this.answerFrequencyValue;
+      let indexOfMaxValue = arr.indexOf(Math.max(...arr));
+      let currentChoice = this.answerFrequencyKey[indexOfMaxValue];
+
+      // Display footprints on this tile
+      this.$refs.cell[currentChoice].classList.add("current-cell");
     },
     resetData: function(){
-      this.oldPositionScore = 0;
-      this.oldPosition = null;
+      this.answerFrequencyKey = [];
+      this.answerFrequencyValue = [];
     }
   },
   mounted() {
@@ -90,7 +98,7 @@ export default {
 }
 .current-cell {
   background-color: #5B9BD5;
-  background-image: url('../../assets/images/footstep.png');
+  background-image: url('http://'+ window.location.host + ':' + window.location.port + '/footstep.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

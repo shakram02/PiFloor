@@ -22,7 +22,7 @@ export default {
   data(){
     return{
       score: 0,
-      timer: 10,
+      timer: 30,
       timeout: false,
       timeVariable : null
     }
@@ -30,12 +30,12 @@ export default {
   methods: {
     correctAnswer: function(){
       this.stopTimer()
-      this.timer = 10;
+      this.timer = 30;
       this.score += 10;
     },
     wrongAnswer: function(){
       this.stopTimer();
-      this.timer = 10;
+      this.timer = 30;
     },
     startTimeDown: function(){
       this.timeVariable = setInterval(()=>{
