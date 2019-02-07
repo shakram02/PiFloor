@@ -34,7 +34,7 @@ export default {
         this.answerFrequencyValue[index]++;
 
         // Check if value exceeded 4
-        if(this.answerFrequencyValue[index] >= 3){
+        if(this.answerFrequencyValue[index] >= 0){
           this.$parent.checkAnswer(position);
           this.resetData()
           return;
@@ -97,11 +97,6 @@ export default {
   width: 80%;
 }
 .current-cell {
-  background-color: #5B9BD5;
-  background-image: url('http://'+ window.location.host + ':' + window.location.port + '/footstep.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.9;
+  background-color: lightpink;
 }
 </style>
