@@ -97,6 +97,11 @@ export default {
   width: 80%;
 }
 .current-cell {
-  background-color: lightpink;
+  background-color: #5B9BD5;
+  background-image: url('http://' + window.location.hostname + ':' + window.location.port + '/footstep.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.9;
 }
 </style>

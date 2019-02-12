@@ -69,8 +69,8 @@ export default {
       if(this.questionIndex == this.questions.length -1){
         // Display celebration ...
         // eslint-disable-next-line
-        // let sound = new Audio('http://'+ window.location.host + ':' + window.location.port + '/success.mp3')
-        // sound.play()
+        let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/success.mp3')
+        sound.play()
         this.failed = false;
         this.$refs.helperModal.show();
       }
@@ -92,16 +92,17 @@ export default {
       // TODO: Animate celebrations
       this.$refs.gameHeader.correctAnswer();
       // eslint-disable-next-line
-      // let sound = new Audio('http://'+ window.location.host + ':' + window.location.port + '/correct.mp3');
-      // sound.play();
+      let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
+      console.log('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
+      sound.play();
       setTimeout(this.nextQuestion, 3000);
     },
     getUpset: function(){
       // TODO: Animate disappointment
       this.$refs.gameHeader.wrongAnswer();
       // eslint-disable-next-line
-      // let sound = new Audio('http://'+ window.location.host + ':' + window.location.port + '/fail.mp3')
-      // sound.play();
+      let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/fail.mp3')
+      sound.play();
       setTimeout(this.nextQuestion, 1000);
     },
     traceMovement: function(data){

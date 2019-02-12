@@ -31,9 +31,9 @@ export default {
     methods: {
         addQuestion: function () {
             this.$root.$children[0].questions.push({
-                    choices: [" "],
-                    correct: " ",
-                    question: " ",
+                    choices: [""],
+                    correct: "",
+                    question: "",
                 });
         },
         hideModal: function() {

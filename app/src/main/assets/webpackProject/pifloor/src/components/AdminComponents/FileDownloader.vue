@@ -15,14 +15,27 @@
 export default {
   methods: {
       download(){
-        let questions = this.$parent.$refs.uploader.$refs.dragger.questions;
-        if(!questions.length){this.$refs.emptyFileModal.show();}
-        else{
-          questions = questions.join('\n');
-          this.$refs.link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(questions));
-          this.$refs.link.setAttribute('download', 'questions.txt');
-          this.$refs.link.click();
+        let questions = this.$root.$children[0].questions;
+        setTimeout(()=>{
+          if(!questions.length){this.$refs.emptyFileModal.show();}
+          else{
+            questions = this.stringifyQuestions(questions)
+            this.$refs.link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(questions));
+            this.$refs.link.setAttribute('download', 'questions.txt');
+            this.$refs.link.click();
+          }
+        }, 100)
+      },
+      stringifyQuestions(questions){
+        var result = "";
+        for(let i=0; i<questions.length; i++){
+          let questionObject = questions[i];
+          let questionString = questionObject["question"] + ',';
+          questionString += questionObject["correct"] + ',';
+          questionString += questionObject["choices"].join(',') + '\n';
+          result += questionString;
         }
+        return result
       }
   }
 }
