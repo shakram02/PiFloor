@@ -33,8 +33,8 @@ export default {
         let index = this.answerFrequencyKey.indexOf(position);
         this.answerFrequencyValue[index]++;
 
-        // Check if value exceeded 4
-        if(this.answerFrequencyValue[index] >= 0){
+        // Check if value exceeded 3
+        if(this.answerFrequencyValue[index] >= 1){
           this.$parent.checkAnswer(position);
           this.resetData()
           return;

@@ -72,12 +72,13 @@ export default {
         let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/success.mp3')
         sound.play()
         this.failed = false;
+        this.$refs.gameHeader.stopTimer();
         this.$refs.helperModal.show();
       }
       else{
         this.questionIndex++;
-        this.$refs.gameHeader.stopTimer()
-        this.$refs.gameHeader.startTimeDown()
+        this.$refs.gameHeader.stopTimer();
+        this.$refs.gameHeader.startTimeDown();
       }
     },
     returnToHome: function(){
