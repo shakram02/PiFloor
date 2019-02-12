@@ -48,6 +48,7 @@ export default {
       // Remove from others
       for(let i=0; i<this.$refs.cell.length; i++){
         this.$refs.cell[i].classList.remove("current-cell");
+        this.$refs.cell[i].style.backgroundImage = "none";
       }
 
       // Get most frequent answer
@@ -57,6 +58,7 @@ export default {
 
       // Display footprints on this tile
       this.$refs.cell[currentChoice].classList.add("current-cell");
+      this.$refs.cell[currentChoice].style.backgroundImage = `url('http://${window.location.hostname}:${window.location.port}/footstep.png')`;
     },
     resetData: function(){
       this.answerFrequencyKey = [];
@@ -98,7 +100,7 @@ export default {
 }
 .current-cell {
   background-color: #5B9BD5;
-  background-image: url('http://' + window.location.hostname + ':' + window.location.port + '/footstep.png');
+  /*background-image: url('http://' + window.location.hostname + ':' + window.location.port + '/footstep.png');*/
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

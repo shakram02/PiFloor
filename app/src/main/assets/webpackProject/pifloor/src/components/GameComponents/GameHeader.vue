@@ -36,6 +36,7 @@ export default {
     startTimeDown: function(){
       this.timeVariable = setInterval(()=>{
         if(this.timer === 0){
+          this.stopTimer();
           this.$parent.getUpset();
         }
         else this.timer -= 1;
