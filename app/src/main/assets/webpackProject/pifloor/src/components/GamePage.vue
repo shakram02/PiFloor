@@ -76,6 +76,7 @@ export default {
       }
       else{
         this.questionIndex++;
+        this.$refs.gameHeader.stopTimer()
         this.$refs.gameHeader.startTimeDown()
       }
     },
@@ -95,7 +96,7 @@ export default {
       let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
       console.log('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
       sound.play();
-      setTimeout(this.nextQuestion, 3000);
+      setTimeout(this.nextQuestion, 1000);
     },
     getUpset: function(){
       // TODO: Animate disappointment

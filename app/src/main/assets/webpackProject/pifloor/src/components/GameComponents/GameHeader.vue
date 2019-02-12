@@ -29,13 +29,9 @@ export default {
   },
   methods: {
     correctAnswer: function(){
-      this.stopTimer()
-      this.timer = 30;
       this.score += 10;
     },
     wrongAnswer: function(){
-      this.stopTimer();
-      this.timer = 30;
     },
     startTimeDown: function(){
       this.timeVariable = setInterval(()=>{
@@ -47,6 +43,7 @@ export default {
     },
     stopTimer: function(){
       clearInterval(this.timeVariable);
+      this.timer = 30;
     }
   },
   mounted(){
