@@ -3,7 +3,7 @@ export const locales = {
         PlayGame: 'Let\'s Play!',
         PiFloor: 'Pi Floor',
         Questions: 'Questions',
-        AddQuestions: 'Add Questions',
+        AddQuestions: 'Upload Questions',
         DropAnyWhere: 'Drop files anywhere to upload',
         SelectFiles: 'Select Files',
         DropFiles: 'Drop files to upload',
@@ -20,13 +20,14 @@ export const locales = {
         Score: 'Score',
         Timer: 'Timer',
         Or: 'or',
-        Done: 'Done'
+        Done: 'Done',
+        ComposeQuestions: 'Compose Questions'
     },
     ar: {
         PlayGame: '!هيا لنلعب',
         PiFloor: 'Pi Floor',
         Questions: 'أسئلة',
-        AddQuestions: 'أضف أسئلة',
+        AddQuestions: 'رفع الأسئلة',
         DropAnyWhere: 'قم بإلقاء الملفات في أي مكان لبدء الرفع',
         SelectFiles: 'اختيار الملفات',
         DropFiles: 'قم بإلقاء الملفات هنا لبدء الرفع',
@@ -43,6 +44,7 @@ export const locales = {
         Score: 'النقاط',
         Timer: 'الوقت',
         Or: 'أو',
-        Done: 'تم'
+        Done: 'تم',
+        ComposeQuestions: 'إضافة/تعديل الأسئلة'
     }
 }

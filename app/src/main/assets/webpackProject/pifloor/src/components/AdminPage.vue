@@ -1,26 +1,38 @@
 <template>
     <b-col offset-md="4" cols="4" align-self="center">
       <div class="shape-container">
-        <div  class="container-menu">
+        <div  class="container-menu" v-if="!editing">
           <h1>{{ $t('PiFloor') }}</h1>
           <br/>
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+          </div>
+          <br/>
           <FileUploader ref="uploader"/>
+          <br/>
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('ComposeQuestions') }}</b-btn>
+          </div>
+          <br />
+          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-form-select v-model="$i18n.locale">
+              <option class="option-style" v-for="option in this.$root.$children[0].lang" v-bind:key="option" v-bind:value="option">
+                {{ option }}
+              </option>
+            </b-form-select>
+          </div>
+        </div>
+
+        <div  class="container-menu" v-else>
+          <h1>{{ $t('PiFloor') }}</h1>
           <br/>
           <ListOfQuestions/>
           <br/>
           <FileDownloader />
           <br/>
           <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-            <b-btn block variant="outline-secondary" @click="startGame">{{ $t('PlayGame') }}</b-btn>
+            <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
           </div>
-          <br/>
-          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-            <b-form-select v-model="$i18n.locale">
-              <option class="option-style" v-for="option in this.$root.$children[0].lang" v-bind:key="option" v-bind:value="option">
-                {{ option }}
-              </option>
-            </b-form-select>     
-          </div> 
         </div>
       </div>
     </b-col>
@@ -33,7 +45,11 @@ import ListOfQuestions from './AdminComponents/ListOfQuestions.vue'
 
 export default {
   name: 'AdminPage',
-  
+  data(){
+    return {
+      editing: false
+    }
+  },
   components: {
     FileUploader,
     FileDownloader,
@@ -42,6 +58,9 @@ export default {
   methods: {
     startGame(){
       this.$root.$children[0].playing = true;
+    },
+    shuffleView(){
+      this.editing = !this.editing;
     }
   },
 
