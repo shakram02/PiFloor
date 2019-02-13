@@ -99,8 +99,7 @@ export default {
   width: 80%;
 }
 .current-cell {
-  background-color: #5B9BD5;
-  /*background-image: url('http://' + window.location.hostname + ':' + window.location.port + '/footstep.png');*/
+  background-color: #FFF543;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
