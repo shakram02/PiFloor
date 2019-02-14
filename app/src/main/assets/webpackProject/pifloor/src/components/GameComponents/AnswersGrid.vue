@@ -36,7 +36,8 @@ export default {
         // Check if value exceeded 3
         if(this.answerFrequencyValue[index] >= 1){
           this.$parent.checkAnswer(position);
-          this.resetData()
+          this.markChosen();
+          this.resetData();
           return;
         }
       }
@@ -44,7 +45,13 @@ export default {
         this.answerFrequencyKey.push(position);
         this.answerFrequencyValue.push(1);
       }
-
+      this.markChosen();
+    },
+    resetData: function(){
+      this.answerFrequencyKey = [];
+      this.answerFrequencyValue = [];
+    },
+    markChosen: function(){
       // Remove from others
       for(let i=0; i<this.$refs.cell.length; i++){
         this.$refs.cell[i].classList.remove("current-cell");
@@ -59,10 +66,6 @@ export default {
       // Display footprints on this tile
       this.$refs.cell[currentChoice].classList.add("current-cell");
       this.$refs.cell[currentChoice].style.backgroundImage = `url('http://${window.location.hostname}:${window.location.port}/footstep.png')`;
-    },
-    resetData: function(){
-      this.answerFrequencyKey = [];
-      this.answerFrequencyValue = [];
     }
   },
   mounted() {
@@ -99,7 +102,7 @@ export default {
   width: 80%;
 }
 .current-cell {
-  background-color: #FFF543;
+  background-color: lightgreen;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

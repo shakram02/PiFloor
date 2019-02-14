@@ -1,7 +1,7 @@
 <template>
     <b-col offset-md="4" cols="4" align-self="center">
-      <div class="shape-container">
-        <div  class="container-menu" v-if="!editing">
+      <div class="shape-container" v-if="!editing">
+        <div  class="container-menu" >
           <h1>{{ $t('PiFloor') }}</h1>
           <br/>
           <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
@@ -22,17 +22,17 @@
             </b-form-select>
           </div>
         </div>
+      </div>
 
-        <div  class="container-menu" v-else>
-          <h1>{{ $t('PiFloor') }}</h1>
-          <br/>
-          <ListOfQuestions/>
-          <br/>
-          <FileDownloader />
-          <br/>
-          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-            <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
-          </div>
+      <div  class="container-menu" v-else>
+        <h1>{{ $t('PiFloor') }}</h1>
+        <br/>
+        <ListOfQuestions/>
+        <br/>
+        <FileDownloader />
+        <br/>
+        <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+          <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
         </div>
       </div>
     </b-col>
