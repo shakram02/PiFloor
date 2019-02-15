@@ -1,0 +1,44 @@
+h1 {
+    text-align: center;
+    font-family: cursive;
+}
+.container-menu {
+    padding: 20px;
+    width: fit-content;
+    margin: auto;
+}
+%shape-container { // problem with responsiveness with border-bottom
+    width: 70%;
+}
+.wrapper-space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+.shape-container-blue {
+    @extend %shape-container;
+    background-color: #FFC000;
+    border-bottom: 10px solid #ED7D31;
+    h1 {
+        color: #325575;
+    }
+}
+
+.form-control,
+.custom-select,
+.custom-select:focus,
+.custom-select:hover {
+  border: 0px;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+  text-align-last:center;
+}
+
+.custom-select:hover {
+  color: white;
+}
+
+.option-style {
+    color: grey;
+    background: lightblue;
+}

@@ -1,6 +1,6 @@
 <template>
-    <b-col offset-md="4" cols="4" align-self="center">
-      <div class="shape-container" v-if="!editing">
+    <b-col offset-md="4" cols="4" align-self="center" v-if="!editing">
+      <div v-bind:class="['shape-container-' + $root.$children[0].themeColor]">
         <div  class="container-menu" >
           <h1>{{ $t('PiFloor') }}</h1>
           <br/>
@@ -23,37 +23,26 @@
           </div>
         </div>
       </div>
-
-      <div  class="container-menu" v-else>
-        <h1>{{ $t('PiFloor') }}</h1>
-        <br/>
-        <ListOfQuestions/>
-        <br/>
-        <FileDownloader />
-        <br/>
-        <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-          <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
-        </div>
-      </div>
     </b-col>
+    <div v-else>
+      <EditQuestions @shuffleView="shuffleView" />
+    </div>
 </template>
 
 <script>
 import FileUploader from './AdminComponents/FileUploader.vue'
-import FileDownloader from './AdminComponents/FileDownloader.vue'
-import ListOfQuestions from './AdminComponents/ListOfQuestions.vue'
+import EditQuestions from './AdminComponents/EditQuestions.vue'
 
 export default {
   name: 'AdminPage',
   data(){
     return {
-      editing: false
+      editing: false,
     }
   },
   components: {
     FileUploader,
-    FileDownloader,
-    ListOfQuestions,
+    EditQuestions,
   },
   methods: {
     startGame(){
@@ -66,43 +55,3 @@ export default {
 
 }
 </script>
-
-<style lang="scss" scoped>
-h1 {
-  font-family: cursive;
-  color: #325575;
-}
-.container-menu {
-  padding: 20px;
-  width: fit-content;
-  margin: auto;
-}
-.shape-container { // problem with responsiveness with border-bottom
-  width: 70%;
-  background-color: #FFC000;
-  border-bottom: 10px solid #ED7D31;
-}
-.form-control,
-.custom-select,
-.custom-select:focus,
-.custom-select:hover {
-  border: 0px;
-  background-color: transparent !important;
-  -webkit-box-shadow: 0 0 0 0;
-  box-shadow: 0 0 0 0;
-}
-
-.custom-select:hover {
-  color: white;
-}
-
-.option-style {
-  color: grey;
-  background: lightblue;
-
-}
-.option-style :focus { //not working :(
-  background: grey;
-  color: white;
-}
-</style>

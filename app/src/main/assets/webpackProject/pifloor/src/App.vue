@@ -15,6 +15,7 @@ import AdminPage from './components/AdminPage.vue'
 import GamePage from './components/GamePage.vue'
 import HomePage from './components/HomePage.vue'
 import './styles/irregularButton.scss';
+import './styles/irregularContainer.scss';
 
 export default {
   name: 'app',
@@ -37,9 +38,6 @@ export default {
 
 <style scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 </style>

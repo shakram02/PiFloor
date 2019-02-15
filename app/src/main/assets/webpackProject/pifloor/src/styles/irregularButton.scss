@@ -1,19 +1,35 @@
 @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans");
 
+.shape-blue {
+  $color: #325575;
+  @extend %shape;
+  background-color: #5B9BD5;
+  filter: drop-shadow(0px 5px 0px #325575);
+  &:hover {
+      background-color: #325575;
+  }
+  button {
+    color: #325575;
+  }
+}
+
+.shape-pink {
+  @extend %shape;
+  background-color: lightcoral;
+}
+
 %shape {
   display: flex;
   width: 100%;
   height: 20%;
   left: 2%;
   transform: perspective(300px) rotateY(15deg);
-  filter: drop-shadow(0px 5px 0px #325575);
+  &:hover {
+    color: white;
+    transition: 0.3s;
+  }
 }
 
-%shape:hover {
-  background-color: #325575;
-  color: white;
-  transition: 0.3s;
-}
 %shape button,
 %shape button:active,
 %shape button:focus,
@@ -23,15 +39,4 @@
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
-  color: #325575;
-}
-
-.shape-blue {
-  @extend %shape;
-  background-color: #5B9BD5;
-}
-
-.shape-pink {
-  @extend %shape;
-  border-bottom: 40px solid lightcoral; //not responsive
 }
