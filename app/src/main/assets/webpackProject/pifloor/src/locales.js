@@ -1,7 +1,7 @@
-export const availableLocales = ['en', 'ar'];
+export const availableLocales = ['English', 'Arabic'];
 
 export const locales = {
-    en: {
+    English: {
         PlayGame: 'Let\'s Play!',
         PiFloor: 'Pi Floor',
         Questions: 'Questions',
@@ -23,9 +23,11 @@ export const locales = {
         Timer: 'Timer',
         Or: 'or',
         Done: 'Done',
-        ComposeQuestions: 'Compose Questions'
+        ComposeQuestions: 'Compose Questions',
+        English: 'English',
+        Arabic: 'Arabic',
     },
-    ar: {
+    Arabic: {
         PlayGame: '!هيا لنلعب',
         PiFloor: 'Pi Floor',
         Questions: 'أسئلة',
@@ -47,6 +49,8 @@ export const locales = {
         Timer: 'الوقت',
         Or: 'أو',
         Done: 'تم',
-        ComposeQuestions: 'إضافة/تعديل الأسئلة'
+        ComposeQuestions: 'إضافة / تعديل الأسئلة',
+        English: 'الأنجليزية',
+        Arabic: 'العربية',
     }
 }

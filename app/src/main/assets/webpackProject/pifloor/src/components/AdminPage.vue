@@ -15,9 +15,9 @@
           </div>
           <br />
           <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
-            <b-form-select v-model="$i18n.locale">
+            <b-form-select @change="onChangeLocale($event)" v-model="$i18n.locale">
               <option class="option-style" v-for="option in this.$root.$children[0].lang" v-bind:key="option" v-bind:value="option">
-                {{ option }}
+                {{ $t(option) }}
               </option>
             </b-form-select>
           </div>
@@ -50,6 +50,9 @@ export default {
     },
     shuffleView(){
       this.editing = !this.editing;
+    },
+    onChangeLocale(event) {
+      console.log(event.target.value);
     }
   },
 
