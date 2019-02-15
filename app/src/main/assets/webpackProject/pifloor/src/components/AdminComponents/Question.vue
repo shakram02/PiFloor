@@ -86,4 +86,7 @@ export default {
       padding-left:0px;
       background: white;
   }
+  option{
+    color: #6c757d;
+  }
 </style>
