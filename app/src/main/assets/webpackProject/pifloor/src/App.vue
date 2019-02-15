@@ -11,6 +11,7 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { availableLocales } from './locales.js';
 import AdminPage from './components/AdminPage.vue'
 import GamePage from './components/GamePage.vue'
 import HomePage from './components/HomePage.vue'
@@ -26,7 +27,7 @@ export default {
   },
   data() {
     return{
-      lang: ['en', 'ar'],
+      lang: availableLocales,
       questions: [],
       themeColor: 'blue',
       playing: false,

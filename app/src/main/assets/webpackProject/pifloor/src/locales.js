@@ -1,3 +1,5 @@
+export const availableLocales = ['en', 'ar'];
+
 export const locales = {
     en: {
         PlayGame: 'Let\'s Play!',
