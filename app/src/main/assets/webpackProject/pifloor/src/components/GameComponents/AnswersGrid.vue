@@ -3,7 +3,7 @@
     <center>
       <b-row id="grid" no-gutters class="justify-content-center">
         <b-col v-bind:cols="numPerRow" v-for="(answer, index) in PossibleAnswers" v-bind:key="answer + index" class="answer">
-          <div class="grid-cell" ref="cell">{{answer}}</div>
+          <div v-bind:class="['grid-cell-' + theme]" ref="cell">{{answer}}</div>
         </b-col>
       </b-row>
     </center>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   props: ["PossibleAnswers"],
   data(){
@@ -24,7 +26,10 @@ export default {
       let num = this.PossibleAnswers.length;
       num = Math.ceil(Math.sqrt(num))
       return 12/num;
-    }
+    },
+    ...mapGetters([
+      'theme',
+    ]),
   },
   methods: {
     changeLocation: function(position){
@@ -87,25 +92,34 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../../styles/colorConstants';
+
 .answer{
   padding: 2%;
 }
-.grid-cell {
+%grid-cell {
   width: 70%;
   padding: 10%;
-  background-color: #5B9BD5;
-  border-bottom: 5px solid #325575;
   transform: perspective(300px) rotateY(15deg);
+  border-bottom: 5px solid;
+}
+.grid-cell-blue {
+  @extend %grid-cell;
+  background-color: $lightBlue;
+  border-bottom-color: $darkBlue;
+}
+.grid-cell-pink {
+  @extend %grid-cell;
+  background-color: $lightPink;
+  border-bottom-color: $darkPink;
+}
+.grid-cell-green {
+  @extend %grid-cell;
+  background-color: $lightGreen;
+  border-bottom-color: $darkGreen;
 }
 #grid{
   width: 80%;
-}
-.current-cell {
-  background-color: lightgreen;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.9;
 }
 </style>

@@ -5,13 +5,14 @@
       </br>
       </br>
       </br>
-      <b-container class="game-container">
+      <b-container v-bind:class="['shape-container-' + theme]">
         <QuestionBody>{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="possibleAnswers" ref="AnswersGrid" />
         </br>
         <div class="next-ques" v-bind:class="['shape-' + theme]">
           <b-btn variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
         </div>
+        </br>
       </b-container>
     </b-container>
     <b-modal ref="helperModal">
@@ -45,9 +46,6 @@ export default {
     QuestionBody,
     AnswersGrid
   },
-  computed: mapGetters([
-    'theme'
-  ]),
   data: function() {
     return{
       questions : [],
@@ -66,7 +64,10 @@ export default {
     },
     possibleAnswers: function(){
       return this.questions[this.questionIndex].choices;
-    }
+    },
+    ...mapGetters([
+      'theme',
+    ]),
   },
   methods: {
     nextQuestion: function(){

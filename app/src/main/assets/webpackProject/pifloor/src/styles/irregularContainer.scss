@@ -1,32 +1,5 @@
 @import 'colorConstants';
 
-.shape-container-blue {
-    @extend %shape-container;
-    background-color: $backgroundLightBlue;
-    border-bottom: 10px solid $backgroundDarkBlue;
-    h1 {
-        color: $darkBlue;
-    }
-}
-
-.shape-container-pink {
-    @extend %shape-container;
-    background-color: $backgroundLightPink;
-    border-bottom: 10px solid $backgroundDarkPink;
-    h1 {
-        color: $darkPink;
-    }
-}
-
-.shape-container-green {
-    @extend %shape-container;
-    background-color: $backgroundLightGreen;
-    border-bottom: 10px solid $backgroundDarkGreen;
-    h1 {
-        color: $darkGreen;
-    }
-}
-
 h1 {
     text-align: center;
     font-family: cursive;
@@ -36,7 +9,7 @@ h1 {
     width: fit-content;
     margin: auto;
 }
-%shape-container { // problem with responsiveness with border-bottom
+%shape-container {
     width: 70%;
 }
 .wrapper-space-between {
@@ -72,4 +45,41 @@ h1 {
 .option-style-green {
     color: $darkGreen;
     background: $lightGreen;
+}
+
+.select-blue {
+    color: $darkBlue;
+}
+.select-pink {
+    color: $darkPink;
+}
+.select-green {
+    color: $darkGreen;
+}
+
+.shape-container-blue {
+    @extend %shape-container;
+    background-color: $backgroundLightBlue;
+    border-bottom: 10px solid $backgroundDarkBlue;
+    h1 {
+        color: $darkBlue;
+    }
+}
+
+.shape-container-pink {
+    @extend %shape-container;
+    background-color: $backgroundLightPink;
+    border-bottom: 10px solid $backgroundDarkPink;
+    h1 {
+        color: $darkPink;
+    }
+}
+
+.shape-container-green {
+    @extend %shape-container;
+    background-color: $backgroundLightGreen;
+    border-bottom: 10px solid $backgroundDarkGreen;
+    h1 {
+        color: $darkGreen;
+    }
 }

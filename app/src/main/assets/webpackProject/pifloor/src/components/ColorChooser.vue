@@ -7,14 +7,12 @@
 </template>
 
 <script>
-import { blue, pink, green } from '../styles/ThemeConstants.js';
-import { mapMutations } from 'vuex';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ColorChooser',
   computed: mapGetters([
-    'theme'
+    'theme',
   ]),
   methods: {
     changeColorBlue: function (){
