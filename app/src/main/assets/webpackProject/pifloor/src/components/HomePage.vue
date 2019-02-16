@@ -1,15 +1,15 @@
 <template>
   <div>
     <b-col offset-md="4" cols="4" align-self="center">
-      <div v-bind:class="['shape-container-' + $root.$children[0].themeColor]">
+      <div v-bind:class="['shape-container-' + $root.$children[0].theme]">
         <div  class="container-menu">
           <h1>{{ $t('PiFloor') }}</h1>
           <br/>
-          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+          <div v-bind:class="['shape-' + $root.$children[0].theme]">
             <b-btn variant="outline-secondary" @click="useAsTeacher">Teacher</b-btn>
           </div>
           </br>
-          <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+          <div v-bind:class="['shape-' + $root.$children[0].theme]">
           <b-btn variant="outline-secondary" @click="useAsStudent">Student</b-btn>
           </div>
         </div>

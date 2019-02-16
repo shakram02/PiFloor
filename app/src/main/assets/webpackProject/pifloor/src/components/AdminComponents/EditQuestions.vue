@@ -7,7 +7,7 @@
         <b-row class="wrapper-space-between">
             <b-col cols="5">
                 <b-row class="wrapper-space-between">
-                    <b-col v-bind:class="['shape-' + $root.$children[0].themeColor]">
+                    <b-col v-bind:class="['shape-' + $root.$children[0].theme]">
                         <b-btn block variant="outline-secondary" @click="addQuestion">
                             {{ $t('NewQuestion') }}
                         </b-btn>
@@ -17,7 +17,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col cols="2" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+            <b-col cols="2" v-bind:class="['shape-' + $root.$children[0].theme]">
                 <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
             </b-col>
         </b-row>

@@ -1,6 +1,6 @@
 <template>
   <div><center>
-    <div v-bind:class="['shape-' + $root.$children[0].themeColor]">
+    <div v-bind:class="['shape-' + $root.$children[0].theme]">
       <b-btn block variant="outline-secondary" v-b-modal.modallg>{{ $t('AddQuestions') }}</b-btn>
     </div>
     <b-modal id="modallg" size="lg" v-model="show">

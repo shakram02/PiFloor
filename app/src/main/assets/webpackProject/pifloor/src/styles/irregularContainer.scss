@@ -1,3 +1,32 @@
+@import 'colorConstants';
+
+.shape-container-blue {
+    @extend %shape-container;
+    background-color: $backgroundLightBlue;
+    border-bottom: 10px solid $backgroundDarkBlue;
+    h1 {
+        color: $darkBlue;
+    }
+}
+
+.shape-container-pink {
+    @extend %shape-container;
+    background-color: $backgroundLightPink;
+    border-bottom: 10px solid $backgroundDarkPink;
+    h1 {
+        color: $darkPink;
+    }
+}
+
+.shape-container-green {
+    @extend %shape-container;
+    background-color: $backgroundLightGreen;
+    border-bottom: 10px solid $backgroundDarkGreen;
+    h1 {
+        color: $darkGreen;
+    }
+}
+
 h1 {
     text-align: center;
     font-family: cursive;
@@ -13,14 +42,6 @@ h1 {
 .wrapper-space-between {
     display: flex;
     justify-content: space-between;
-  }
-.shape-container-blue {
-    @extend %shape-container;
-    background-color: #FFC000;
-    border-bottom: 10px solid #ED7D31;
-    h1 {
-        color: #325575;
-    }
 }
 
 .form-control,
@@ -38,7 +59,17 @@ h1 {
   color: white;
 }
 
-.option-style {
-    color: grey;
-    background: lightblue;
+.option-style-blue {
+    color: $darkBlue;
+    background: $lightBlue;
+}
+
+.option-style-pink {
+    color: $darkPink;
+    background: $lightPink;
+}
+
+.option-style-green {
+    color: $darkGreen;
+    background: $lightGreen;
 }

@@ -1,21 +1,39 @@
-@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans");
+@import 'colorConstants';
 
 .shape-blue {
-  $color: #325575;
   @extend %shape;
-  background-color: #5B9BD5;
-  filter: drop-shadow(0px 5px 0px #325575);
+  background-color: $lightBlue;
+  filter: drop-shadow(0px 5px 0px $darkBlue);
   &:hover {
-      background-color: #325575;
+      background-color: $darkBlue;
   }
   button {
-    color: #325575;
+    color: $darkBlue;
   }
 }
 
 .shape-pink {
   @extend %shape;
-  background-color: lightcoral;
+  background-color: $lightPink;
+  filter: drop-shadow(0px 5px 0px $darkPink);
+  &:hover {
+      background-color: $darkPink;
+  }
+  button {
+    color: $darkPink;
+  }
+}
+
+.shape-green {
+  @extend %shape;
+  background-color: $lightGreen;
+  filter: drop-shadow(0px 5px 0px $darkGreen);
+  &:hover {
+      background-color: $darkGreen;
+  }
+  button {
+    color: $darkGreen;
+  }
 }
 
 %shape {

@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" :key="theme">
+    <ColorChooser />
     <div v-if="loggedin">
       <AdminPage v-if="!playing"/>
       <GamePage v-else/>
@@ -9,12 +10,14 @@
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { availableLocales } from './locales.js';
-import AdminPage from './components/AdminPage.vue'
-import GamePage from './components/GamePage.vue'
-import HomePage from './components/HomePage.vue'
+import AdminPage from './components/AdminPage.vue';
+import GamePage from './components/GamePage.vue';
+import HomePage from './components/HomePage.vue';
+import ColorChooser from './components/ColorChooser.vue';
+import { blue } from './styles/ThemeConstants.js'
 import './styles/irregularButton.scss';
 import './styles/irregularContainer.scss';
 
@@ -23,13 +26,14 @@ export default {
   components: {
     AdminPage,
     GamePage,
-    HomePage
+    HomePage,
+    ColorChooser,
   },
-  data() {
+  data: function () {
     return{
       lang: availableLocales,
       questions: [],
-      themeColor: 'blue',
+      theme: blue,
       playing: false,
       loggedin: false
     }

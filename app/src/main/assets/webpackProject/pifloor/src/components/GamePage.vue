@@ -9,7 +9,7 @@
         <QuestionBody>{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="possibleAnswers" ref="AnswersGrid" />
         </br>
-        <div class="next-ques" v-bind:class="['shape-' + $root.$children[0].themeColor]">
+        <div class="next-ques" v-bind:class="['shape-' + $root.$children[0].theme]">
           <b-btn variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
         </div>
       </b-container>
