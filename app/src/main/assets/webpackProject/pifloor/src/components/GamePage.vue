@@ -9,7 +9,7 @@
         <QuestionBody>{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="possibleAnswers" ref="AnswersGrid" />
         </br>
-        <div class="next-ques" v-bind:class="['shape-' + $root.$children[0].theme]">
+        <div class="next-ques" v-bind:class="['shape-' + theme]">
           <b-btn variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
         </div>
       </b-container>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import GameHeader from './GameComponents/GameHeader.vue'
 import QuestionBody from './GameComponents/QuestionBody.vue'
 import AnswersGrid from './GameComponents/AnswersGrid.vue'
@@ -44,7 +45,10 @@ export default {
     QuestionBody,
     AnswersGrid
   },
-  data(){
+  computed: mapGetters([
+    'theme'
+  ]),
+  data: function() {
     return{
       questions : [],
       questionIndex: 0,

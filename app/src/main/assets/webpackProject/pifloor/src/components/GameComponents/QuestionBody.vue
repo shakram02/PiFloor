@@ -1,12 +1,16 @@
 <template>
   <div >
-    <h1 v-bind:class="['shape-' + $root.$children[0].theme]"><slot></slot></h1>
+    <h1 v-bind:class="['shape-' + theme]"><slot></slot></h1>
   </div>
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex';
 
+export default {
+  computed: mapGetters([
+    'theme'
+  ]),
 }
 </script>
 

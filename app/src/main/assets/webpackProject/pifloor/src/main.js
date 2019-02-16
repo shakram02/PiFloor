@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
-import BootstrapVue from 'bootstrap-vue'
+import Vue from 'vue';
+import App from './App.vue';
+import BootstrapVue from 'bootstrap-vue';
 //import VueSocketIO from 'vue-socket.io';
-import VueNativeSock from 'vue-native-websocket'
-import VueI18n from 'vue-i18n'
+import VueNativeSock from 'vue-native-websocket';
+import VueI18n from 'vue-i18n';
+import store from './store.js';
 import { locales } from './locales.js';
 
 //Vue.use(new VueSocketIO({connection: window.location.host}))
@@ -19,6 +20,7 @@ const i18n = new VueI18n({
 
 new Vue({
   i18n,
+  store,
   render: h => h(App),
 }).$mount('#app')
 

@@ -14,7 +14,8 @@
     "vue-loader": "^15.6.2",
     "vue-native-websocket": "^2.0.12",
     "vue-socket.io": "^3.0.5",
-    "vue-upload-component": "^2.8.19"
+    "vue-upload-component": "^2.8.19",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",

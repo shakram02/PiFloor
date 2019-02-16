@@ -7,7 +7,7 @@
         <b-row class="wrapper-space-between">
             <b-col cols="5">
                 <b-row class="wrapper-space-between">
-                    <b-col v-bind:class="['shape-' + $root.$children[0].theme]">
+                    <b-col v-bind:class="['shape-' + theme]">
                         <b-btn block variant="outline-secondary" @click="addQuestion">
                             {{ $t('NewQuestion') }}
                         </b-btn>
@@ -17,7 +17,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col cols="2" v-bind:class="['shape-' + $root.$children[0].theme]">
+            <b-col cols="2" v-bind:class="['shape-' + theme]">
                 <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
             </b-col>
         </b-row>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import FileDownloader from './FileDownloader.vue';
 import ListOfQuestions from './ListOfQuestions.vue';
 
@@ -34,6 +35,9 @@ export default {
     FileDownloader,
     ListOfQuestions,
   },
+  computed: mapGetters([
+    'theme'
+  ]),
   methods: {
     addQuestion: function () {
         this.$root.$children[0].questions.push({

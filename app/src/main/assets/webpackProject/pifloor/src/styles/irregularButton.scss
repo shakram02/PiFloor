@@ -1,51 +1,17 @@
 @import 'colorConstants';
 
-.shape-blue {
-  @extend %shape;
-  background-color: $lightBlue;
-  filter: drop-shadow(0px 5px 0px $darkBlue);
-  &:hover {
-      background-color: $darkBlue;
-  }
-  button {
-    color: $darkBlue;
-  }
-}
-
-.shape-pink {
-  @extend %shape;
-  background-color: $lightPink;
-  filter: drop-shadow(0px 5px 0px $darkPink);
-  &:hover {
-      background-color: $darkPink;
-  }
-  button {
-    color: $darkPink;
-  }
-}
-
-.shape-green {
-  @extend %shape;
-  background-color: $lightGreen;
-  filter: drop-shadow(0px 5px 0px $darkGreen);
-  &:hover {
-      background-color: $darkGreen;
-  }
-  button {
-    color: $darkGreen;
-  }
-}
-
 %shape {
   display: flex;
   width: 100%;
   height: 20%;
   left: 2%;
+  border-bottom: 5px solid ;
   transform: perspective(300px) rotateY(15deg);
   &:hover {
     color: white;
     transition: 0.3s;
   }
+  -webkit-backface-visibility: hidden;
 }
 
 %shape button,
@@ -57,4 +23,40 @@
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
+}
+
+.shape-blue {
+  @extend %shape;
+  background-color: $lightBlue;
+  border-color: $darkBlue;
+  &:hover {
+      background-color: $darkBlue;
+  }
+  button {
+    color: $darkBlue;
+  }
+}
+
+.shape-pink {
+  @extend %shape;
+  background-color: $lightPink;
+  border-color: $darkPink;
+  &:hover {
+      background-color: $darkPink;
+  }
+  button {
+    color: $darkPink;
+  }
+}
+
+.shape-green {
+  @extend %shape;
+  background-color: $lightGreen;
+  border-color: $darkGreen;
+  &:hover {
+      background-color: $darkGreen;
+  }
+  button {
+    color: $darkGreen;
+  }
 }

@@ -17,7 +17,6 @@ import AdminPage from './components/AdminPage.vue';
 import GamePage from './components/GamePage.vue';
 import HomePage from './components/HomePage.vue';
 import ColorChooser from './components/ColorChooser.vue';
-import { blue } from './styles/ThemeConstants.js'
 import './styles/irregularButton.scss';
 import './styles/irregularContainer.scss';
 
@@ -33,7 +32,6 @@ export default {
     return{
       lang: availableLocales,
       questions: [],
-      theme: blue,
       playing: false,
       loggedin: false
     }

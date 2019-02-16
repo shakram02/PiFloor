@@ -1,32 +1,37 @@
 <template>
   <b-row class="wrapper-space-between" v-if="$i18n.locale === 'ar'">
-    <b-col cols="3" v-bind:class="['shape-' + $root.$children[0].theme]">
+    <b-col cols="3" v-bind:class="['shape-' + theme]">
       <h3>{{score}} : {{$t('Score')}}</h3>
     </b-col>
-    <b-col cols="3" v-bind:class="['shape-' + $root.$children[0].theme]">
+    <b-col cols="3" v-bind:class="['shape-' + theme]">
       <h3>{{timer}} : {{$t('Timer')}}</h3>
     </b-col>
   </b-row>
   <b-row class="wrapper-space-between" v-else>
-    <b-col cols="3" v-bind:class="['shape-' + $root.$children[0].theme]">
+    <b-col cols="3" v-bind:class="['shape-' + theme]">
       <h3>{{$t('Score')}}: {{score}}</h3>
     </b-col>
-    <b-col cols="3" v-bind:class="['shape-' + $root.$children[0].theme]">
+    <b-col cols="3" v-bind:class="['shape-' + theme]">
       <h3>{{$t('Timer')}}: {{timer}}s</h3>
     </b-col>
   </b-row>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  data(){
+  data: function() {
     return{
       score: 0,
       timer: 30,
       timeout: false,
-      timeVariable : null
+      timeVariable : null,
     }
   },
+  computed: mapGetters([
+    'theme'
+  ]),
   methods: {
     correctAnswer: function(){
       this.score += 10;

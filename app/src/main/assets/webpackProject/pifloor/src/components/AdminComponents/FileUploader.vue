@@ -1,6 +1,6 @@
 <template>
   <div><center>
-    <div v-bind:class="['shape-' + $root.$children[0].theme]">
+    <div v-bind:class="['shape-' + theme]">
       <b-btn block variant="outline-secondary" v-b-modal.modallg>{{ $t('AddQuestions') }}</b-btn>
     </div>
     <b-modal id="modallg" size="lg" v-model="show">
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import FileDragPanel from './FileDragPanel.vue'
 
 export default {
@@ -21,7 +22,10 @@ export default {
   components: {
     FileDragPanel,
   },
-  data(){
+    computed: mapGetters([
+    'theme',
+  ]),
+  data: function() {
     return{
       show: false,
       file: null,
