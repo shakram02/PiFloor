@@ -1,0 +1,85 @@
+@import 'colorConstants';
+
+h1 {
+    text-align: center;
+    font-family: cursive;
+}
+.container-menu {
+    padding: 20px;
+    width: fit-content;
+    margin: auto;
+}
+%shape-container {
+    width: 70%;
+}
+.wrapper-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-control,
+.custom-select,
+.custom-select:focus,
+.custom-select:hover {
+  border: 0px;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+  text-align-last:center;
+}
+
+.custom-select:hover {
+  color: white;
+}
+
+.option-style-blue {
+    color: $darkBlue;
+    background: $lightBlue;
+}
+
+.option-style-pink {
+    color: $darkPink;
+    background: $lightPink;
+}
+
+.option-style-green {
+    color: $darkGreen;
+    background: $lightGreen;
+}
+
+.select-blue {
+    color: $darkBlue;
+}
+.select-pink {
+    color: $darkPink;
+}
+.select-green {
+    color: $darkGreen;
+}
+
+.shape-container-blue {
+    @extend %shape-container;
+    background-color: $backgroundLightBlue;
+    border-bottom: 10px solid $backgroundDarkBlue;
+    h1 {
+        color: $darkBlue;
+    }
+}
+
+.shape-container-pink {
+    @extend %shape-container;
+    background-color: $backgroundLightPink;
+    border-bottom: 10px solid $backgroundDarkPink;
+    h1 {
+        color: $darkPink;
+    }
+}
+
+.shape-container-green {
+    @extend %shape-container;
+    background-color: $backgroundLightGreen;
+    border-bottom: 10px solid $backgroundDarkGreen;
+    h1 {
+        color: $darkGreen;
+    }
+}
