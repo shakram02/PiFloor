@@ -13,10 +13,12 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import co.dift.ui.SwipeToAction
+import com.google.android.gms.common.util.ArrayUtils.toArrayList
 import com.google.android.gms.vision.text.TextBlock
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
@@ -28,6 +30,9 @@ import pifloor.graphcis.PreviewOcrGraphic
 import pifloor.injection.PiFloorApplication
 import pifloor.ui.camera.OcrGraphicOverlay
 import pifloor.utils.VirtualGrid
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
+import pifloor.TilesAdapter
 import javax.inject.Inject
 
 class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
@@ -41,8 +46,9 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
 
     @BindView(R.id.recycler)
     lateinit var recyclerView: RecyclerView
-    lateinit var tileAdapter: TileAdapter
-    var swipeToAction: SwipeToAction? = null
+    lateinit var tileAdapter: TilesAdapter
+    var swipeToAction : SwipeToAction? = null
+
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_calibrate_mode)
@@ -50,7 +56,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         ButterKnife.bind(this)
-        tileAdapter = TileAdapter(virtualGrid)
+        tileAdapter = TilesAdapter(virtualGrid)
         loadFragment()
         loadList()
     }
@@ -81,12 +87,26 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         })
     }
 
+    /*private fun removeTile(str : String): Int {
+        var pos = captureFragment.tiles!!.indexOf(str)
+        captureFragment.tiles!!.remove(str)
+        captureFragment.adapter!!.notifyItemRemoved(pos)
+        var g : OcrGraphic? = captureFragment.graphicOverlay.getByContent(str)
+        captureFragment.graphicOverlay.remove(g)
+        //virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
+        if (g != null) {
+            virtualGrid.removeTile(captureFragment.graphicOverlay.getByContent(str).textBlock)
+        }
+        return pos
+    }*/
+
     private fun removeTile(str: String) {
         val position = virtualGrid.indexOf(str)
         virtualGrid.removeTile(str)
         tileAdapter.notifyItemRemoved(position)
         virtualGrid.removeTile(str)
     }
+
 
     private fun displaySnackbar(text: String?, actionName: String?, action: View.OnClickListener?) {
         val snack: Snackbar = Snackbar.make(findViewById(android.R.id.content), text!!, Snackbar.LENGTH_LONG)
@@ -113,8 +133,11 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         val text = ocrGraphic.value
 
         Log.d(TAG, "Calibrating:$text")
-        virtualGrid.addTile(ocrGraphic.textBlock)
-        tileAdapter.notifyItemInserted(virtualGrid.count() - 1)
+        if(!virtualGrid.contains(ocrGraphic.textBlock)) {
+            graphicOverlay.add(CalibratedOcrGraphic(graphicOverlay, ocrGraphic.textBlock))
+            virtualGrid.addTile(ocrGraphic.textBlock)
+            tileAdapter.notifyItemInserted(virtualGrid.count() - 1)
+        }
 
         if (virtualGrid.size == GRID_SIZE) {
             finish()
@@ -128,7 +151,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
      * Invoked after calling [Publisher.subscribe].
      *
      *
-     * No data will start flowing until [Subscription.request] is invoked.
+     * No data will start_off flowing until [Subscription.request] is invoked.
      *
      *
      * It is the responsibility of this [Subscriber] instance to call [Subscription.request] whenever more data is wanted.
@@ -176,7 +199,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         val intent = Intent(this, AssignmentActivity::class.java).apply {
             putExtra("AutoFocus", focus)
             putExtra("UseFlash", flash)
-            putExtra("tiles", virtualGrid.tilesAsString)
+            putExtra("tiles", toArrayList(virtualGrid.tilesAsString))
         }
         startActivity(intent)
     }

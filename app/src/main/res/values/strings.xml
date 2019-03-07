@@ -22,23 +22,25 @@
     <string name="welcome_title">PiFloor</string>
     <string name="welcome_message">Welcome to PiFloor interactive education.</string>
     <string name="start_tutorial">Tutorial</string>
-    <string name="new_game">New game</string>
+    <string name="new_game">Lets Play</string>
     <string name="start_game">Start game</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="assign_title">Reorder Words :</string>
+    <string name="upload">Upload</string>
 
     <string name="game_activity_instructions">Keep the camera as stable as possible. Avoid unwanted text around the grid.</string>
 
     <!-- Tutorial content -->
     <string name="welcome1">Welcome To</string>
     <string name="welcome2">PiFloor</string>
-    <string name="tutorial_title1">Setup the Environment</string>
+    <string name="tutorial_title1">Choose user type</string>
     <string name="tutorial_title2">Create the questions</string>
     <string name="tutorial_title23">Questions format</string>
     <string name="tutorial_title22">Setup the floor</string>
     <string name="tutorial_title3">Start calibration</string>
     <string name="tutorial_title4">Start the game</string>
-    <string name="tutorial_message1">Choose the floor size. The number of rows and columns should be 2 to 4.</string>
+    <string name="tutorial_message1">Choose the type of the user (Teacher or Student) where the teacher can add questions and student can view his achievements.</string>
     <string name="tutorial_message1_1">Print the N x M unique choice lables on separate papers with big enough font to be seen by your camera.</string>
     <string name="tutorial_message2">
         The teacher must create a file containing the questions, each on a single line.\n

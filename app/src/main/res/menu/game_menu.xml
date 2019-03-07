@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="info"
+        android:orderInCategory="300"
+        android:id="@+id/info"
+        app:showAsAction="always"
+        android:icon="@drawable/info"
+        android:iconTint="@color/white"/>
+
+
+    <item
+        android:id="@+id/start"
+        android:title="Start"
+        android:icon="@drawable/start_on"
+        android:orderInCategory="300"
+        app:showAsAction="always"/>
+
+</menu>

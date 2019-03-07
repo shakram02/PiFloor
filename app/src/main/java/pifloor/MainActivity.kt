@@ -56,4 +56,10 @@ class MainActivity : Activity() {
         val intent = Intent(this, IntroActivity::class.java)
         startActivity(intent)
     }
+    @Optional
+    @OnClick(R.id.button_main_upload)
+    fun startUpload() {
+        val intent = Intent(this, UploadActivity::class.java)
+        startActivity(intent)
+    }
 }

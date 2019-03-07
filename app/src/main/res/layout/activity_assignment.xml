@@ -4,39 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context="pifloor.processing.AssignmentActivity">
 
-    <TextView
-        android:id="@+id/assignmentHeaderID"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:padding="10dp"
-        android:text="Use the buttons to assign the order of the words"
-        android:textColor="#000000"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/indexListID"
-        android:layout_width="395dp"
-        android:layout_height="457dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnDone"
-        android:layout_width="152dp"
-        android:layout_height="145dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginBottom="17dp"
-        android:background="#496c21"
-        android:text="Done"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:id="@+id/recycler"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/btnCancel"
+            android:gravity="center"
+            android:background="@color/red_white"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-thin"
+            android:text="Cancel"
+            tools:ignore="OnClick" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/btnDone"
+            android:text="OK"
+            android:gravity="center"
+            android:background="@color/green"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="20sp"
+            tools:ignore="OnClick" />
+    </LinearLayout>
 </LinearLayout>

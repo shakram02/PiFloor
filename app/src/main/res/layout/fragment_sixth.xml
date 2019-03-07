@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     android:orientation="vertical"
-    android:background="@color/green"
-    tools:context="pifloor.introfragments.FourthIntroFragment"
+    tools:context="pifloor.introfragments.SixthIntroFragment"
+    android:background="@color/blue_white"
     android:paddingLeft="20dp"
     android:paddingTop="20dp"
     android:paddingRight="20dp"
@@ -31,6 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/game_mode_reduced"/>
+        android:src="@drawable/fin"/>
 
 </LinearLayout>

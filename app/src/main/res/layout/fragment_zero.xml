@@ -5,8 +5,11 @@
     android:id="@+id/container"
     android:orientation="vertical"
     android:background="@color/org"
-    tools:context="pifloor.introfragments.FirstIntroFragment"
-    android:padding="20dp">
+    tools:context="pifloor.introfragments.ZerothIntroFragment"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="70dp">
 
     <TextView
         android:layout_width="wrap_content"

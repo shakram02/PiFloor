@@ -324,8 +324,8 @@ public class CameraSource {
             if (mProcessingThread != null) {
                 try {
                     // Wait for the thread to complete to ensure that we can't have multiple threads
-                    // executing at the same time (i.e., which would happen if we called start too
-                    // quickly after stop).
+                    // executing at the same time (i.e., which would happen if we called start_off too
+                    // quickly after stop_off).
                     mProcessingThread.join();
                 } catch (InterruptedException e) {
                     Log.d(TAG, "Frame processing thread interrupted on release.");
@@ -434,7 +434,7 @@ public class CameraSource {
      * Gets the current focus mode setting.
      *
      * @return current focus mode. This value is null if the camera is not yet created.
-     * Applications should call {@link #autoFocus(AutoFocusCallback)} to start the focus if focus
+     * Applications should call {@link #autoFocus(AutoFocusCallback)} to start_off the focus if focus
      * mode is FOCUS_MODE_AUTO or FOCUS_MODE_MACRO.
      * @see Camera.Parameters#FOCUS_MODE_AUTO
      * @see Camera.Parameters#FOCUS_MODE_INFINITY
@@ -851,7 +851,7 @@ public class CameraSource {
     }
 
     /**
-     * Callback interface used to notify on auto focus start and stop.
+     * Callback interface used to notify on auto focus start_off and stop_off.
      * <p/>
      * <p>This is only supported in continuous autofocus modes -- {@link
      * Camera.Parameters#FOCUS_MODE_CONTINUOUS_VIDEO} and {@link
@@ -1065,7 +1065,7 @@ public class CameraSource {
      * While detection is running on a frame, new frames may be received from the camera.  As these
      * frames come in, the most recent frame is held onto as pending.  As soon as detection and its
      * associated processing are done for the previous frame, detection on the mostly recently
-     * received frame will immediately start on the same thread.
+     * received frame will immediately start_off on the same thread.
      */
     private class FrameProcessingRunnable implements Runnable {
         // This lock guards all of the member variables below.
