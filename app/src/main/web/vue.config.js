@@ -24,6 +24,6 @@ module.exports = {
 			chunkFilename: '[name].js'
 		}
 	},
-	outputDir: '../'.repeat(3) + 'assets',
+	outputDir: '../assets',
 	filenameHashing: false
 }
