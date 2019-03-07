@@ -19,7 +19,6 @@
         android:label="PI Floor"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-
         <!-- <meta-data -->
         <!-- android:name="com.google.android.gms.vision.DEPENDENCIES" -->
         <!-- android:value="ocr" /> -->
@@ -32,6 +31,7 @@
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,17 +39,19 @@
             android:name=".processing.GameModeActivity"
             android:label="Game Mode" />
         <activity
-            android:name=".processing.CalibrationModeActivity"
-            android:label="Calibration Mode" />
+            android:name=".processing.AssignmentActivity"
+            android:label="Reorder Tiles :"
+            android:theme="@style/NoActionBar"/>
         <activity
-            android:name=".TutorialActivity"
-            android:label="@string/title_activity_tutorial"
+            android:name=".processing.CalibrationModeActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="pifloor.MainActivity" />
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".IntroActivity" />
+        <activity android:name=".UploadActivity"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAeT8zHqrqzSGZMWajX9HeTb8K3VtnKnBY" />
     </application>
 
 </manifest>

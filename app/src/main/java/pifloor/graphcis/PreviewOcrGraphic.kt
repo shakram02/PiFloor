@@ -17,7 +17,7 @@ class PreviewOcrGraphic(overlay: GraphicOverlay<*>, text: TextBlock) : OcrGraphi
 
         if (textPaint == null) {
             textPaint = Paint()
-            textPaint!!.color = Color.BLACK
+            textPaint!!.color = Color.WHITE
             textPaint!!.textSize = 54.0f
         }
     }

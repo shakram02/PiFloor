@@ -8,7 +8,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId 'com.github.shakram02.pifloor'
-        minSdkVersion 14
+        minSdkVersion 23
         targetSdkVersion 24
         versionCode 0
         versionName '0.1'
@@ -36,6 +36,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-ml-vision:17.0.0'
     implementation "android.arch.lifecycle:extensions:1.1.0"
     implementation "android.arch.lifecycle:viewmodel:1.1.0"
+    implementation 'com.github.apl-devs:appintro:v4.2.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+    implementation 'co.dift.ui.swipetoaction:library:1.1'
+    implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0'
+    //implementation 'com.google.android.gms:play-services:+'
 
 
     def daggerVersion = 2.16
@@ -48,6 +53,7 @@ dependencies {
     implementation 'com.koushikdutta.async:androidasync:2.2.1'
     implementation "com.jakewharton:butterknife:$butterknife_version"
     kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

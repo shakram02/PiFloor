@@ -5,23 +5,38 @@ import android.graphics.Rect
 import android.util.Log
 import com.google.android.gms.vision.text.Text
 import com.google.android.gms.vision.text.TextBlock
-import java.util.*
 
 class VirtualGrid {
-    private val tiles = HashSet<GridTile>()
+    private val tiles = mutableSetOf<GridTile>()
     private val timeFilter = TimeFilter<String>(CHOICE_COOL_DOWN)
     val size
         get() = tiles.size
 
     val tilesAsString
-        get() = tiles.asIterable().map { i -> i.value }
+        get() = tiles.asIterable().map { i -> i.value }.toTypedArray()
 
     fun addTile(tile: Text): Boolean {
         return tiles.add(GridTile(tile))
     }
 
+    fun removeTile(text: String): Boolean {
+        return tiles.removeAll { i -> i.value == preProcess(text) }
+    }
+
     fun contains(tile: Text): Boolean {
         return tiles.any { i -> i.value == preProcess(tile.value) }
+    }
+
+    fun getAtIndex(index: Int): String {
+        return tiles.elementAt(index).value
+    }
+
+    fun indexOf(text: String): Int {
+        return tiles.indexOfFirst { i -> i.value == preProcess(text) }
+    }
+
+    fun count(): Int {
+        return tiles.count()
     }
 
     fun clear() {
@@ -84,34 +99,22 @@ class VirtualGrid {
      * Instantiating an instance of a [Text] is not possible, this class
      * gives us this ability (just a wrapper class)
      */
-    private data class GridTile(private val textItem: Text) : Text {
-        private val textBoundingBox: Rect = textItem.boundingBox
-        private val textComponents: MutableList<out Text> = textItem.components
-        private val textCornerPoints: Array<Point> = textItem.cornerPoints
-        private val textValue: String = VirtualGrid.preProcess(textItem.value)
-
-        override fun getBoundingBox(): Rect {
-            return textBoundingBox
-        }
-
-        override fun getComponents(): MutableList<out Text> {
-            return textComponents
-        }
-
-        override fun getCornerPoints(): Array<Point> {
-            return textCornerPoints
-        }
-
-        override fun getValue(): String {
-            return textValue
-        }
+    private data class GridTile(private val textItem: Text) {
+        val textBoundingBox: Rect
+            get() = textItem.boundingBox
+        val components: MutableList<out Text>
+            get() = textItem.components
+        val cornerPoints: Array<Point>
+            get() = textItem.cornerPoints
+        val value: String
+            get() = VirtualGrid.preProcess(textItem.value)
 
         fun getCenter(): Point {
             return Point(textBoundingBox.centerX(), textBoundingBox.centerY())
         }
 
         override fun hashCode(): Int {
-            return textValue.hashCode()
+            return value.hashCode()
         }
 
         override fun equals(other: Any?): Boolean {
