@@ -28,7 +28,6 @@ import pifloor.processing.OcrCaptureFragment.OcrSelectionListener
 import pifloor.ui.camera.CameraSource
 import pifloor.ui.camera.CameraSourcePreview
 import pifloor.ui.camera.OcrGraphicOverlay
-import org.reactivestreams.Subscriber
 import java.io.IOException
 
 

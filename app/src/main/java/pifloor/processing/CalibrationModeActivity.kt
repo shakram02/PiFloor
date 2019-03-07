@@ -30,9 +30,6 @@ import pifloor.graphcis.PreviewOcrGraphic
 import pifloor.injection.PiFloorApplication
 import pifloor.ui.camera.OcrGraphicOverlay
 import pifloor.utils.VirtualGrid
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
-import pifloor.TilesAdapter
 import javax.inject.Inject
 
 class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelectionListener, Subscriber<ArrayList<TextBlock>> {
@@ -46,7 +43,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
 
     @BindView(R.id.recycler)
     lateinit var recyclerView: RecyclerView
-    lateinit var tileAdapter: TilesAdapter
+    lateinit var tileAdapter: TileAdapter
     var swipeToAction : SwipeToAction? = null
 
     public override fun onCreate(icicle: Bundle?) {
@@ -56,7 +53,7 @@ class CalibrationModeActivity : AppCompatActivity(), OcrCaptureFragment.OcrSelec
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         ButterKnife.bind(this)
-        tileAdapter = TilesAdapter(virtualGrid)
+        tileAdapter = TileAdapter(virtualGrid)
         loadFragment()
         loadList()
     }
