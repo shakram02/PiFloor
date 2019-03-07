@@ -1,0 +1,23 @@
+.rect-background {
+    background-color: #30505C;
+    /* background-color: #21B2A6; */
+    text-align: center
+}
+
+.rect-text {
+    color: #FFFFFF;
+    font-size: 25px;
+}
+
+.title-text {
+    display: inline-block;
+    text-align: center;
+    color: #21B2A6;
+    font-size: 75px;
+}
+
+#app {
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+    display: block;
+	text-align: center;
+}
