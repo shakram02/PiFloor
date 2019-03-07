@@ -91,13 +91,15 @@ export default {
       this.$parent.playing = false;
     },
     checkAnswer: function(answer){
-      let ansIndex = this.possibleAnswers.indexOf(this.correctAnswer);
+	  let ansIndex = this.possibleAnswers.indexOf(this.correctAnswer);
+	  console.log("Correct answer is:"+this.possibleAnswers[ansIndex]+", You selected:"+this.possibleAnswers[answer]);
       if(parseInt(answer) === ansIndex) this.celebrate();
       else this.getUpset();
     },
     celebrate: function(){
       // TODO: Animate celebrations
-      this.$refs.gameHeader.correctAnswer();
+	  this.$refs.gameHeader.correctAnswer();
+	  return;	// TODO: remove this return later
       // eslint-disable-next-line
       let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
       //console.log('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
@@ -106,7 +108,9 @@ export default {
     },
     getUpset: function(){
       // TODO: Animate disappointment
-      this.$refs.gameHeader.wrongAnswer();
+	  this.$refs.gameHeader.wrongAnswer();
+	  return;	// TODO: remove this return later
+
       // eslint-disable-next-line
       let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/fail.mp3')
       sound.play();
