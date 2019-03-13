@@ -1,7 +1,7 @@
 # PiFloor
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1476834.svg)](https://doi.org/10.5281/zenodo.1476834)
 
-An Android Portable interactive floor with minimal setup, oriented towards child education
+An Android Portable interactive floor with minimal setup, oriented towards child education. Detailed description about setup and usage is [here](Pi_Floor_Poster.pdf)
 
 Pi Floor has three main modules
 - Optical Character Recognition (OCR) provided by Google's vision API (soon MLKit)
@@ -11,8 +11,6 @@ Pi Floor has three main modules
     <img src="img/AppDesign.png" alt="AppDesign"/>
 
 ## How it works
-
-Detailed description about setup and usage checkout the [poster](Pi_Floor_Poster.pdf)
 
 - Put the grid tiles on the floor, where each tiles contains an English word
     <br> 
