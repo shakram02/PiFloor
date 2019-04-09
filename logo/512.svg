@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="43.3492mm" height="43.3492mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 4335 4335"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil2 {fill:#332C2B}
+    .fil0 {fill:#F9FBFB}
+    .fil5 {fill:#2618C4}
+    .fil3 {fill:#408C86}
+    .fil6 {fill:#61C21B}
+    .fil4 {fill:#AD2DF7}
+    .fil1 {fill:#CC1420}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_796671632">
+   <rect class="fil0" width="4335" height="4335" rx="892" ry="892"/>
+   <g>
+    <path class="fil1" d="M2167 359c759,0 1375,617 1375,1377 0,705 -529,1286 -1210,1368l0 317c0,91 -74,165 -165,165 -90,0 -164,-74 -164,-165l0 -317 0 -215 0 -119c54,9 108,13 164,13 577,0 1045,-469 1045,-1047 0,-578 -468,-1047 -1045,-1047 -576,0 -1044,469 -1044,1047l0 0c0,91 -74,165 -165,165 -91,0 -165,-74 -165,-165l0 0c0,-760 616,-1377 1374,-1377z"/>
+    <circle class="fil2" cx="2167" cy="3811" r="165"/>
+    <path class="fil3" d="M2158 974c-173,2 -332,62 -459,161 0,34 -14,67 -39,93 -26,25 -59,39 -92,40 -99,126 -159,286 -161,459 5,-206 173,-372 380,-372l0 0 0 0c0,-207 165,-376 371,-381z"/>
+    <circle class="fil2" transform="matrix(0.216195 -0.216678 0.216195 0.216678 1564.06 1131.78)" r="394"/>
+    <path class="fil4" d="M1407 1746c2,173 62,332 161,459 33,1 66,14 92,40 25,25 39,59 39,92 127,99 286,159 458,161 -205,-5 -370,-173 -370,-380l0 -1 0 0c-207,0 -375,-165 -380,-371z"/>
+    <circle class="fil2" transform="matrix(-0.216195 -0.216678 0.216195 -0.216678 1564.06 2340.89)" r="394"/>
+    <path class="fil5" d="M2177 2499c173,-2 332,-62 458,-161 1,-34 14,-67 40,-93 25,-25 59,-39 92,-40 99,-126 159,-286 161,-459 -5,206 -173,372 -380,372l0 0 0 0c0,207 -165,376 -371,381z"/>
+    <circle class="fil2" transform="matrix(-0.216195 0.216678 -0.216195 -0.216678 2770.75 2341.16)" r="394"/>
+    <path class="fil6" d="M2928 1726c-2,-173 -62,-332 -161,-459 -33,-1 -66,-14 -92,-40 -25,-25 -39,-58 -40,-92 -126,-99 -285,-159 -458,-161 206,5 371,174 371,381l0 0 0 0c207,0 375,165 380,371z"/>
+    <circle class="fil2" transform="matrix(0.216195 0.216678 -0.216195 0.216678 2770.85 1131.34)" r="394"/>
+   </g>
+  </g>
+ </g>
+</svg>
