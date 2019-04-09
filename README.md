@@ -1,3 +1,7 @@
+<h1 align=center>
+<img src="logo/logotype_1024.svg" width=50%>
+</h1>
+
 # PiFloor
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1476834.svg)](https://doi.org/10.5281/zenodo.1476834)
 
