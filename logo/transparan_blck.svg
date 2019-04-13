@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="16.5098mm" height="21.6746mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 1651 2167"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:#1D1819}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_793902784">
+   <path class="fil0" d="M825 0c456,0 826,370 826,825 0,423 -317,771 -727,820l0 190c0,54 -44,99 -99,99 -54,0 -98,-45 -98,-99l0 -190 0 -129 0 -71c32,5 65,8 98,8 347,0 628,-281 628,-628 0,-346 -281,-627 -628,-627 -346,0 -627,281 -627,627l0 0c0,55 -44,99 -99,99 -55,0 -99,-44 -99,-99l0 0c0,-455 370,-825 825,-825z"/>
+   <circle class="fil0" cx="825" cy="2069" r="99"/>
+   <path class="fil0" d="M820 369c-104,1 -200,37 -276,96 0,20 -8,40 -23,56 -16,15 -36,23 -56,23 -59,76 -95,172 -96,275 3,-123 104,-222 228,-222l0 0 0 0c0,-124 99,-225 223,-228z"/>
+   <circle class="fil0" transform="matrix(0.129856 -0.129853 0.129856 0.129853 463.058 463.056)" r="394"/>
+   <path class="fil0" d="M369 831c1,104 37,199 96,275 20,1 40,9 56,24 15,15 23,35 23,55 76,60 172,96 276,97 -124,-3 -223,-104 -223,-228l0 0 0 0c-124,0 -225,-99 -228,-223z"/>
+   <circle class="fil0" transform="matrix(-0.129856 -0.129853 0.129856 -0.129853 463.057 1187.66)" r="394"/>
+   <path class="fil0" d="M831 1282c104,-1 199,-37 276,-96 0,-20 8,-40 23,-56 16,-15 36,-23 56,-24 59,-76 95,-171 96,-275 -3,124 -104,223 -228,223l0 0 0 0c0,124 -99,225 -223,228z"/>
+   <circle class="fil0" transform="matrix(-0.129856 0.129853 -0.129856 -0.129853 1187.84 1187.82)" r="394"/>
+   <path class="fil0" d="M1282 819c-1,-103 -37,-199 -96,-275 -20,0 -40,-8 -56,-24 -15,-15 -23,-35 -23,-55 -76,-59 -172,-95 -276,-97 124,4 223,105 223,229l0 0 0 0c124,0 225,99 228,222z"/>
+   <circle class="fil0" transform="matrix(0.129856 0.129853 -0.129856 0.129853 1187.91 462.796)" r="394"/>
+  </g>
+ </g>
+</svg>
