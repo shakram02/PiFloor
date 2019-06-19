@@ -1,7 +1,10 @@
-# PiFloor
+<p align="center"><img src="logo/512.svg"/></p>
+
+<h1 align="center"> PiFloor</h1>
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1476834.svg)](https://doi.org/10.5281/zenodo.1476834)
 
-An Android Portable interactive floor with minimal setup, oriented towards child education. Detailed description about setup and usage is [here](Pi_Floor_Poster.pdf)
+An Android Portable interactive floor with minimal setup, oriented towards child education. Detailed description about setup and usage is [here](Pi_Floor_Poster.pdf). This is a [video](https://www.youtube.com/watch?v=SU2X1FAHeeM) of the older version that illustrates the project's idea.
 
 Pi Floor has three main modules
 - Optical Character Recognition (OCR) provided by Google's vision API (soon MLKit)
