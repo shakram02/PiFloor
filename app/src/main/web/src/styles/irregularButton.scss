@@ -17,12 +17,14 @@
 %shape button,
 %shape button:active,
 %shape button:focus,
+%shape button:hover,
 %shape button:active:focus,
 %shape button:not(:disabled):not(.disabled):active:focus {
   border: 0px;
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0 0;
   box-shadow: 0 0 0 0;
+  width: 100%;
 }
 
 .shape-blue {

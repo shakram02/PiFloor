@@ -6,11 +6,19 @@
           <h1>{{ $t('PiFloor') }}</h1>
           <br/>
           <div v-bind:class="['shape-' + theme]">
-            <b-btn variant="outline-secondary" @click="useAsTeacher">Teacher</b-btn>
+            <b-btn variant="outline-secondary" @click="useAsTeacher">{{ $t('Teacher') }}</b-btn>
           </div>
-          </br>
+          <br/>
           <div v-bind:class="['shape-' + theme]">
-          <b-btn variant="outline-secondary" @click="useAsStudent">Student</b-btn>
+            <b-btn variant="outline-secondary" @click="useAsStudent">{{ $t('Student') }}</b-btn>
+          </div>
+          <br/>
+          <div v-bind:class="['shape-' + theme]">
+            <b-form-select v-bind:class="['select-' + theme]" v-model="$i18n.locale">
+              <option v-bind:class="['option-style-' + theme]" v-for="option in this.$root.$children[0].lang" v-bind:key="option" v-bind:value="option">
+                {{ $t(option) }}
+              </option>
+            </b-form-select>
           </div>
         </div>
       </div>

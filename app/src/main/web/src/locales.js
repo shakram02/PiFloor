@@ -26,6 +26,8 @@ export const locales = {
         ComposeQuestions: 'Compose Questions',
         English: 'English',
         Arabic: 'Arabic',
+        Teacher: 'Teacher',
+        Student: 'Student',
     },
     Arabic: {
         PlayGame: '!هيا لنلعب',
@@ -52,5 +54,7 @@ export const locales = {
         ComposeQuestions: 'إضافة / تعديل الأسئلة',
         English: 'الأنجليزية',
         Arabic: 'العربية',
+        Teacher: 'المدرس',
+        Student: 'الطالب',
     }
 }

@@ -21,6 +21,7 @@
                 <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
             </b-col>
         </b-row>
+        <br/>
     </div>
 </template>
 
