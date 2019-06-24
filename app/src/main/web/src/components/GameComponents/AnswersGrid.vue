@@ -121,6 +121,7 @@ export default {
   width: 80%;
 }
 .current-cell{
-  background-color: yellow;
+  background-color: #326275;
+  color: white;
 }
 </style>
