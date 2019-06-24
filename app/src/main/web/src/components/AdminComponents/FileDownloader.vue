@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div v-bind:class="['shape-' + theme]">
-      <b-btn block variant="outline-secondary" @click="download">{{ $t('DownloadQuestions') }}</b-btn>
-    </div>
+    <b-btn block variant="outline-secondary" @click="download">{{ $t('DownloadQuestions') }}</b-btn>
     <a v-bind:show="false" ref="link"></a>
     <b-modal ref="emptyFileModal">
       <p>{{ $t('NoQuestionsYet') }}</p>

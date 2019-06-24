@@ -5,7 +5,6 @@
                 v-bind:index="index"
                 v-bind:questions="$root.$children[0].questions"
             />
-            <div class="breakLine"/>
         </div>
     </div>
 </template>
@@ -19,14 +18,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-.breakLine {
-    margin: 15px;
-    height: 1px;
-    width:1;
-    background: grey;
-}
-
-</style>

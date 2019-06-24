@@ -7,7 +7,7 @@
         <b-row class="wrapper-space-between">
             <b-col cols="5">
                 <b-row class="wrapper-space-between">
-                    <b-col v-bind:class="['shape-' + theme]">
+                    <b-col>
                         <b-btn block variant="outline-secondary" @click="addQuestion">
                             {{ $t('NewQuestion') }}
                         </b-btn>
@@ -17,7 +17,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col cols="2" v-bind:class="['shape-' + theme]">
+            <b-col cols="2">
                 <b-btn block variant="outline-secondary" @click="shuffleView">{{ $t('Back') }}</b-btn>
             </b-col>
         </b-row>
