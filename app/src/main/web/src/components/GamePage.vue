@@ -6,7 +6,7 @@
       </br>
       </br>
       <b-container v-bind:class="['shape-container-' + theme]">
-        <QuestionBody>{{questionText}}</QuestionBody>
+        <QuestionBody ref="questionBody">{{questionText}}</QuestionBody>
         <AnswersGrid v-bind:PossibleAnswers="PossibleAnswers" ref="AnswersGrid" />
         </br>
         <div class="next-ques" v-bind:class="['shape-' + theme]">
@@ -93,12 +93,12 @@ export default {
       else this.getUpset();
     },
     celebrate: function(){
+      this.$refs.questionBody.correctAnswer();
 	     this.$refs.gameHeader.correctAnswer();
-       // TODO: Animate celebration
        setTimeout(this.nextQuestion, 1000);
     },
     getUpset: function(){
-      // TODO: Animate disappointment
+      this.$refs.questionBody.wrongAnswer();
   	  this.$refs.gameHeader.wrongAnswer();
       setTimeout(this.nextQuestion, 1000);
     },
