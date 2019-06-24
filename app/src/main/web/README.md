@@ -6,14 +6,20 @@ From the root of the project:
 
 ### Install dependencies
 ``` npm install ```
+or 
+``` yarn intall ```
 
-> Make sure you have **Node.js v8.0+** and **Npm v3.5.0+** installed before installing the dependencies.
+> Make sure you have **Node.js v8.0+** and **Npm v3.5.0+** (or **Yarn 1.16.0+**) installed before installing the dependencies.
 
 ### Run in debugging mode
 ``` npm run serve ```
+or
+``` yarn serve ```
 
 ### Build for production
 ``` npm run build ```
+or
+``` yarn build ```
 
 *NOTE* Running this command will clear the content of the assets folder
 
