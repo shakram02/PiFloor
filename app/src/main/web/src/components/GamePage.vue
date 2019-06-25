@@ -38,6 +38,7 @@ import { mapGetters } from 'vuex';
 import GameHeader from './GameComponents/GameHeader.vue'
 import QuestionBody from './GameComponents/QuestionBody.vue'
 import AnswersGrid from './GameComponents/AnswersGrid.vue'
+import config from '../../configs.js'
 
 export default {
   name: 'GamePage',
@@ -51,7 +52,7 @@ export default {
       questions : [],
       questionIndex: 0,
       failed: true,
-      testing: true,
+      testing: config.testing,
       testAnswer: ""
     }
   },
