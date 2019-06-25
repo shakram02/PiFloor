@@ -1,0 +1,15 @@
+{
+  "name": "ws_mock_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/ws": "^6.0.1",
+    "ws": "^7.0.1"
+  }
+}
