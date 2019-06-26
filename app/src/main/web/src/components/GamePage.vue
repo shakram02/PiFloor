@@ -6,8 +6,8 @@
       </br>
       </br>
       <b-container v-bind:class="['shape-container-' + theme]">
-        <QuestionBody>{{questionText}}</QuestionBody>
-        <AnswersGrid v-bind:PossibleAnswers="possibleAnswers" ref="AnswersGrid" />
+        <QuestionBody ref="questionBody">{{questionText}}</QuestionBody>
+        <AnswersGrid v-bind:PossibleAnswers="PossibleAnswers" ref="AnswersGrid" />
         </br>
         <div class="next-ques" v-bind:class="['shape-' + theme]">
           <b-btn variant="outline-secondary" @click="nextQuestion">{{ $t('NextQuestion') }}</b-btn>
@@ -38,6 +38,7 @@ import { mapGetters } from 'vuex';
 import GameHeader from './GameComponents/GameHeader.vue'
 import QuestionBody from './GameComponents/QuestionBody.vue'
 import AnswersGrid from './GameComponents/AnswersGrid.vue'
+import config from '../../configs.js'
 
 export default {
   name: 'GamePage',
@@ -51,7 +52,7 @@ export default {
       questions : [],
       questionIndex: 0,
       failed: true,
-      testing: false,
+      testing: config.testing,
       testAnswer: ""
     }
   },
@@ -62,7 +63,7 @@ export default {
     correctAnswer: function(){
       return this.questions[this.questionIndex].correct;
     },
-    possibleAnswers: function(){
+    PossibleAnswers: function(){
       return this.questions[this.questionIndex].choices;
     },
     ...mapGetters([
@@ -72,10 +73,6 @@ export default {
   methods: {
     nextQuestion: function(){
       if(this.questionIndex == this.questions.length -1){
-        // Display celebration ...
-        // eslint-disable-next-line
-        let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/success.mp3')
-        sound.play()
         this.failed = false;
         this.$refs.gameHeader.stopTimer();
         this.$refs.helperModal.show();
@@ -91,34 +88,24 @@ export default {
       this.$parent.playing = false;
     },
     checkAnswer: function(answer){
-	  let ansIndex = this.possibleAnswers.indexOf(this.correctAnswer);
-	  console.log("Correct answer is:"+this.possibleAnswers[ansIndex]+", You selected:"+this.possibleAnswers[answer]);
-      if(parseInt(answer) === ansIndex) this.celebrate();
+	  let ansIndex = this.PossibleAnswers.indexOf(this.correctAnswer);
+	  console.log("Correct answer is:" + this.PossibleAnswers[ansIndex] + ", You selected:" + answer);
+      if(this.PossibleAnswers.indexOf(answer) === ansIndex) this.celebrate();
       else this.getUpset();
     },
     celebrate: function(){
-      // TODO: Animate celebrations
-	  this.$refs.gameHeader.correctAnswer();
-	  return;	// TODO: remove this return later
-      // eslint-disable-next-line
-      let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
-      //console.log('http://' + window.location.hostname + ':' + window.location.port + '/correct.mp3');
-      sound.play();
-      setTimeout(this.nextQuestion, 1000);
+      this.$refs.questionBody.correctAnswer();
+	     this.$refs.gameHeader.correctAnswer();
+       setTimeout(this.nextQuestion, 1000);
     },
     getUpset: function(){
-      // TODO: Animate disappointment
-	  this.$refs.gameHeader.wrongAnswer();
-	  return;	// TODO: remove this return later
-
-      // eslint-disable-next-line
-      let sound = new Audio('http://' + window.location.hostname + ':' + window.location.port + '/fail.mp3')
-      sound.play();
+      this.$refs.questionBody.wrongAnswer();
+  	  this.$refs.gameHeader.wrongAnswer();
       setTimeout(this.nextQuestion, 1000);
     },
     traceMovement: function(data){
       console.log("Recieved Data:" + data);
-      this.$refs.AnswersGrid.changeLocation(parseInt(data))
+      this.$refs.AnswersGrid.changeLocation(data)
     }
   },
   mounted() {

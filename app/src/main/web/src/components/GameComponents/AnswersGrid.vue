@@ -39,7 +39,7 @@ export default {
         this.answerFrequencyValue[index]++;
 
         // Check if value exceeded 3
-        if(this.answerFrequencyValue[index] >= 1){
+        if(this.answerFrequencyValue[index] >= 2){
           this.$parent.checkAnswer(position);
           this.markChosen();
           this.resetData();
@@ -50,7 +50,6 @@ export default {
         this.answerFrequencyKey.push(position);
         this.answerFrequencyValue.push(1);
       }
-      this.markChosen();
     },
     resetData: function(){
       this.answerFrequencyKey = [];
@@ -60,7 +59,6 @@ export default {
       // Remove from others
       for(let i=0; i<this.$refs.cell.length; i++){
         this.$refs.cell[i].classList.remove("current-cell");
-        this.$refs.cell[i].style.backgroundImage = "none";
       }
 
       // Get most frequent answer
@@ -68,9 +66,9 @@ export default {
       let indexOfMaxValue = arr.indexOf(Math.max(...arr));
       let currentChoice = this.answerFrequencyKey[indexOfMaxValue];
 
-      // Display footprints on this tile
-      this.$refs.cell[currentChoice].classList.add("current-cell");
-      this.$refs.cell[currentChoice].style.backgroundImage = `url('http://${window.location.hostname}:${window.location.port}/footstep.png')`;
+      // Color chosen tile
+      let chosenTileIndex = this.PossibleAnswers.indexOf(currentChoice);
+      this.$refs.cell[chosenTileIndex].classList.add("current-cell");
     }
   },
   mounted() {
@@ -121,5 +119,9 @@ export default {
 }
 #grid{
   width: 80%;
+}
+.current-cell{
+  background-color: #326275;
+  color: white;
 }
 </style>
