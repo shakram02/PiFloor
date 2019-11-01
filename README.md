@@ -24,10 +24,10 @@ Pi Floor has three main modules
     <img src="img/grid_calibration.png" alt="Calibration" width="360" height="390"/>
 - Enter game mode, start the web server
     <br> 
-    <img src="img/game_mode_reduced.jpg" alt="GameMode" width="320" height="325"/>
+    <img src="img/android_welcome.jpeg" alt="GameMode"/><img src="img/game_mode_android.jpg" alt="GameMode"/>
 - Access the given URL in game mode
     <br> 
-    <img src="img/home_page.jpg" alt="HomePage" width="240" height="215"/>
+    <img src="img/landing_page.jpg" alt="HomePage"/>
 - Upload a file containing questions and answers on the following format
     ![sample](sample_question.txt)
     
@@ -36,10 +36,12 @@ Pi Floor has three main modules
     ```
 - Students stand on the tile to mark the answer they want
     <br> 
-    <img src="img/questions_page.jpg" alt="GameRunning" width="260" height="320"/>
+    <img src="img/question_view.jpg" alt="GameRunning"/>
 
 # Thank You
+[@yara11](https://github.com/yara11), [@AhmedMaghawry](https://github.com/AhmedMaghawry), [@SarahEldafrawy](https://github.com/SarahEldafrawy), [@ahmedhammad97](https://github.com/ahmedhammad97), [@mirzazulfan](https://github.com/mirzazulfan)
 
+## A software thank you to
 - [AndroidAsync](https://github.com/koush/AndroidAsync)
 - [Google's Android Vision Samples](https://github.com/googlesamples/android-vision) OCR Reader
 - [Dagger](https://github.com/google/dagger)
