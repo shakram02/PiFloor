@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "@types/ws": "^6.0.1",
-    "ws": "^7.0.1"
+    "ws": "^7.4.6"
   }
 }
